@@ -40,3 +40,8 @@
 .read-the-docs {
   color: #888;
 }
+
+.AppBar-root {
+  width: 100vw !important; /* Forzar ancho al 100% del viewport */
+}
+

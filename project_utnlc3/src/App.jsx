@@ -1,8 +1,8 @@
-import Header from './components/header/Header';
+//import Header from './components/header/Header';
 import NavBar from './components/navBar/NavBar'
 //import AutoScrollCarousel from './components/autoScrollCarousel/AutoScrollCarousel';
-import Carousel from './components/carousel/Carousel';
-import NavigationBar from './components/navigationBar/NavigationBar';
+//import Carousel from './components/carousel/Carousel';
+//import NavigationBar from './components/navigationBar/NavigationBar';
 import Carrusel from './components/carrusel/Carrusel';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
