@@ -1,0 +1,53 @@
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-image: url('C:/Users/Lucio/Desktop/Programacion/3er Cuatrimestre/Laboratorio de computacion 3/tpi-test/src/images/fondo.png'); /* Ruta de la imagen de fondo */
+    background-size: cover;
+    color: #fff;
+    z-index: 1000;
+    }
+  
+  .logo {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .search-bar {
+    display: flex;
+    align-items: center;
+  }
+  
+  .search-bar input {
+    padding: 5px;
+    width: 150px;
+    border: none;
+    border-radius: 5px;
+  }
+  
+  .search-bar button {
+    padding: 5px 10px;
+    margin-left: 5px;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  .login {
+    margin-right: 10px;
+    cursor: pointer;
+  }
+  
+  .cart {
+    font-size: 24px;
+    cursor: pointer;
+    margin-right: 100px;
+  }
+ 

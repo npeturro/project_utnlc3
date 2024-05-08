@@ -1,0 +1,31 @@
+.carousel-container {
+  margin-top: 150px; /* Ajusta el margen superior para evitar la superposición */
+  overflow: hidden; /* Controla cómo se maneja el contenido que desborda el contenedor */
+  z-index: 0; /* Establece la posición en el eje Z para controlar la superposición */
+}
+
+.product-card {
+    text-align: center;
+  }
+  
+  .product-image {
+    width: 100%; /* Establecer el ancho al 100% para que las imágenes ocupen todo el espacio disponible */
+    height: auto; /* Ajustar automáticamente la altura para mantener la proporción */
+    max-width: 200px; /* Definir el ancho máximo para controlar el tamaño máximo de las imágenes */
+    max-height: 200px; /* Definir la altura máxima para controlar el tamaño máximo de las imágenes */
+  }
+
+ 
+  .product-image {
+    width: 100%; /* Ajustar el ancho al 100% del contenedor */
+    height: 150px; /* Establecer una altura fija para todas las imágenes */
+    object-fit: cover; /* Controlar el ajuste de la imagen para cubrir el contenedor */
+  }
+  .carousel-item h3 {
+    color: black; /* Cambia el color del texto a negro */
+  }
+  
+  /* Estilo para el párrafo (p) */
+  .carousel-item p {
+    color: black; /* Cambia el color del texto a negro */
+  }
