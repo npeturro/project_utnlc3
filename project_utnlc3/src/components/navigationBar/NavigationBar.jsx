@@ -7,7 +7,7 @@ const NavigationBar = () => {
     return (
       <Navbar bg="light" expand="lg"className="custom-navbar">
         <Container>
-          
+          {}
           <Navbar.Brand href="#home">
           <Logo />
           </Navbar.Brand>

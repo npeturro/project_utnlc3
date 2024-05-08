@@ -1,4 +1,3 @@
-
 import { FaShoppingCart } from 'react-icons/fa'; 
 
 const CartIcon = () => {
