@@ -3,6 +3,7 @@ import Logo from '../logo/logo';
 import './NavigationBar.css';
 import CartIcon from '../cartIcon/CartIcon';
 import { FaSearch } from 'react-icons/fa';
+
 const NavigationBar = () => {
     return (
       <Navbar bg="light" expand="lg"className="custom-navbar">

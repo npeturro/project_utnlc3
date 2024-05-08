@@ -6,6 +6,8 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+
+import './NavBar.css';
 //import Logo from '../logo/logo';
 import fondo from 'C:/Users/Lucio/Desktop/Programacion/3er Cuatrimestre/Laboratorio de computacion 3/tpi-test/src/images/fondo.png'
 import logoImage from 'C:/Users/Lucio/Desktop/Programacion/3er Cuatrimestre/Laboratorio de computacion 3/tpi-test/src/images/icon one tech_Blanco fondo transparente.png'

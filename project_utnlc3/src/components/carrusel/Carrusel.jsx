@@ -39,7 +39,7 @@ Carrusel.propTypes = {
 export default Carrusel;*/
 import { Carousel } from 'react-bootstrap';
 import PropTypes from 'prop-types';
-
+import './Carrusel.css';
 
 const Carrusel = ({ products }) => {
   return (
