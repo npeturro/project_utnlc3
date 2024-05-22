@@ -1,23 +1,42 @@
 .carousel-container {
-    margin-top: 150px; 
-    overflow: hidden; 
-    z-index: 0; 
-  }
-  
-  .product-card {
-    text-align: center; 
-    padding: 10px;
-  }
-  
-  .product-image {
-    width: 100%; 
-    height: 150px; 
-    object-fit: cover; 
-  }
-  .slick-slider {
-    max-height: 300px; 
-  }
-  
+  margin-top: 150px; 
+  overflow: hidden; 
+  z-index: 0; 
+}
+
+.product-card {
+  text-align: center; 
+  padding: 10px;
+}
+
+.product-image {
+  width: 100%; 
+  height: 150px; 
+  object-fit: contain;
+}
+.slick-slider {
+  max-height: 300px; 
+}
+
+.carousel-item h3 {
+  color: black; 
+}
+
+.carousel-item p {
+  color: black; 
+}
+.slick-slider {
+  max-height: 300px;
+}
+
+.carousel-item h3 {
+  color: black; 
+}
+
+.carousel-item p {
+  color: black;
+}
+
   .carousel-item h3 {
     color: black; 
   }
@@ -25,22 +44,3 @@
   .carousel-item p {
     color: black; 
   }
-  .slick-slider {
-    max-height: 300px;
-  }
-  
-  .carousel-item h3 {
-    color: black; 
-  }
-  
-  .carousel-item p {
-    color: black;
-  }
-  
-    .carousel-item h3 {
-      color: black; 
-    }
-    
-    .carousel-item p {
-      color: black; 
-    }

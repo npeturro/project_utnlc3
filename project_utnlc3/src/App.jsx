@@ -1,8 +1,10 @@
-import Header from './components/header/Header';
+//import Header from './components/header/Header';
 import NavBar from './components/navBar/NavBar'
-import AutoScrollCarousel from './components/autoScrollCarousel/AutoScrollCarousel';
-import Carousel from './components/carousel/Carousel';
-import NavigationBar from './components/navigationBar/NavigationBar';
+//import AutoScrollCarousel from './components/autoScrollCarousel/AutoScrollCarousel';
+//import Carousel from './components/carousel/Carousel';
+//import NavigationBar from './components/navigationBar/NavigationBar';
+//import CardProductLogged from './components/cardProductNotLogged/CardProductNotLogged';
+//import CarruselMUI from './components/carruselMui/CarruselMui';
 import Carrusel from './components/carrusel/Carrusel';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -51,12 +53,11 @@ function App() {
   return (
     <div className="app-container">
       <NavBar />
-      <div className="content">
+      <div className="welcome-content">
         <h1>Bienvenido a ONE TECH</h1>
         <p>Transforming Ideas Into Reality...</p>
       </div>
-      <div><Carrusel products={products} /></div>
-      
+      <Carrusel products={products} />
     </div>
   );
 }
