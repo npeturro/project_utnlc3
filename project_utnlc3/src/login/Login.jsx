@@ -1,6 +1,5 @@
-import { useState } from 'react';
-import { Button, TextField, Box, Typography, Container, Grid } from '@mui/material'
-import { useAuth0 } from '@auth0/auth0-react';
+import { useState, useRef } from 'react';
+import { Button, TextField, Box, Typography, Container, Alert, Snackbar } from '@mui/material'
 
 
 function Login() {
@@ -10,8 +9,50 @@ function Login() {
         password: ''
     });
 
+    const [errors, setErrors] = useState({
+        email: false,
+        password: false
+    })
+
+    const emailRef = useRef(null);
+    const passwordRef = useRef(null);
+
+    const [alert, setAlert] = useState({
+        open: false,
+        severity: 'success',
+        message: ''
+    });
+
+    const showAlert = (message, severity) => {
+        setAlert({ open: true, message, severity });
+        setTimeout(() => {
+            setAlert(prevAlert => ({ ...prevAlert, open: false }));
+        }, 10000);
+    };
+
     const handleClick = () => {
         console.log(values);
+        if (!emailRef.current.value) {
+            emailRef.current.focus();
+            setErrors(prevErrors => ({ ...prevErrors, email: true }));
+            showAlert("El campo usuario es obligatorio", "error");
+            return;
+        }
+
+        if (!passwordRef.current.value) {
+            passwordRef.current.focus();
+            setErrors(prevErrors => ({ ...prevErrors, password: true }));
+            showAlert("El campo contraseña es obligatorio", "error");
+            return;
+        }
+
+        if (!values.email.includes("@")) {
+            showAlert("Debe ingresar un correo valido", "error");
+            return;
+        }
+
+        showAlert("¡Usuario ingresado correctamente!", "success");
+        setValues({ email: '', password: '' });
     };
 
     const handleChange = (event) => {
@@ -20,12 +61,10 @@ function Login() {
             ...prevValues,
             [name]: value
         }));
-    };
-
-    const { loginWithRedirect } = useAuth0();
-
-    const handleGoogleLogin = () => {
-        window.location.href = "https://dev-4pyd2iup4jqltzrw.us.auth0.com/authorize?client_id=W5LKpDGS14SqQLKFBEy9MlJwgqHwYkTg&response_type=code&redirect_uri=http://localhost:8080/&connection=google-oauth2";
+        setErrors(prevErrors => ({
+            ...prevErrors,
+            [name]: false
+        }));
     };
 
 
@@ -42,6 +81,20 @@ function Login() {
                 <Box>
 
                 </Box>
+                <Snackbar
+                    open={alert.open}
+                    autoHideDuration={10000}
+                    onClose={() => setAlert(prevAlert => ({ ...prevAlert, open: false }))}
+                    anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+                >
+                    <Alert
+                        onClose={() => setAlert(prevAlert => ({ ...prevAlert, open: false }))}
+                        severity={alert.severity}
+                        sx={{ width: '100%' }}
+                    >
+                        {alert.message}
+                    </Alert>
+                </Snackbar>
                 <Typography variant="h5">
                     Iniciar sesión
                 </Typography>
@@ -52,8 +105,12 @@ function Login() {
                         id="email"
                         label="E-mail"
                         name="email"
+                        type='email'
                         value={values.email}
                         onChange={handleChange}
+                        inputRef={emailRef}
+                        error={errors.email}
+                        helperText={errors.email && "El campo de usuario es obligatorio"}
                     />
                     <TextField
                         sx={{ mt: 3 }}
@@ -65,6 +122,9 @@ function Login() {
                         id="password"
                         value={values.password}
                         onChange={handleChange}
+                        inputRef={passwordRef}
+                        error={errors.password}
+                        helperText={errors.password && "El campo de contraseña es obligatorio"}
                     />
                     <Button
                         fullWidth
