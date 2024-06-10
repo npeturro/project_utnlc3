@@ -1,17 +1,22 @@
-import { FaSearch } from 'react-icons/fa';
-import './SearchBar.css';
+import PropTypes from 'prop-types';
 
+const SearchBar = ({ searchTerm, handleSearch }) => {
+  return (
+    <div className="mb-4">
+      <input
+        type="text"
+        className="form-control"
+        placeholder="Buscar productos"
+        value={searchTerm}
+        onChange={handleSearch}
+      />
+    </div>
+  );
+};
 
-const SearchBar = () => {
-    return (
-        <div className="search-bar">
-          <input type="text" placeholder="Buscar productos..." className="search-input" />
-          <button className="search-button">
-          <FaSearch className="search-icon" />
-          </button>
-        </div>
-      );
-    };
-    
-    export default SearchBar;
+SearchBar.propTypes = {
+  searchTerm: PropTypes.string.isRequired,
+  handleSearch: PropTypes.func.isRequired,
+};
 
+export default SearchBar;
