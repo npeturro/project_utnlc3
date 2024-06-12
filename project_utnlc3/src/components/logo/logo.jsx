@@ -1,4 +1,4 @@
-import logoImage from 'C:/Users/Lucio/Desktop/Programacion/3er Cuatrimestre/Laboratorio de computacion 3/tpi-test/src/images/icon one tech_Blanco fondo transparente.png'
+import logoImage from '../../images/icon one tech_Blanco fondo transparente.png'
 
 const Logo = () => {
     return (

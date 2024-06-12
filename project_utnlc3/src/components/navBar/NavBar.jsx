@@ -6,9 +6,8 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-//import Logo from '../logo/logo';
-import fondo from 'C:/Users/Lucio/Desktop/Programacion/3er Cuatrimestre/Laboratorio de computacion 3/tpi-test/src/images/fondo.png'
-import logoImage from 'C:/Users/Lucio/Desktop/Programacion/3er Cuatrimestre/Laboratorio de computacion 3/tpi-test/src/images/icon one tech_Blanco fondo transparente.png'
+import fondo from '../../images/fondo.png'
+import logoImage from '../../images/icon one tech_Blanco fondo transparente.png'
 
 const NavBar = () => {
   return (
@@ -19,7 +18,7 @@ const NavBar = () => {
       <div style={{ display: 'flex', alignItems: 'center' }}>
           <img src={logoImage} alt="Logo de tu empresa" style={{ width: 50, marginRight: 10 }} />
           <Typography variant="h6" component="div">
-            ONE TECHE
+            ONE TECH
           </Typography>
         </div>
         <div style={{ display: 'flex', alignItems: 'center' }}>
