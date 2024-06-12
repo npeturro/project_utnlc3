@@ -2,7 +2,6 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import CardProductLogged from "./components/cardProductLogged/CardProductLogged";
 import Login from "./components/login/Login";
-import Protected from './components/routes/protected/Protected';
 import { useState } from 'react';
 import MainLayout from './components/layout/mainLayout/MainLayout';
 import NotFound from './components/notFound/NotFound';

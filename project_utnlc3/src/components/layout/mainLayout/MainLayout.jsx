@@ -12,7 +12,6 @@ const MainLayout = ({ children, onLogOff }) => {
                 <NavBar onLogOff = {onLogOff}/>
             </div>
             <div className='content'>
-                <Carrusel />
                 {children}
             </div>
             <div className='footer'>
