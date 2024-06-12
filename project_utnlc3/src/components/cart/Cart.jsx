@@ -7,24 +7,24 @@ function Cart() {
     const [product, setProduct] = useState([
         {
             id: 1,
-            name: 'Notebook Gamer',
-            price: 8000,
+            name: 'Notebook Lenovo 15.6 TBOOK I7-1255U',
+            price: 1151733,
             quantity: 1,
             image: "https://airoldi.com.ar/media/catalog/product/cache/a3a61ce6d0a1e741ba8660988e04b8f1/6/2/62a0f694a61291bd2fb48a0e5202af0d29fbdb5e6fece4c23fda1fe571e1556c.jpeg"
         },
         {
             id: 2,
-            name: 'Notebook Gamer 2',
-            price: 3000,
+            name: 'Silla Gamer Primus Thronos 200S Negra con Purpura',
+            price: 482662,
             quantity: 1,
-            image: "https://airoldi.com.ar/media/catalog/product/cache/a3a61ce6d0a1e741ba8660988e04b8f1/6/2/62a0f694a61291bd2fb48a0e5202af0d29fbdb5e6fece4c23fda1fe571e1556c.jpeg"
+            image: "https://airoldi.com.ar/media/catalog/product/cache/a3a61ce6d0a1e741ba8660988e04b8f1/c/9/c9014594b3bad2d87835d1fa65ba8f79f84f66595d02b492e84f9009936658b0.jpeg"
         },
         {
             id: 3,
-            name: 'Notebook Gamer 3',
-            price: 6000,
+            name: 'Celular Xiaomi Poco F4 GT 5G 12GB 256GB Negro',
+            price: 842405,
             quantity: 1,
-            image: "https://airoldi.com.ar/media/catalog/product/cache/a3a61ce6d0a1e741ba8660988e04b8f1/6/2/62a0f694a61291bd2fb48a0e5202af0d29fbdb5e6fece4c23fda1fe571e1556c.jpeg"
+            image: "https://airoldi.com.ar/media/catalog/product/cache/a3a61ce6d0a1e741ba8660988e04b8f1/e/9/e95f1c0ccd035e4ab4367ce801753b96db40fe580645e95fe749f7bcce115640.jpeg"
         }
     ]);
 
@@ -54,28 +54,44 @@ function Cart() {
                                         alt={item.name}
                                     />
                                     <CardContent sx={{ flex: '1 0 auto', display: 'flex', alignItems: 'center' }}>
-                                        <Typography component="div" variant="h5" sx={{ flex: 1 }}>{item.name}</Typography>
+                                        <Typography component="div" variant="h6" sx={{ flex: 1 }}>{item.name}</Typography>
                                         <Typography variant="subtitle1" color="text.secondary" component="div" sx={{ flex: 1 }}>
                                             {item.price.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })}
                                         </Typography>
                                         <Box sx={{ display: 'flex', alignItems: 'center', flex: 1 }}>
-                                            <IconButton onClick={() => handleQuantityChange(item.id, -1)} disabled={item.quantity === 1}>
-                                                <Remove />
-                                            </IconButton>
-                                            <TextField
-                                                type="text"
-                                                value={item.quantity}
-                                                InputProps={{
-                                                    readOnly: true,
-                                                }}
-                                                variant="outlined"
-                                                size="small"
-                                                sx={{ width: 50, textAlign: 'center', mx: 1 }}
-                                            />
-                                            <IconButton onClick={() => handleQuantityChange(item.id, 1)}>
-                                                <Add />
-                                            </IconButton>
-                                            <IconButton onClick={() => handleRemoveItem(item.id)}>
+                                            <Box sx={{ display: 'flex', alignItems: 'center', border: '1px solid #ccc', borderRadius: '4px', p: 0.5 }}>
+                                                <IconButton onClick={() => handleQuantityChange(item.id, -1)} disabled={item.quantity === 1}>
+                                                    <Remove />
+                                                </IconButton>
+                                                <TextField
+                                                    type="text"
+                                                    value={item.quantity}
+                                                    InputProps={{
+                                                        readOnly: true,
+                                                        disableUnderline: true,
+                                                        sx: {
+                                                            textAlign: 'center',
+                                                            '& input': {
+                                                                textAlign: 'center',
+                                                                padding: 0,
+                                                                height: 'auto',
+                                                            },
+                                                        },
+                                                    }}
+                                                    variant="standard"
+                                                    size="small"
+                                                    sx={{
+                                                        width: 50,
+                                                        display: 'flex',
+                                                        alignItems: 'center',
+                                                        justifyContent: 'center',
+                                                    }}
+                                                />
+                                                <IconButton onClick={() => handleQuantityChange(item.id, 1)}>
+                                                    <Add />
+                                                </IconButton>
+                                            </Box>
+                                            <IconButton onClick={() => handleRemoveItem(item.id)} sx={{ ml: 1 }}>
                                                 <Delete />
                                             </IconButton>
                                         </Box>
@@ -88,25 +104,41 @@ function Cart() {
                         ))}
                         <Grid item xs={12} md={6} >
                             <Card sx={{ p: 2, backgroundColor: '#ffe6e6' }}>
-                                <Typography variant="h6">Subtotal: {total.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })}</Typography>
-                                <Typography variant="h5" fontWeight="bold" sx={{ mt: 2 }}>Total: {total.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })}</Typography>
-                                <Button variant="contained" sx={{ mt: 2, backgroundColor: '#2FD34F', borderRadius: '50px' }}>
+                                <Typography variant="h7">Subtotal: {total.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })}</Typography>
+                                <Typography variant="h6" fontWeight="bold" sx={{ mt: 2 }}>Total: {total.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })}</Typography>
+                                <Button variant="contained"
+                                    sx={{
+                                        mt: 2,
+                                        backgroundColor: '#d32f2f',
+                                        borderRadius: '50px',
+                                        '&:hover': {
+                                            backgroundColor: '#DA5555',
+                                        }
+                                    }}>
                                     Realizar pedido
                                 </Button>
                             </Card>
-                            <Button variant="contained" color="secondary" sx={{borderRadius: '50px', mt: '10px', backgroundColor: '#d32f2f' }}>Seguir comprando</Button>
+                            <Button
+                                sx={{
+                                    mt: 2,
+                                    borderRadius: '50px',
+                                }}>Seguir comprando</Button>
                         </Grid>
                     </Grid>
                 ) : (
                     <Grid item xs={12}>
                         <Card sx={{ p: 2, backgroundColor: '#ffe6e6' }}>
                             <CardContent>
-                                <ShoppingCart fontSize='large'/>
+                                <ShoppingCart fontSize='large' />
                                 <Typography>Tu carrito está vacío</Typography>
                             </CardContent>
-                            
+
                         </Card>
-                        <Button variant="contained" color="secondary" sx={{borderRadius: '50px', mt: '10px', backgroundColor: '#d32f2f'}}>Seguir comprando</Button>
+                        <Button
+                            sx={{
+                                mt: 2,
+                                borderRadius: '50px',
+                            }}>Seguir comprando</Button>
                     </Grid>
                 )
 
