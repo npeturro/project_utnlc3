@@ -1,7 +1,8 @@
 import Carrusel from '../../carrusel/Carrusel';
 import NavBar from '../../navBar/NavBar';
 import './MainLayout.css'
-
+import Footer from '../../footer/Footer';
+import WhatsAppButton from '../../whatsappButton/WhatsappButoon';
 
 const MainLayout = ({ children, onLogOff }) => {
 
@@ -15,7 +16,8 @@ const MainLayout = ({ children, onLogOff }) => {
                 {children}
             </div>
             <div className='footer'>
-                {/* {footer ?} */}
+                <WhatsAppButton />
+                <Footer />
             </div>
         </div>
     )
