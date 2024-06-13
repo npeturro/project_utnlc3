@@ -70,7 +70,7 @@ function Login() {
 
   return (
     
-    <Container maxWidth="xs"  sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+    <Container maxWidth="xs"  sx={{display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
       <Box
         sx={{
           marginTop: 8,

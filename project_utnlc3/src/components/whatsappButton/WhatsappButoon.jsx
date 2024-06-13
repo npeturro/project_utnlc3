@@ -23,11 +23,11 @@ const WhatsAppButton = () => {
           '&:hover': {
             bgcolor: 'darkgreen', 
           },
-          width: '3.5em', 
-          height: '3.5em', 
+          width: '55px', 
+          height: '55px', 
         }}
       >
-        <WhatsAppIcon sx={{ fontSize: '2em',color: 'white' }} />
+        <WhatsAppIcon sx={{ fontSize: '40px',color: 'white' }} />
       </IconButton>
     </div>
   );
