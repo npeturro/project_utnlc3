@@ -69,7 +69,8 @@ function Login() {
 
 
   return (
-    <Container maxWidth="xs">
+    
+    <Container maxWidth="xs"  sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
       <Box
         sx={{
           marginTop: 8,
@@ -77,6 +78,11 @@ function Login() {
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
+          p: 3,
+          border: '1px solid #ccc',
+          borderRadius: 8,
+          bgcolor: 'background.paper',
+          boxShadow: 1
         }}
       >
         <Box>
@@ -130,13 +136,16 @@ function Login() {
           <Button
             fullWidth
             variant="contained"
-            sx={{ mt: 3 }}
+            sx={{ mt: 3, backgroundColor: '#051c67',
+              '&:hover': {
+                  backgroundColor: '#051c40',
+              } }}
             onClick={handleClick}
           >
             Continuar
           </Button>
         </Box>
-        <Box sx={{ mt: 3 }}><p>No tenes cuenta? <a href='#'>Registrate</a></p></Box>
+        <Box sx={{ mt: 3}}><p>No tenes cuenta? <a href='#'>Registrate</a></p></Box>
       </Box>
     </Container>
   );

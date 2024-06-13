@@ -1,7 +1,8 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-
+import './App.css'
 import CardProductLogged from "./components/cardProductLogged/CardProductLogged";
 import Login from "./components/login/Login";
+import Cart from './components/cart/Cart';
 import { useState } from 'react';
 import MainLayout from './components/layout/mainLayout/MainLayout';
 import NotFound from './components/notFound/NotFound';
@@ -24,6 +25,14 @@ const App = () => {
             element: (
                 <MainLayout>
                     <Login onLogin = {loginHandler} />
+                </MainLayout>
+            )
+        },
+        {
+            path: "/cart",
+            element: (
+                <MainLayout>
+                    <Cart/>
                 </MainLayout>
             )
         },

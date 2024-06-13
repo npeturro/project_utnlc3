@@ -7,7 +7,7 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import { Link } from 'react-router-dom';
-import { Popover, Button, MenuItem } from '@mui/material';
+import { Popover, MenuList, MenuItem } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import fondo from '../../images/fondo.png'
 import logoImage from '../../images/icon one tech_Blanco fondo transparente.png'
@@ -54,9 +54,11 @@ const NavBar = () => {
               style={{ color: 'white' }}
             />
           </div>
-          <IconButton color="inherit" aria-label="carrito de compras">
-            <ShoppingCartIcon />
-          </IconButton>
+          <Link to="/cart" style={{ textDecoration: 'none', color: 'inherit' }}>
+            <IconButton color="inherit" aria-label="carrito de compras">
+              <ShoppingCartIcon />
+            </IconButton>
+          </Link>
           <IconButton
             color="inherit"
             aria-label="login"
@@ -75,11 +77,27 @@ const NavBar = () => {
             }}
           >
             <div style={{ padding: '5px' }}>
-              <Link to="/login" style={{ textDecoration: 'none' }}>
-                <MenuItem variant="contained" color="primary" onClick={handlePopoverClose}>
-                  Iniciar sesión
+              <MenuList
+                disablePadding
+                dense
+                sx={{
+                  p: '8px',
+                  '& > *': {
+                    borderRadius: 1
+                  }
+                }}
+              >  <Link to="/login" style={{ textDecoration: 'none', color: 'inherit' }}>
+                  <MenuItem onClick={handlePopoverClose}>
+                    Iniciar sesión
+                  </MenuItem>
+                </Link>
+                <MenuItem >
+                  Registrarse
                 </MenuItem>
-              </Link>
+                <MenuItem >
+                  Cerrar sesión
+                </MenuItem>
+              </MenuList>
             </div>
           </Popover>
         </div>
