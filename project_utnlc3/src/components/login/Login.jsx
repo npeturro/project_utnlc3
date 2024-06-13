@@ -1,5 +1,145 @@
-const Login = () => {
-    return <div className="login">Iniciar sesión</div>;
+import { useState, useRef } from 'react';
+import { Button, TextField, Box, Typography, Container, Alert, Snackbar } from '@mui/material'
+
+
+function Login() {
+
+  const [values, setValues] = useState({
+    email: '',
+    password: ''
+  });
+
+  const [errors, setErrors] = useState({
+    email: false,
+    password: false
+  })
+
+  const emailRef = useRef(null);
+  const passwordRef = useRef(null);
+
+  const [alert, setAlert] = useState({
+    open: false,
+    severity: 'success',
+    message: ''
+  });
+
+  const showAlert = (message, severity) => {
+    setAlert({ open: true, message, severity });
+    setTimeout(() => {
+      setAlert(prevAlert => ({ ...prevAlert, open: false }));
+    }, 10000);
   };
-  
-  export default Login;
+
+  const handleClick = () => {
+    console.log(values);
+    if (!emailRef.current.value) {
+      emailRef.current.focus();
+      setErrors(prevErrors => ({ ...prevErrors, email: true }));
+      showAlert("El campo usuario es obligatorio", "error");
+      return;
+    }
+
+    if (!passwordRef.current.value) {
+      passwordRef.current.focus();
+      setErrors(prevErrors => ({ ...prevErrors, password: true }));
+      showAlert("El campo contraseña es obligatorio", "error");
+      return;
+    }
+
+    if (!values.email.includes("@")) {
+      showAlert("Debe ingresar un correo valido", "error");
+      return;
+    }
+
+    showAlert("¡Usuario ingresado correctamente!", "success");
+    setValues({ email: '', password: '' });
+  };
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setValues(prevValues => ({
+      ...prevValues,
+      [name]: value
+    }));
+    setErrors(prevErrors => ({
+      ...prevErrors,
+      [name]: false
+    }));
+  };
+
+
+  return (
+    <Container maxWidth="xs">
+      <Box
+        sx={{
+          marginTop: 8,
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <Box>
+
+        </Box>
+        <Snackbar
+          open={alert.open}
+          autoHideDuration={10000}
+          onClose={() => setAlert(prevAlert => ({ ...prevAlert, open: false }))}
+          anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+        >
+          <Alert
+            onClose={() => setAlert(prevAlert => ({ ...prevAlert, open: false }))}
+            severity={alert.severity}
+            sx={{ width: '100%' }}
+          >
+            {alert.message}
+          </Alert>
+        </Snackbar>
+        <Typography variant="h5">
+          Iniciar sesión
+        </Typography>
+        <Box sx={{ mt: 3 }}>
+          <TextField
+            required
+            fullWidth
+            id="email"
+            label="E-mail"
+            name="email"
+            type='email'
+            value={values.email}
+            onChange={handleChange}
+            inputRef={emailRef}
+            error={errors.email}
+            helperText={errors.email && "El campo de usuario es obligatorio"}
+          />
+          <TextField
+            sx={{ mt: 3 }}
+            required
+            fullWidth
+            name="password"
+            label="Contraseña"
+            type="password"
+            id="password"
+            value={values.password}
+            onChange={handleChange}
+            inputRef={passwordRef}
+            error={errors.password}
+            helperText={errors.password && "El campo de contraseña es obligatorio"}
+          />
+          <Button
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3 }}
+            onClick={handleClick}
+          >
+            Continuar
+          </Button>
+        </Box>
+        <Box sx={{ mt: 3 }}><p>No tenes cuenta? <a href='#'>Registrate</a></p></Box>
+      </Box>
+    </Container>
+  );
+}
+
+export default Login;
