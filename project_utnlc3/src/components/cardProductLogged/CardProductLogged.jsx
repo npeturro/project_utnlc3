@@ -10,13 +10,38 @@ import Typography from '@mui/joy/Typography';
 import CardCover from '@mui/joy/CardCover';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
-function CardProductLogged() {
+const product = [
+  {
+    id: 1,
+    name: 'Notebook Lenovo 15.6 TBOOK I7-1255U',
+    price: 1151733,
+    quantity: 1,
+    image: "https://airoldi.com.ar/media/catalog/product/cache/a3a61ce6d0a1e741ba8660988e04b8f1/6/2/62a0f694a61291bd2fb48a0e5202af0d29fbdb5e6fece4c23fda1fe571e1556c.jpeg"
+  },
+  {
+    id: 2,
+    name: 'Silla Gamer Primus Thronos 200S Negra con Purpura',
+    price: 482662,
+    quantity: 1,
+    image: "https://airoldi.com.ar/media/catalog/product/cache/a3a61ce6d0a1e741ba8660988e04b8f1/c/9/c9014594b3bad2d87835d1fa65ba8f79f84f66595d02b492e84f9009936658b0.jpeg"
+  },
+  {
+    id: 3,
+    name: 'Celular Xiaomi Poco F4 GT 5G 12GB 256GB Negro',
+    price: 842405,
+    quantity: 1,
+    image: "https://airoldi.com.ar/media/catalog/product/cache/a3a61ce6d0a1e741ba8660988e04b8f1/e/9/e95f1c0ccd035e4ab4367ce801753b96db40fe580645e95fe749f7bcce115640.jpeg"
+  }
+];
+
+
+const CardProductLogged = ({ product }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
     <Card
       sx={{
-        width: 350,
+        width: 300,
         maxWidth: '100%',
         boxShadow: 'sm',
         transition: 'transform 0.2s ease',
@@ -29,9 +54,9 @@ function CardProductLogged() {
       <CardOverflow>
         <AspectRatio minHeight="320px" sx={{ minWidth: 200 }}>
           <img
-            src="https://airoldi.com.ar/media/catalog/product/cache/a3a61ce6d0a1e741ba8660988e04b8f1/6/2/62a0f694a61291bd2fb48a0e5202af0d29fbdb5e6fece4c23fda1fe571e1556c.jpeg"
+            src={product.image}
             loading="lazy"
-            alt=""
+            alt={product.name}
           />
         </AspectRatio>
       </CardOverflow>
@@ -43,27 +68,25 @@ function CardProductLogged() {
         }}
       ></CardCover>
       <CardContent>
-        <Typography level="body-xs">Notebook Gamer</Typography>
+        <Typography level="body-xs">{product.category}</Typography>
         <Link
-          href="https://airoldi.com.ar/notebook-lenovo-15-6-tbook-i7-1255u-8gb-ssd512gb-sin-sistema-operativo.html"
+          href={product.link}
           target="_blank"
           fontWeight="lg"
           color="neutral"
           textColor="text.primary"
           level="h3"
         >
-          Notebook Lenovo 15.6 TBOOK I7-1255U
+          {product.name}
         </Link>
-
         <Typography sx={{ textDecoration: 'line-through', color: 'rgba(0, 0, 0, 0.8)' }}>
-          $ 1.151.733
+          {product.oldPrice}
         </Typography>
-
         <Typography level="title-lg" sx={{ mt: 1, fontWeight: 'xl' }}>
-          $ 1.151.732 <Chip variant="soft" color="success" size="sm">Oferta</Chip>
+          {product.price} <Chip variant="soft" color="success" size="sm">Oferta</Chip>
         </Typography>
         <Typography level="body-sm" fontStyle={'italic'}>
-          <b>7</b> Unidades disponibles
+          <b>{product.stock}</b> Unidades disponibles
         </Typography>
       </CardContent>
       <CardOverflow>
@@ -73,6 +96,6 @@ function CardProductLogged() {
       </CardOverflow>
     </Card>
   );
-}
+};
 
 export default CardProductLogged;
