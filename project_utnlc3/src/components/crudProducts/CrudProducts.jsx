@@ -13,6 +13,7 @@ const ProductCrud = () => {
   const [precio, setPrecio] = useState('');
   const [imagen, setImagen] = useState('');
   const [descripcion, setDescripcion] = useState('');
+  const [stock, setStock] = useState('');
   const [productoId, setProductoId] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [alert, setAlert] = useState({ message: '', type: '' });
@@ -32,7 +33,7 @@ const ProductCrud = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const nuevoProducto = { name: nombre, description: descripcion, image: imagen, price: parseFloat(precio) };
+    const nuevoProducto = { name: nombre, description: descripcion, image: imagen, price: parseFloat(precio), stock : stock };
 
     if (productoId) {
       axios.put(`https://localhost:7088/api/productos/${productoId}`, nuevoProducto)
@@ -58,6 +59,7 @@ const ProductCrud = () => {
     setPrecio('');
     setImagen('');
     setDescripcion('');
+    setStock('');
     setProductoId(null);
   };
 
@@ -66,6 +68,7 @@ const ProductCrud = () => {
     setPrecio(producto.price);
     setImagen(producto.image);
     setDescripcion(producto.description);
+    setStock(producto.stock);
     setProductoId(producto.id);
   };
 
@@ -100,6 +103,7 @@ const ProductCrud = () => {
         precio={precio} setPrecio={setPrecio}
         imagen={imagen} setImagen={setImagen}
         descripcion={descripcion} setDescripcion={setDescripcion}
+        stock={stock} setStock={setStock}
         productoId={productoId}
         handleSubmit={handleSubmit}
         resetForm={resetForm}

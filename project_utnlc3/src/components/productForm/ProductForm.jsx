@@ -5,6 +5,7 @@ const ProductForm = ({
   precio, setPrecio,
   imagen, setImagen,
   descripcion, setDescripcion,
+  stock, setStock,
   productoId, handleSubmit, resetForm
 }) => {
   return (
@@ -43,6 +44,14 @@ const ProductForm = ({
           placeholder="Descripción"
           value={descripcion}
           onChange={(e) => setDescripcion(e.target.value)}
+        />
+      </div> <div className="mb-3">
+        <input
+          type="text"
+          className="form-control"
+          placeholder="Stock"
+          value={stock}
+          onChange={(e) => setStock(e.target.value)}
         />
       </div>
       <button type="submit" className="btn btn-success me-2">{productoId ? 'Actualizar' : 'Añadir'}</button>
