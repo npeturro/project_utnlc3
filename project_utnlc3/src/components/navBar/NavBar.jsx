@@ -139,7 +139,7 @@ const NavBar = () => {
       </AppBar>
 
       <div style={{ marginTop: '80px', padding: '20px' }}>
-        <Typography variant="h6">Resultados de búsqueda:</Typography>
+        {/* <Typography variant="h6">Resultados de búsqueda:</Typography> */}
         <ul>
           {filteredProductos.map((producto) => (
             <li key={producto.id}>{producto.name}</li>

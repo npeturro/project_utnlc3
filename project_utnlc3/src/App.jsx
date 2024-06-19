@@ -6,25 +6,27 @@ import Cart from './components/cart/Cart';
 import { useState } from 'react';
 import MainLayout from './components/layout/mainLayout/MainLayout';
 import NotFound from './components/notFound/NotFound';
+import Index from './components/index/Index';
+import ProductCrud from './components/crudProducts/CrudProducts';
 
 
 const App = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-  
+
     const loginHandler = () => {
-      setIsLoggedIn(true);
-    };
-  
-    const logOutHandler = () => {
-      setIsLoggedIn(false);
+        setIsLoggedIn(true);
     };
 
-    const router = createBrowserRouter ([
+    const logOutHandler = () => {
+        setIsLoggedIn(false);
+    };
+
+    const router = createBrowserRouter([
         {
             path: "/login",
             element: (
                 <MainLayout>
-                    <Login onLogin = {loginHandler} />
+                    <Login onLogin={loginHandler} />
                 </MainLayout>
             )
         },
@@ -32,22 +34,30 @@ const App = () => {
             path: "/cart",
             element: (
                 <MainLayout>
-                    <Cart/>
+                    <Cart />
                 </MainLayout>
             )
         },
         {
             path: "/",
             element: (
-                    <MainLayout>
-                        <CardProductLogged />
-                    </MainLayout>
+                <MainLayout>
+                    <Index />
+                </MainLayout>
+            )
+        },
+        {
+            path: "/product",
+            element: (
+                <MainLayout>
+                    <ProductCrud/>
+                </MainLayout>
             )
         },
         {
             path: "*",
             element: <NotFound />,
-          },
+        },
     ]);
 
     return (

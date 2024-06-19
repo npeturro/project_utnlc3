@@ -17,7 +17,6 @@ const MainLayout = ({ children, onLogOff }) => {
                 {children}
             </div>
             <div className='footer'>
-                <ProductCrud />
                 <WhatsAppButton />
                 <Footer />
             </div>
