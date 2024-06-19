@@ -39,9 +39,9 @@ const App = () => {
         {
             path: "/",
             element: (
-                // <Protected isSignedIn = {isLoggedIn}>
-                    <MainLayout onLogOff = {logOutHandler} />
-                // </Protected>
+                    <MainLayout>
+                        <CardProductLogged />
+                    </MainLayout>
             )
         },
         {

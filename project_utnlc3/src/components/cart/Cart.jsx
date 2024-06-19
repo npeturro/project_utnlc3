@@ -40,7 +40,9 @@ function Cart() {
 
     return (
         <Box sx={{ p: 5, mt: 5 }}>
-            <Typography variant="h4" gutterBottom>CARRITO DE COMPRAS</Typography>
+            <Grid textAlign={'center'}>
+                <Typography variant="h4" gutterBottom>CARRITO DE COMPRAS</Typography>
+            </Grid>
             {
                 product.length >= 1 ? (
                     <Grid container spacing={2}>
@@ -102,43 +104,51 @@ function Cart() {
                                 </Card>
                             </Grid>
                         ))}
-                        <Grid item xs={12} md={6} >
-                            <Card sx={{ p: 2, backgroundColor: '#ffe6e6' }}>
-                                <Typography variant="h7">Subtotal: {total.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })}</Typography>
-                                <Typography variant="h6" fontWeight="bold" sx={{ mt: 2 }}>Total: {total.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })}</Typography>
-                                <Button variant="contained"
-                                    sx={{
-                                        mt: 2,
-                                        backgroundColor: '#051c67',
-                                        borderRadius: '50px',
-                                        '&:hover': {
-                                            backgroundColor: '#051c40',
-                                        }
-                                    }}>
-                                    Realizar pedido
-                                </Button>
-                            </Card>
-                            <Button
-                                sx={{
-                                    mt: 2,
-                                    borderRadius: '50px',
-                                }}>Seguir comprando</Button>
+                        <Grid container justifyContent="center">
+                            <Grid item xs={12} md={6}>
+                                <div style={{ textAlign: 'center' }}>
+                                    <Card sx={{ p: 2, backgroundColor: '#ffe6e6' }}>
+                                        <Typography variant="h7">Subtotal: {total.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })}</Typography>
+                                        <Typography variant="h6" fontWeight="bold" sx={{ mt: 2 }}>Total: {total.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })}</Typography>
+                                        <Button variant="contained"
+                                            sx={{
+                                                mt: 2,
+                                                backgroundColor: '#051c67',
+                                                borderRadius: '50px',
+                                                '&:hover': {
+                                                    backgroundColor: '#051c40',
+                                                }
+                                            }}>
+                                            Realizar pedido
+                                        </Button>
+                                    </Card>
+                                    <Button
+                                        sx={{
+                                            mt: 2,
+                                            borderRadius: '50px',
+                                        }}>Seguir comprando</Button>
+                                </div>
+                            </Grid>
                         </Grid>
                     </Grid>
                 ) : (
-                    <Grid item xs={12}>
-                        <Card sx={{ p: 2, backgroundColor: '#ffe6e6' }}>
-                            <CardContent>
-                                <ShoppingCart fontSize='large' />
-                                <Typography>Tu carrito está vacío</Typography>
-                            </CardContent>
+                    <Grid container justifyContent="center">
+                        <Grid item xs={12} md={6}>
+                            <div style={{ textAlign: 'center' }}>
+                                <Card sx={{ p: 2, backgroundColor: '#ffe6e6' }}>
+                                    <CardContent>
+                                        <ShoppingCart fontSize='large' />
+                                        <Typography>Tu carrito está vacío</Typography>
+                                    </CardContent>
 
-                        </Card>
-                        <Button
-                            sx={{
-                                mt: 2,
-                                borderRadius: '50px',
-                            }}>Seguir comprando</Button>
+                                </Card>
+                                <Button
+                                    sx={{
+                                        mt: 2,
+                                        borderRadius: '50px',
+                                    }}>Seguir comprando</Button>
+                            </div>
+                        </Grid>
                     </Grid>
                 )
 
