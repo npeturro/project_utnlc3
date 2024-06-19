@@ -43,7 +43,7 @@
 }
 
 .AppBar-root {
-  width: 100vw !important; /* Forzar ancho al 100% del viewport */
+  width: 100vw !important; 
 }
 
 .app-container {

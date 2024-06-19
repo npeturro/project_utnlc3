@@ -3,6 +3,7 @@ import NavBar from '../../navBar/NavBar';
 import './MainLayout.css'
 import Footer from '../../footer/Footer';
 import WhatsAppButton from '../../whatsappButton/WhatsappButoon';
+import ProductCrud from '../../crudProducts/CrudProducts';
 
 const MainLayout = ({ children, onLogOff }) => {
 
@@ -16,6 +17,7 @@ const MainLayout = ({ children, onLogOff }) => {
                 {children}
             </div>
             <div className='footer'>
+                <ProductCrud />
                 <WhatsAppButton />
                 <Footer />
             </div>
