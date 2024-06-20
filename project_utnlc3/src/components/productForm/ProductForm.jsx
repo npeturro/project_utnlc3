@@ -5,7 +5,7 @@ const ProductForm = ({
   precio, setPrecio,
   imagen, setImagen,
   descripcion, setDescripcion,
-  stock, setStock,
+  categoria, setCategoria, // Añadir campo de categoría
   productoId, handleSubmit, resetForm
 }) => {
   return (
@@ -45,13 +45,14 @@ const ProductForm = ({
           value={descripcion}
           onChange={(e) => setDescripcion(e.target.value)}
         />
-      </div> <div className="mb-3">
+      </div>
+      <div className="mb-3"> {/* Añadir campo de categoría */}
         <input
           type="text"
           className="form-control"
-          placeholder="Stock"
-          value={stock}
-          onChange={(e) => setStock(e.target.value)}
+          placeholder="Categoría"
+          value={categoria}
+          onChange={(e) => setCategoria(e.target.value)}
         />
       </div>
       <button type="submit" className="btn btn-success me-2">{productoId ? 'Actualizar' : 'Añadir'}</button>
@@ -69,6 +70,8 @@ ProductForm.propTypes = {
   setImagen: PropTypes.func.isRequired,
   descripcion: PropTypes.string.isRequired,
   setDescripcion: PropTypes.func.isRequired,
+  categoria: PropTypes.string.isRequired, 
+  setCategoria: PropTypes.func.isRequired, 
   productoId: PropTypes.number,
   handleSubmit: PropTypes.func.isRequired,
   resetForm: PropTypes.func.isRequired,

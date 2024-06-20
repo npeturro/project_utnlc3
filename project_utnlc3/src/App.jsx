@@ -7,8 +7,7 @@ import { useState } from 'react';
 import MainLayout from './components/layout/mainLayout/MainLayout';
 import NotFound from './components/notFound/NotFound';
 import Index from './components/index/Index';
-import ProductCrud from './components/crudProducts/CrudProducts';
-
+import ProductCrud from './components/productCrud/ProductCurd';
 
 const App = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);

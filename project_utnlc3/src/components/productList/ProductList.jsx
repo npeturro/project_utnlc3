@@ -7,7 +7,8 @@ const ProductList = ({ productos, handleEdit, handleDelete }) => {
         <li key={producto.id} className="list-group-item d-flex justify-content-between align-items-center">
           <div>
             <strong>{producto.name}</strong> - ${producto.price} <br />
-            <small>{producto.description}</small>
+            <small>{producto.description}</small> <br />
+            <small>Categoría: {producto.category}</small> {/* Mostrar categoría */}
           </div>
           <div>
             <button className="btn btn-primary btn-sm me-2" onClick={() => handleEdit(producto)}>Editar</button>
@@ -25,11 +26,11 @@ ProductList.propTypes = {
     name: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
     description: PropTypes.string,
-    image: PropTypes.string
+    image: PropTypes.string,
+    category: PropTypes.string 
   })).isRequired,
   handleEdit: PropTypes.func.isRequired,
   handleDelete: PropTypes.func.isRequired,
 };
 
 export default ProductList;
-

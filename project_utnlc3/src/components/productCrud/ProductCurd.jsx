@@ -5,7 +5,6 @@ import ProductList from '../productList/ProductList';
 import ProductForm from '../productForm/ProductForm';
 import SearchBar from '../searchBar/SearchBar';
 import Alert from '../alert/Alert';
-//import Carrusel from '../carrusel/Carrusel';
 
 const ProductCrud = () => {
   const [productos, setProductos] = useState([]);
@@ -13,7 +12,7 @@ const ProductCrud = () => {
   const [precio, setPrecio] = useState('');
   const [imagen, setImagen] = useState('');
   const [descripcion, setDescripcion] = useState('');
-  const [stock, setStock] = useState('');
+  const [categoria, setCategoria] = useState(''); // Añadir campo de categoría
   const [productoId, setProductoId] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [alert, setAlert] = useState({ message: '', type: '' });
@@ -33,7 +32,13 @@ const ProductCrud = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const nuevoProducto = { name: nombre, description: descripcion, image: imagen, price: parseFloat(precio), stock : stock };
+    const nuevoProducto = {
+      name: nombre,
+      description: descripcion,
+      image: imagen,
+      price: parseFloat(precio),
+      category: categoria // Añadir campo de categoría
+    };
 
     if (productoId) {
       axios.put(`https://localhost:7088/api/productos/${productoId}`, nuevoProducto)
@@ -59,7 +64,7 @@ const ProductCrud = () => {
     setPrecio('');
     setImagen('');
     setDescripcion('');
-    setStock('');
+    setCategoria(''); // Resetear campo de categoría
     setProductoId(null);
   };
 
@@ -68,7 +73,7 @@ const ProductCrud = () => {
     setPrecio(producto.price);
     setImagen(producto.image);
     setDescripcion(producto.description);
-    setStock(producto.stock);
+    setCategoria(producto.category); // Editar campo de categoría
     setProductoId(producto.id);
   };
 
@@ -103,7 +108,7 @@ const ProductCrud = () => {
         precio={precio} setPrecio={setPrecio}
         imagen={imagen} setImagen={setImagen}
         descripcion={descripcion} setDescripcion={setDescripcion}
-        stock={stock} setStock={setStock}
+        categoria={categoria} setCategoria={setCategoria} // Añadir campo de categoría
         productoId={productoId}
         handleSubmit={handleSubmit}
         resetForm={resetForm}
