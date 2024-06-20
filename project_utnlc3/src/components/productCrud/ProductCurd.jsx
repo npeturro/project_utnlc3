@@ -22,7 +22,7 @@ const ProductCrud = () => {
   }, []);
 
   const cargarProductos = () => {
-    axios.get('https://localhost:7088/api/productos')
+    axios.get('http://onetechapi-utn.ddns.net/api/productos')
       .then(response => {
         setProductos(response.data);
         setAlert({ message: 'Productos cargados correctamente', type: 'success' });
@@ -36,12 +36,12 @@ const ProductCrud = () => {
       name: nombre,
       description: descripcion,
       image: imagen,
-      price: parseFloat(precio),
+      price: parseInt(precio),
       category: categoria // Añadir campo de categoría
     };
 
     if (productoId) {
-      axios.put(`https://localhost:7088/api/productos/${productoId}`, nuevoProducto)
+      axios.put(`http://onetechapi-utn.ddns.net/api/productos/${productoId}`, nuevoProducto)
         .then(() => {
           cargarProductos();
           resetForm();
@@ -49,7 +49,7 @@ const ProductCrud = () => {
         })
         .catch(error => setAlert({ message: 'Error al actualizar el producto', type: 'error' }));
     } else {
-      axios.post('https://localhost:7088/api/productos', nuevoProducto)
+      axios.post('http://onetechapi-utn.ddns.net/api/productos', nuevoProducto)
         .then(response => {
           setProductos([...productos, response.data]);
           resetForm();
@@ -78,7 +78,7 @@ const ProductCrud = () => {
   };
 
   const handleDelete = (id) => {
-    axios.delete(`https://localhost:7088/api/productos/${id}`)
+    axios.delete(`http://onetechapi-utn.ddns.net/api/productos/${id}`)
       .then(() => {
         setProductos(productos.filter(producto => producto.id !== id));
         setAlert({ message: 'Producto eliminado correctamente', type: 'success' });

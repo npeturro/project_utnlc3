@@ -9,6 +9,7 @@ import NotFound from './components/notFound/NotFound';
 import Index from './components/index/Index';
 import ProductCrud from './components/productCrud/ProductCurd';
 import About from './components/about/About';
+import UserCrud from './components/userCrud/userCrud';
 
 const App = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -51,6 +52,14 @@ const App = () => {
             element: (
                 <MainLayout>
                     <ProductCrud/>
+                </MainLayout>
+            )
+        },
+        {
+            path: "/users",
+            element: (
+                <MainLayout>
+                    <UserCrud/>
                 </MainLayout>
             )
         },

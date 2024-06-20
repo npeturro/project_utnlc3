@@ -25,7 +25,7 @@ const UserCrud = () => {
   }, []);
 
   const cargarUsuarios = () => {
-    axios.get('https://localhost:7088/api/users')
+    axios.get('http://onetechapi-utn.ddns.net/api/users')
       .then(response => {
         setUsuarios(response.data);
         setAlert({ message: 'Usuarios cargados correctamente', type: 'success' });
@@ -38,7 +38,7 @@ const UserCrud = () => {
     const nuevoUsuario = { username: nombre, password: clave, fullName: apellido, email: email, phone: phone, address: address, role: role, isActive: isActive };
 
     if (userId) {
-      axios.put(`https://localhost:7088/api/users/${userId}`, nuevoUsuario)
+      axios.put(`http://onetechapi-utn.ddns.net/api/users/${userId}`, nuevoUsuario)
         .then(() => {
           cargarUsuarios();
           resetForm();
@@ -46,7 +46,7 @@ const UserCrud = () => {
         })
         .catch(error => setAlert({ message: 'Error al actualizar el usuario', type: 'error' }));
     } else {
-      axios.post('https://localhost:7088/api/users', nuevoUsuario)
+      axios.post('http://onetechapi-utn.ddns.net/api/users', nuevoUsuario)
         .then(response => {
           setUsuarios([...usuarios, response.data]);
           resetForm();
@@ -81,7 +81,7 @@ const UserCrud = () => {
   };
 
   const handleDelete = (id) => {
-    axios.delete(`https://localhost:7088/api/users/${id}`)
+    axios.delete(`http://onetechapi-utn.ddns.net/api/users/${id}`)
       .then(() => {
         setUsuarios(usuarios.filter(usuario => usuario.id !== id));
         setAlert({ message: 'Usuario eliminado correctamente', type: 'success' });

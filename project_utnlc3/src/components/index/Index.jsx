@@ -59,9 +59,11 @@ const Index = () => {
                                                     Crear producto
                                                 </MenuItem>
                                             </Link>
-                                            <MenuItem>
-                                                Ver usuarios
-                                            </MenuItem>
+                                            <Link to="/users" style={{ textDecoration: 'none', color: 'inherit' }}>
+                                                <MenuItem>
+                                                    Ver usuarios
+                                                </MenuItem>
+                                            </Link>
                                             <MenuItem>
                                                 Crear usuario
                                             </MenuItem>
