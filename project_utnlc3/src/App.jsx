@@ -10,6 +10,7 @@ import Index from './components/index/Index';
 import ProductCrud from './components/productCrud/ProductCurd';
 import About from './components/about/About';
 import UserCrud from './components/userCrud/userCrud';
+import Checkout from './components/checkout/Checkout';
 
 const App = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -52,6 +53,14 @@ const App = () => {
             element: (
                 <MainLayout>
                     <ProductCrud/>
+                </MainLayout>
+            )
+        },
+        {
+            path: "/checkout",
+            element: (
+                <MainLayout>
+                    <Checkout/>
                 </MainLayout>
             )
         },

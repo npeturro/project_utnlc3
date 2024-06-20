@@ -6,8 +6,9 @@ import IconButton from '@mui/material/IconButton';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
+import MenuIcon from '@mui/icons-material/Menu';
 import { Link } from 'react-router-dom';
-import { Popover, MenuList, MenuItem } from '@mui/material';
+import { Popover, MenuList, MenuItem, Tooltip } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import fondo from '../../images/fondo.png'
 import logoImage from '../../images/icon one tech_Blanco fondo transparente.png'
@@ -20,19 +21,19 @@ const NavBar = () => {
   const [filteredProductos, setFilteredProductos] = useState(productos);
   const [anchorEl, setAnchorEl] = useState(null);
 
-  useEffect(() => {
-    const fetchProductos = async () => {
-      try {
-        const response = await axios.get('https://localhost:7088/api/productos');
-        setProductos(response.data);
-        setFilteredProductos(response.data);
-      } catch (error) {
-        console.error('Error fetching products:', error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchProductos = async () => {
+  //     try {
+  //       const response = await axios.get('https://localhost:7088/api/productos');
+  //       setProductos(response.data);
+  //       setFilteredProductos(response.data);
+  //     } catch (error) {
+  //       console.error('Error fetching products:', error);
+  //     }
+  //   };
 
-    fetchProductos();
-  }, []);
+  //   fetchProductos();
+  // }, []);
 
   const handleSearchChange = (event) => {
     const text = event.target.value;
@@ -88,18 +89,27 @@ const NavBar = () => {
                 onChange={handleSearchChange}
               />
             </div>
-            <Link to="/cart" style={{ textDecoration: 'none', color: 'inherit' }}>
-              <IconButton color="inherit" aria-label="carrito de compras">
-                <ShoppingCartIcon />
+            <Tooltip title='Categorias' >
+              <IconButton color="inherit" aria-label="search">
+                <MenuIcon />
               </IconButton>
-            </Link>
-            <IconButton
-              color="inherit"
-              aria-label="login"
-              onClick={handlePopoverOpen}
-            >
-              <AccountCircleIcon />
-            </IconButton>
+            </Tooltip>
+            <Tooltip title='Carrito de compras' >
+              <Link to="/cart" style={{ textDecoration: 'none', color: 'inherit' }}>
+                <IconButton color="inherit" aria-label="carrito de compras">
+                  <ShoppingCartIcon />
+                </IconButton>
+              </Link>
+            </Tooltip>
+            <Tooltip title='Perfil'>
+              <IconButton
+                color="inherit"
+                aria-label="login"
+                onClick={handlePopoverOpen}
+              >
+                <AccountCircleIcon />
+              </IconButton>
+            </Tooltip>
             <Popover
               id={id}
               open={open}
@@ -138,14 +148,14 @@ const NavBar = () => {
         </Toolbar>
       </AppBar>
 
-      <div style={{ marginTop: '80px', padding: '20px' }}>
-        {/* <Typography variant="h6">Resultados de búsqueda:</Typography> */}
+      {/* <div style={{ marginTop: '80px', padding: '20px' }}>
+        <Typography variant="h6">Resultados de búsqueda:</Typography>
         <ul>
           {filteredProductos.map((producto) => (
             <li key={producto.id}>{producto.name}</li>
           ))}
         </ul>
-      </div>
+      </div> */}
     </>
   );
 };

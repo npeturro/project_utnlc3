@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import { Grid, Typography, Button, Card, CardMedia, CardContent, IconButton, TextField, Box } from '@mui/material';
+import { Grid, Typography, Button, Card, CardMedia, CardContent, IconButton, TextField, Box, Drawer, Divider } from '@mui/material';
 import { Delete, Add, Remove, ShoppingCart } from '@mui/icons-material';
+import { useNavigate } from 'react-router-dom';
+import Checkout from '../checkout/Checkout';
+import { Link } from 'react-router-dom';
 
 function Cart() {
-
     const [product, setProduct] = useState([
         {
             id: 1,
@@ -27,6 +29,18 @@ function Cart() {
             image: "https://airoldi.com.ar/media/catalog/product/cache/a3a61ce6d0a1e741ba8660988e04b8f1/e/9/e95f1c0ccd035e4ab4367ce801753b96db40fe580645e95fe749f7bcce115640.jpeg"
         }
     ]);
+
+    const [drawerOpen, setDrawerOpen] = useState(false);
+
+    const toggleDrawer = (open) => (event) => {
+        if (
+            event.type === 'keydown' &&
+            (event.key === 'Tab' || event.key === 'Shift')
+        ) {
+            return;
+        }
+        setDrawerOpen(open);
+    };
 
     const handleQuantityChange = (id, value) => {
         setProduct(product.map(item => item.id === id ? { ...item, quantity: item.quantity + value } : item));
@@ -118,15 +132,19 @@ function Cart() {
                                                 '&:hover': {
                                                     backgroundColor: '#051c40',
                                                 }
-                                            }}>
+                                            }}
+                                            onClick={toggleDrawer(true)}
+                                        >
                                             Realizar pedido
                                         </Button>
                                     </Card>
-                                    <Button
-                                        sx={{
-                                            mt: 2,
-                                            borderRadius: '50px',
-                                        }}>Seguir comprando</Button>
+                                    <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
+                                        <Button
+                                            sx={{
+                                                mt: 2,
+                                                borderRadius: '50px',
+                                            }}>Seguir comprando</Button>
+                                    </Link>
                                 </div>
                             </Grid>
                         </Grid>
@@ -142,18 +160,34 @@ function Cart() {
                                     </CardContent>
 
                                 </Card>
-                                <Button
-                                    sx={{
-                                        mt: 2,
-                                        borderRadius: '50px',
-                                    }}>Seguir comprando</Button>
+                                <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
+                                    <Button
+                                        sx={{
+                                            mt: 2,
+                                            borderRadius: '50px',
+                                        }}>Seguir comprando</Button>
+                                </Link>
                             </div>
                         </Grid>
                     </Grid>
                 )
-
             }
 
+            <Drawer
+                anchor="right"
+                open={drawerOpen}
+                onClose={toggleDrawer(false)}
+            >
+                <Box
+                    sx={{ width: 500 }}
+                    role="presentation"
+                    onClick={toggleDrawer(false)}
+                    onKeyDown={toggleDrawer(false)}
+                >
+                    <Checkout products={product} />
+
+                </Box>
+            </Drawer>
         </Box>
     );
 }

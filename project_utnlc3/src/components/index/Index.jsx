@@ -20,7 +20,7 @@ const Index = () => {
     return (
         <>
             <Box>
-                <Container maxWidth="xl">
+                <Container maxWidth="xl" sx={{mt:'7%'}}>
                     <Stack spacing={1}>
                         <Stack>
                             <div style={{ marginLeft: 'auto' }}>
@@ -73,6 +73,7 @@ const Index = () => {
                             </div>
                         </Stack>
                         <CardProductLogged />
+                        <img src='https://airoldi.com.ar/media/wysiwyg/Banner-CX_002_.jpg'></img>
                     </Stack>
                 </Container>
             </Box>

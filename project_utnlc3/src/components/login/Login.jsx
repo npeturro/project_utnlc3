@@ -1,5 +1,6 @@
 import { useState, useRef } from 'react';
 import { Button, TextField, Box, Typography, Container, Alert, Snackbar } from '@mui/material'
+import { useNavigate } from 'react-router-dom';
 
 
 function Login() {
@@ -22,6 +23,8 @@ function Login() {
     severity: 'success',
     message: ''
   });
+
+  const navigate = useNavigate();
 
   const showAlert = (message, severity) => {
     setAlert({ open: true, message, severity });
@@ -53,6 +56,7 @@ function Login() {
 
     showAlert("¡Usuario ingresado correctamente!", "success");
     setValues({ email: '', password: '' });
+    navigate('/')
   };
 
   const handleChange = (event) => {
