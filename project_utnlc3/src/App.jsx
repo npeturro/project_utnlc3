@@ -8,6 +8,7 @@ import MainLayout from './components/layout/mainLayout/MainLayout';
 import NotFound from './components/notFound/NotFound';
 import Index from './components/index/Index';
 import ProductCrud from './components/productCrud/ProductCurd';
+import About from './components/about/About';
 
 const App = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -54,9 +55,18 @@ const App = () => {
             )
         },
         {
+            path: "/about",
+            element: (
+                <MainLayout>
+                    <About />
+                </MainLayout>
+            )
+        },
+        {
             path: "*",
             element: <NotFound />,
         },
+
     ]);
 
     return (
