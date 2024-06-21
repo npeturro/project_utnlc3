@@ -8,13 +8,15 @@ import Alert from "../alert/Alert";
 
 const ProductCrud = () => {
   const [productos, setProductos] = useState([]);
-  const [nombre, setNombre] = useState("");
-  const [precio, setPrecio] = useState("");
-  const [imagen, setImagen] = useState("");
-  const [descripcion, setDescripcion] = useState("");
-  const [categoria, setCategoria] = useState("");
-  const [stock, setStock] = useState("");
-  const [productoId, setProductoId] = useState(null);
+  const [producto, setProducto] = useState({
+    nombre: "",
+    precio: "",
+    imagen: "",
+    descripcion: "",
+    categoria: "",
+    stock: "",
+    id: null,
+  });
   const [searchTerm, setSearchTerm] = useState("");
   const [alert, setAlert] = useState({ message: "", type: "" });
 
@@ -22,102 +24,95 @@ const ProductCrud = () => {
     cargarProductos();
   }, []);
 
-  const cargarProductos = () => {
-    axios
-      .get("http://onetechapi-utn.ddns.net/api/productos")
-      .then((response) => {
-        setProductos(response.data);
-        setAlert({
-          message: "Productos cargados correctamente",
-          type: "success",
-        });
-      })
-      .catch((error) =>
-        setAlert({ message: "Error al cargar los productos", type: "error" })
+  const cargarProductos = async () => {
+    try {
+      const response = await axios.get(
+        "http://onetechapi-utn.ddns.net/api/productos"
       );
+      setProductos(response.data);
+      setAlert({
+        message: "Productos cargados correctamente",
+        type: "success",
+      });
+    } catch (error) {
+      setAlert({ message: "Error al cargar los productos", type: "error" });
+    }
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const nuevoProducto = {
-      name: nombre,
-      description: descripcion,
-      image: imagen,
-      price: parseInt(precio),
-      category: categoria,
-      stock: parseInt(stock),
+      name: producto.nombre,
+      description: producto.descripcion,
+      image: producto.imagen,
+      price: parseInt(producto.precio),
+      category: producto.categoria,
+      stock: parseInt(producto.stock),
     };
 
-    if (productoId) {
-      axios
-        .put(
-          `http://onetechapi-utn.ddns.net/api/productos/${productoId}`,
+    try {
+      if (producto.id) {
+        await axios.put(
+          `http://onetechapi-utn.ddns.net/api/productos/${producto.id}`,
           nuevoProducto
-        )
-        .then(() => {
-          cargarProductos();
-          resetForm();
-          setAlert({
-            message: "Producto actualizado correctamente",
-            type: "success",
-          });
-        })
-        .catch((error) =>
-          setAlert({
-            message: "Error al actualizar el producto",
-            type: "error",
-          })
         );
-    } else {
-      axios
-        .post("http://onetechapi-utn.ddns.net/api/productos", nuevoProducto)
-        .then((response) => {
-          setProductos([...productos, response.data]);
-          resetForm();
-          setAlert({
-            message: "Producto creado correctamente",
-            type: "success",
-          });
-        })
-        .catch((error) =>
-          setAlert({ message: "Error al crear el producto", type: "error" })
+        setAlert({
+          message: "Producto actualizado correctamente",
+          type: "success",
+        });
+      } else {
+        const response = await axios.post(
+          "http://onetechapi-utn.ddns.net/api/productos",
+          nuevoProducto
         );
+        setProductos([...productos, response.data]);
+        setAlert({ message: "Producto creado correctamente", type: "success" });
+      }
+      cargarProductos();
+      resetForm();
+    } catch (error) {
+      setAlert({
+        message: `Error al ${producto.id ? "actualizar" : "crear"} el producto`,
+        type: "error",
+      });
     }
   };
 
   const resetForm = () => {
-    setNombre("");
-    setPrecio("");
-    setImagen("");
-    setDescripcion("");
-    setCategoria("");
-    setStock("");
-    setProductoId(null);
+    setProducto({
+      nombre: "",
+      precio: "",
+      imagen: "",
+      descripcion: "",
+      categoria: "",
+      stock: "",
+      id: null,
+    });
   };
 
   const handleEdit = (producto) => {
-    setNombre(producto.name);
-    setPrecio(producto.price);
-    setImagen(producto.image);
-    setDescripcion(producto.description);
-    setCategoria(producto.category);
-    setStock(producto.stock);
-    setProductoId(producto.id);
+    setProducto({
+      nombre: producto.name,
+      precio: producto.price,
+      imagen: producto.image,
+      descripcion: producto.description,
+      categoria: producto.category,
+      stock: producto.stock,
+      id: producto.id,
+    });
   };
 
-  const handleDelete = (id) => {
-    axios
-      .delete(`http://onetechapi-utn.ddns.net/api/productos/${id}`)
-      .then(() => {
-        setProductos(productos.filter((producto) => producto.id !== id));
-        setAlert({
-          message: "Producto eliminado correctamente",
-          type: "success",
-        });
-      })
-      .catch((error) =>
-        setAlert({ message: "Error al eliminar el producto", type: "error" })
-      );
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`http://onetechapi-utn.ddns.net/api/productos/${id}`);
+      setProductos(productos.filter((producto) => producto.id !== id));
+      setAlert({
+        message: "Producto eliminado correctamente",
+        type: "success",
+      });
+    } catch (error) {
+      setAlert({ message: "Error al eliminar el producto", type: "error" });
+    }
   };
 
   const handleSearch = (event) => {
@@ -145,22 +140,24 @@ const ProductCrud = () => {
         handleDelete={handleDelete}
       />
       <h2 className="mb-4">
-        {productoId ? "Editar Producto" : "Añadir Producto"}
+        {producto.id ? "Editar Producto" : "Añadir Producto"}
       </h2>
       <ProductForm
-        nombre={nombre}
-        setNombre={setNombre}
-        precio={precio}
-        setPrecio={setPrecio}
-        imagen={imagen}
-        setImagen={setImagen}
-        descripcion={descripcion}
-        setDescripcion={setDescripcion}
-        categoria={categoria}
-        setCategoria={setCategoria}
-        stock={stock}
-        setStock={setStock}
-        productoId={productoId}
+        nombre={producto.nombre}
+        setNombre={(value) => setProducto({ ...producto, nombre: value })}
+        precio={producto.precio}
+        setPrecio={(value) => setProducto({ ...producto, precio: value })}
+        imagen={producto.imagen}
+        setImagen={(value) => setProducto({ ...producto, imagen: value })}
+        descripcion={producto.descripcion}
+        setDescripcion={(value) =>
+          setProducto({ ...producto, descripcion: value })
+        }
+        categoria={producto.categoria}
+        setCategoria={(value) => setProducto({ ...producto, categoria: value })}
+        stock={producto.stock}
+        setStock={(value) => setProducto({ ...producto, stock: value })}
+        productoId={producto.id}
         handleSubmit={handleSubmit}
         resetForm={resetForm}
       />

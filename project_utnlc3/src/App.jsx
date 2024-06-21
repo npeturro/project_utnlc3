@@ -1,102 +1,94 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import './App.css'
-import CardProductLogged from "./components/cardProductLogged/CardProductLogged";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import "./App.css";
 import Login from "./components/login/Login";
-import Cart from './components/cart/Cart';
-import { useState } from 'react';
-import MainLayout from './components/layout/mainLayout/MainLayout';
-import NotFound from './components/notFound/NotFound';
-import Index from './components/index/Index';
-import ProductCrud from './components/productCrud/ProductCurd';
-import About from './components/about/About';
-import UserCrud from './components/userCrud/userCrud';
-import Checkout from './components/checkout/Checkout';
+import Cart from "./components/cart/Cart";
+import { useState } from "react";
+import MainLayout from "./components/layout/mainLayout/MainLayout";
+import NotFound from "./components/notFound/NotFound";
+import Index from "./components/index/Index";
+import ProductCrud from "./components/productCrud/ProductCrud";
+import About from "./components/about/About";
+import UserCrud from "./components/userCrud/userCrud";
+import Checkout from "./components/checkout/Checkout";
 
 const App = () => {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-    const loginHandler = () => {
-        setIsLoggedIn(true);
-    };
+  const loginHandler = () => {
+    setIsLoggedIn(true);
+  };
 
-    const logOutHandler = () => {
-        setIsLoggedIn(false);
-    };
+  const logOutHandler = () => {
+    setIsLoggedIn(false);
+  };
 
-    const router = createBrowserRouter([
-        {
-            path: "/login",
-            element: (
-                <MainLayout>
-                    <Login onLogin={loginHandler} />
-                </MainLayout>
-            )
-        },
-        {
-            path: "/cart",
-            element: (
-                <MainLayout>
-                    <Cart />
-                </MainLayout>
-            )
-        },
-        {
-            path: "/",
-            element: (
-                <MainLayout>
-                    <Index />
-                </MainLayout>
-            )
-        },
-        {
-            path: "/product",
-            element: (
-                <MainLayout>
-                    <ProductCrud/>
-                </MainLayout>
-            )
-        },
-        {
-            path: "/checkout",
-            element: (
-                <MainLayout>
-                    <Checkout/>
-                </MainLayout>
-            )
-        },
-        {
-            path: "/users",
-            element: (
-                <MainLayout>
-                    <UserCrud/>
-                </MainLayout>
-            )
-        },
-        {
-            path: "/about",
-            element: (
-                <MainLayout>
-                    <About />
-                </MainLayout>
-            )
-        },
-        {
-            path: "*",
-            element: <NotFound />,
-        },
+  const router = createBrowserRouter([
+    {
+      path: "/login",
+      element: (
+        <MainLayout>
+          <Login onLogin={loginHandler} />
+        </MainLayout>
+      ),
+    },
+    {
+      path: "/cart",
+      element: (
+        <MainLayout>
+          <Cart />
+        </MainLayout>
+      ),
+    },
+    {
+      path: "/",
+      element: (
+        <MainLayout>
+          <Index />
+        </MainLayout>
+      ),
+    },
+    {
+      path: "/product",
+      element: (
+        <MainLayout>
+          <ProductCrud />
+        </MainLayout>
+      ),
+    },
+    {
+      path: "/checkout",
+      element: (
+        <MainLayout>
+          <Checkout />
+        </MainLayout>
+      ),
+    },
+    {
+      path: "/users",
+      element: (
+        <MainLayout>
+          <UserCrud />
+        </MainLayout>
+      ),
+    },
+    {
+      path: "/about",
+      element: (
+        <MainLayout>
+          <About />
+        </MainLayout>
+      ),
+    },
+    {
+      path: "*",
+      element: <NotFound />,
+    },
+  ]);
 
-    ]);
-
-    return (
-        <div>
-            {<RouterProvider router={router} />}
-        </div>
-    )
-
-}
+  return <div>{<RouterProvider router={router} />}</div>;
+};
 
 export default App;
-
 
 /*
 Lo que pensé:

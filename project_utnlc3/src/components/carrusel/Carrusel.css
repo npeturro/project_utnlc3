@@ -44,3 +44,20 @@
   .carousel-item p {
     color: black; 
   }
+  .carousel-container {
+    width: 100%;
+    padding: 20px;
+  }
+  
+  .product-slide {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+  
+  .product-card {
+    flex: 1 1 23%; /* Ajusta el valor para controlar el tamaño de las tarjetas */
+    margin: 10px;
+    max-width: 23%; /* Asegura que las tarjetas no crezcan más del 23% del contenedor */
+  }

@@ -1,28 +1,35 @@
-
-import { Carousel } from 'react-bootstrap';
-import PropTypes from 'prop-types';
-import './Carrusel.css'; 
+import { Carousel } from "react-bootstrap";
+import PropTypes from "prop-types";
+import CardProductLogged from "../cardProductLogged/CardProductLogged";
+import "./Carrusel.css";
 
 const Carrusel = ({ products }) => {
+  const groupedProducts = [];
+
+  // Agrupar productos en conjuntos de 4
+  for (let i = 0; i < products.length; i += 4) {
+    groupedProducts.push(products.slice(i, i + 4));
+  }
+
   return (
     <div className="carousel-container">
       <h2>Productos Destacados</h2>
-      <Carousel variant="dark" interval={2000} indicators={true} className="product-carousel">
-        {products.map((product) => (
-         <Carousel.Item key={product.id}>
-         <div className="product-slide">
-           <img
-             className="d-block w-100 product-image"
-             src={product.image}
-             alt={product.name}             
-           />
-           <div className="product-details">
-             <h3>{product.name}</h3>
-             <p>{product.description}</p>
-             <p>{product.price}</p>
-           </div>
-         </div>
-       </Carousel.Item>
+      <Carousel
+        variant="dark"
+        interval={8000}
+        indicators={true}
+        className="product-carousel"
+      >
+        {groupedProducts.map((group, index) => (
+          <Carousel.Item key={index}>
+            <div className="product-slide">
+              {group.map((product) => (
+                <div key={product.id} className="product-card">
+                  <CardProductLogged product={product} />
+                </div>
+              ))}
+            </div>
+          </Carousel.Item>
         ))}
       </Carousel>
     </div>
@@ -34,11 +41,14 @@ Carrusel.propTypes = {
     PropTypes.shape({
       id: PropTypes.number.isRequired,
       name: PropTypes.string.isRequired,
-      description: PropTypes.string.isRequired,
+      category: PropTypes.string,
+      oldPrice: PropTypes.string,
+      price: PropTypes.string.isRequired,
+      stock: PropTypes.number,
       image: PropTypes.string.isRequired,
-      price: PropTypes.string.isRequired
+      link: PropTypes.string.isRequired,
     })
-  ).isRequired
+  ).isRequired,
 };
 
 export default Carrusel;

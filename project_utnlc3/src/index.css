@@ -30,6 +30,8 @@ a:hover {
   color: purple;
 }
 
+@import "~slick-carousel/slick/slick.css";
+@import "~slick-carousel/slick/slick-theme.css";
 
 
 /* h1 {
