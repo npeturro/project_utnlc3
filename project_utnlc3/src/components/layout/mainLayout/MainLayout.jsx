@@ -3,7 +3,7 @@ import NavBar from '../../navBar/NavBar';
 import './MainLayout.css'
 import Footer from '../../footer/Footer';
 import WhatsAppButton from '../../whatsappButton/WhatsappButoon';
-//import ProductCrud from '../../productCrud/ProductCurd';
+
 const MainLayout = ({ children, onLogOff }) => {
 
 

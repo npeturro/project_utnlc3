@@ -4,10 +4,9 @@ import { styled } from '@mui/system';
 import pic1 from "../../images/a.png";
 import pic2 from "../../images/b.png";
 
-const HoverImage = styled(Box)({
+const HoverImageContainer = styled(Box)({
     position: 'relative',
     width: '100%',
-    height: '0',
     paddingBottom: '75%',
     overflow: 'hidden',
     '&:hover .hover-img': {
@@ -25,6 +24,14 @@ const Image = styled('img')({
     transition: 'opacity 0.5s ease-in-out',
 });
 
+const InitialImage = styled(Image)({
+    opacity: 1,
+});
+
+const HoverImage = styled(Image)({
+    opacity: 0,
+});
+
 const About = () => {
     return (
         <Container maxWidth="md" style={{ marginTop: '2rem' }}>
@@ -32,7 +39,10 @@ const About = () => {
                 <Typography variant="overline" component="div" gutterBottom>
                     NUESTRA MISIÓN
                 </Typography>
-                <Typography variant="h4" component="h1" gutterBottom>
+                <Typography variant="overline" component="div" gutterBottom>
+                    NUESTRA MISIÓN
+                </Typography>
+                <Typography variant="h5" component="h2" gutterBottom>
                     Simplificamos tu vida
                 </Typography>
                 <Typography variant="body1" component="p">
@@ -48,7 +58,7 @@ const About = () => {
                     <Typography variant="overline" component="div" gutterBottom>
                         NUESTRA GENTE
                     </Typography>
-                    <Typography variant="h5" component="h2" gutterBottom>
+                    <Typography variant="overline"  component="h2" gutterBottom>
                         Estamos para ayudarte
                     </Typography>
                     <Typography variant="body1" component="p">
@@ -58,18 +68,17 @@ const About = () => {
                     </Typography>
                 </Grid>
                 <Grid item xs={12} md={6}>
-                    <HoverImage>
-                        <Image
+                    <HoverImageContainer>
+                        <InitialImage
                             src={pic1}
                             alt="Initial Image"
                         />
-                        <Image
+                        <HoverImage
                             src={pic2}
                             alt="Hover Image"
                             className="hover-img"
-                            style={{ opacity: 0 }}
                         />
-                    </HoverImage>
+                    </HoverImageContainer>
                 </Grid>
             </Grid>
         </Container>

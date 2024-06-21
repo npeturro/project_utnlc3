@@ -14,6 +14,7 @@ import fondo from '../../images/fondo.png'
 import logoImage from '../../images/icon one tech_Blanco fondo transparente.png'
 import axios from 'axios';
 import { UserContext } from '../../contexts/user-context';
+import Drawer from '../drawer/Drawer';
 
 const NavBar = () => {
 
@@ -76,6 +77,7 @@ const NavBar = () => {
         position="fixed" sx={{ backgroundImage: `url(${fondo})`, backgroundSize: 'cover' }}
       >
         <Toolbar style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <Link to="/">
               <img src={logoImage} alt="Logo de tu empresa" style={{ width: 50, marginRight: 10 }} />
@@ -84,87 +86,84 @@ const NavBar = () => {
               ONE TECH
             </Typography>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-            <div style={{ marginRight: 10 }}>
-              <IconButton color="inherit" aria-label="search">
-                <SearchIcon />
-              </IconButton>
-            </div>
-            <div style={{ marginRight: 10 }}>
-              <InputBase
-                placeholder="Buscar..."
-                inputProps={{ 'aria-label': 'buscar' }}
-                style={{ color: 'white' }}
-                value={searchText}
-                onChange={handleSearchChange}
-              />
-            </div>
-            <Tooltip title='Categorias' >
-              <IconButton color="inherit" aria-label="search">
-                <MenuIcon />
-              </IconButton>
-            </Tooltip>
-            <Tooltip title='Carrito de compras' >
-              <Link to="/cart" style={{ textDecoration: 'none', color: 'inherit' }}>
-                <IconButton color="inherit" aria-label="carrito de compras">
-                  <ShoppingCartIcon />
-                </IconButton>
-              </Link>
-            </Tooltip>
-            <Tooltip title='Perfil'>
-              <IconButton
-                color="inherit"
-                aria-label="login"
-                onClick={handlePopoverOpen}
-              >
-                <AccountCircleIcon />
-              </IconButton>
-            </Tooltip>
-            <Popover
-              id={id}
-              open={open}
-              anchorEl={anchorEl}
-              onClose={handlePopoverClose}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'center',
-              }}
-            >
-              <div style={{ padding: '5px' }}>
-                <MenuList
-                  disablePadding
-                  dense
-                  sx={{
-                    p: '8px',
-                    '& > *': {
-                      borderRadius: 1
-                    }
-                  }}
-                >
-                  {!userLoged.authenticated && (
-                    <Link to="/login" style={{ textDecoration: 'none', color: 'inherit' }}>
-                      <MenuItem onClick={handlePopoverClose}>
-                        Iniciar sesión
-                      </MenuItem>
-                    </Link>
-                  )}
-                  {!userLoged.authenticated && (
-                    <MenuItem>
-                      Registrarse
-                    </MenuItem>
-                  )}
-                  {userLoged.authenticated && (
-                    <MenuItem onClick={handleCerrar}>
-                      Cerrar sesión
-                    </MenuItem>
-                  )}
-                </MenuList>
-
-              </div>
-            </Popover>
+          <Drawer />
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <div style={{ marginRight: 10 }}>
+            <IconButton color="inherit" aria-label="search">
+              <SearchIcon />
+            </IconButton>
           </div>
-        </Toolbar>
-      </AppBar>
+          <div style={{ marginRight: 10 }}>
+            <InputBase
+              placeholder="Buscar..."
+              inputProps={{ 'aria-label': 'buscar' }}
+              style={{ color: 'white' }}
+              value={searchText}
+              onChange={handleSearchChange}
+            />
+          </div>
+
+          <Tooltip title='Carrito de compras'>
+            <Link to="/cart" style={{ textDecoration: 'none', color: 'inherit' }}>
+              <IconButton color="inherit" aria-label="carrito de compras">
+                <ShoppingCartIcon />
+              </IconButton>
+            </Link>
+          </Tooltip>
+          <Tooltip title='Perfil'>
+            <IconButton
+              color="inherit"
+              aria-label="login"
+              onClick={handlePopoverOpen}
+            >
+              <AccountCircleIcon />
+            </IconButton>
+          </Tooltip>
+          <Popover
+            id={id}
+            open={open}
+            anchorEl={anchorEl}
+            onClose={handlePopoverClose}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'center',
+            }}
+          >
+            <div style={{ padding: '5px' }}>
+              <MenuList
+                disablePadding
+                dense
+                sx={{
+                  p: '8px',
+                  '& > *': {
+                    borderRadius: 1
+                  }
+                }}
+              >
+                {!userLoged.authenticated && (
+                  <Link to="/login" style={{ textDecoration: 'none', color: 'inherit' }}>
+                    <MenuItem onClick={handlePopoverClose}>
+                      Iniciar sesión
+                    </MenuItem>
+                  </Link>
+                )}
+                {!userLoged.authenticated && (
+                  <MenuItem>
+                    Registrarse
+                  </MenuItem>
+                )}
+                {userLoged.authenticated && (
+                  <MenuItem onClick={handleCerrar}>
+                    Cerrar sesión
+                  </MenuItem>
+                )}
+              </MenuList>
+            </div>
+          </Popover>
+        </div>
+      </Toolbar>
+    </AppBar>
 
       {/* <div style={{ marginTop: '80px', padding: '20px' }}>
         <Typography variant="h6">Resultados de búsqueda:</Typography>
