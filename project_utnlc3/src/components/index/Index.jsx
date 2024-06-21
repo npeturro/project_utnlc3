@@ -1,11 +1,19 @@
 import React, { useState, useContext } from 'react';
-import CardProductLogged from '../cardProductLogged/CardProductLogged';
-import { Box, Container, Stack, Button, Popover, MenuItem, MenuList } from '@mui/material';
-import { Link } from 'react-router-dom';
+import {
+  Box,
+  Container,
+  Stack,
+  Button,
+  Popover,
+  MenuItem,
+  MenuList,
+} from "@mui/material";
+import { Link } from "react-router-dom";
+import CarruselContainer from "../carruselContainer/CarruselContainer";
 import { UserContext } from '../../contexts/user-context';
 
 const Index = () => {
-    const [anchorEl, setAnchorEl] = useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
 
     const { userLoged } = useContext(UserContext);
 
@@ -13,12 +21,12 @@ const Index = () => {
         setAnchorEl(event.currentTarget);
     };
 
-    const handlePopoverClose = () => {
-        setAnchorEl(null);
-    };
+  const handlePopoverClose = () => {
+    setAnchorEl(null);
+  };
 
-    const open = Boolean(anchorEl);
-    const id = open ? 'simple-popover' : undefined;
+  const open = Boolean(anchorEl);
+  const id = open ? "simple-popover" : undefined;
 
     return (
         <Box>
@@ -72,12 +80,13 @@ const Index = () => {
                             </div>
                         </Stack>
                     )}
-                    <CardProductLogged />
+                    <CarruselContainer />
                     <img src='https://airoldi.com.ar/media/wysiwyg/Banner-CX_002_.jpg' alt="Banner" />
                 </Stack>
             </Container>
         </Box>
     );
+
 };
 
 export default Index;

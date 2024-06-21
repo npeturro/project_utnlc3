@@ -14,16 +14,15 @@ import Checkout from './components/checkout/Checkout';
 import { UserProvider } from './contexts/user-context';
 
 const App = () => {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-    const loginHandler = () => {
-        setIsLoggedIn(true);
-    };
+  const loginHandler = () => {
+    setIsLoggedIn(true);
+  };
 
-    const logOutHandler = () => {
-        setIsLoggedIn(false);
-    };
-
+  const logOutHandler = () => {
+    setIsLoggedIn(false);
+  };
 
     const router = createBrowserRouter([
         {
@@ -97,10 +96,10 @@ const App = () => {
         </div>
     )
 
-}
+  return <div>{<RouterProvider router={router} />}</div>;
+};
 
 export default App;
-
 
 /*
 Lo que pensé:
