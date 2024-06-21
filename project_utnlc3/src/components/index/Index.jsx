@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import CardProductLogged from '../cardProductLogged/CardProductLogged';
 import { Box, Container, Stack, Button, Popover, MenuItem, MenuList } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { UserContext } from '../../contexts/user-context';
 
 const Index = () => {
     const [anchorEl, setAnchorEl] = useState(null);
+
+    const { userLoged } = useContext(UserContext);
 
     const handlePopoverOpen = (event) => {
         setAnchorEl(event.currentTarget);
@@ -18,10 +21,10 @@ const Index = () => {
     const id = open ? 'simple-popover' : undefined;
 
     return (
-        <>
-            <Box>
-                <Container maxWidth="xl" sx={{mt:'7%'}}>
-                    <Stack spacing={1}>
+        <Box>
+            <Container maxWidth="xl" sx={{ mt: '7%' }}>
+                <Stack spacing={1}>
+                    {userLoged.authenticated && (userLoged.role === "Admin" || userLoged.role === "SuperAdmin") && (
                         <Stack>
                             <div style={{ marginLeft: 'auto' }}>
                                 <Button
@@ -51,33 +54,29 @@ const Index = () => {
                                                 }
                                             }}
                                         >
-                                            <MenuItem>
-                                                Ver productos
-                                            </MenuItem>
                                             <Link to="/product" style={{ textDecoration: 'none', color: 'inherit' }}>
                                                 <MenuItem onClick={handlePopoverClose}>
-                                                    Crear producto
+                                                    Ver productos
                                                 </MenuItem>
                                             </Link>
-                                            <Link to="/users" style={{ textDecoration: 'none', color: 'inherit' }}>
-                                                <MenuItem>
-                                                    Ver usuarios
-                                                </MenuItem>
-                                            </Link>
-                                            <MenuItem>
-                                                Crear usuario
-                                            </MenuItem>
+                                            {userLoged.authenticated && userLoged.role === "SuperAdmin" && (
+                                                <Link to="/users" style={{ textDecoration: 'none', color: 'inherit' }}>
+                                                    <MenuItem onClick={handlePopoverClose}>
+                                                        Ver usuarios
+                                                    </MenuItem>
+                                                </Link>
+                                            )}
                                         </MenuList>
                                     </div>
                                 </Popover>
                             </div>
                         </Stack>
-                        <CardProductLogged />
-                        <img src='https://airoldi.com.ar/media/wysiwyg/Banner-CX_002_.jpg'></img>
-                    </Stack>
-                </Container>
-            </Box>
-        </>
+                    )}
+                    <CardProductLogged />
+                    <img src='https://airoldi.com.ar/media/wysiwyg/Banner-CX_002_.jpg' alt="Banner" />
+                </Stack>
+            </Container>
+        </Box>
     );
 };
 

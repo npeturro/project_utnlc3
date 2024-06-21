@@ -1,16 +1,17 @@
+import { useState, useEffect } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './App.css'
 import CardProductLogged from "./components/cardProductLogged/CardProductLogged";
 import Login from "./components/login/Login";
 import Cart from './components/cart/Cart';
-import { useState } from 'react';
 import MainLayout from './components/layout/mainLayout/MainLayout';
 import NotFound from './components/notFound/NotFound';
 import Index from './components/index/Index';
-import ProductCrud from './components/productCrud/ProductCurd';
+import ProductCrud from './components/productCrud/ProductCrud';
 import About from './components/about/About';
 import UserCrud from './components/userCrud/userCrud';
 import Checkout from './components/checkout/Checkout';
+import { UserProvider } from './contexts/user-context';
 
 const App = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -23,12 +24,13 @@ const App = () => {
         setIsLoggedIn(false);
     };
 
+
     const router = createBrowserRouter([
         {
             path: "/login",
             element: (
                 <MainLayout>
-                    <Login onLogin={loginHandler} />
+                    <Login />
                 </MainLayout>
             )
         },
@@ -44,7 +46,7 @@ const App = () => {
             path: "/",
             element: (
                 <MainLayout>
-                    <Index />
+                    <Index/>
                 </MainLayout>
             )
         },
@@ -52,7 +54,7 @@ const App = () => {
             path: "/product",
             element: (
                 <MainLayout>
-                    <ProductCrud/>
+                    <ProductCrud />
                 </MainLayout>
             )
         },
@@ -60,7 +62,7 @@ const App = () => {
             path: "/checkout",
             element: (
                 <MainLayout>
-                    <Checkout/>
+                    <Checkout />
                 </MainLayout>
             )
         },
@@ -68,7 +70,7 @@ const App = () => {
             path: "/users",
             element: (
                 <MainLayout>
-                    <UserCrud/>
+                    <UserCrud />
                 </MainLayout>
             )
         },
@@ -89,7 +91,9 @@ const App = () => {
 
     return (
         <div>
-            {<RouterProvider router={router} />}
+            <UserProvider>
+                {<RouterProvider router={router} />}
+            </UserProvider>
         </div>
     )
 
