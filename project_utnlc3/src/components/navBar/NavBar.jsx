@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
@@ -13,6 +13,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import fondo from '../../images/fondo.png'
 import logoImage from '../../images/icon one tech_Blanco fondo transparente.png'
 import axios from 'axios';
+import { UserContext } from '../../contexts/user-context';
 
 const NavBar = () => {
 
@@ -20,6 +21,8 @@ const NavBar = () => {
   const [productos, setProductos] = useState([]);
   const [filteredProductos, setFilteredProductos] = useState(productos);
   const [anchorEl, setAnchorEl] = useState(null);
+
+  const { userLoged, setUserLoged } = useContext(UserContext);
 
   // useEffect(() => {
   //   const fetchProductos = async () => {
@@ -54,6 +57,13 @@ const NavBar = () => {
 
   const handlePopoverClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleCerrar = () => {
+    setUserLoged({
+      authenticated: false,
+      role: ''
+    });
   };
 
   const open = Boolean(anchorEl);
@@ -130,18 +140,26 @@ const NavBar = () => {
                       borderRadius: 1
                     }
                   }}
-                >  <Link to="/login" style={{ textDecoration: 'none', color: 'inherit' }}>
-                    <MenuItem onClick={handlePopoverClose}>
-                      Iniciar sesión
+                >
+                  {!userLoged.authenticated && (
+                    <Link to="/login" style={{ textDecoration: 'none', color: 'inherit' }}>
+                      <MenuItem onClick={handlePopoverClose}>
+                        Iniciar sesión
+                      </MenuItem>
+                    </Link>
+                  )}
+                  {!userLoged.authenticated && (
+                    <MenuItem>
+                      Registrarse
                     </MenuItem>
-                  </Link>
-                  <MenuItem >
-                    Registrarse
-                  </MenuItem>
-                  <MenuItem >
-                    Cerrar sesión
-                  </MenuItem>
+                  )}
+                  {userLoged.authenticated && (
+                    <MenuItem onClick={handleCerrar}>
+                      Cerrar sesión
+                    </MenuItem>
+                  )}
                 </MenuList>
+
               </div>
             </Popover>
           </div>

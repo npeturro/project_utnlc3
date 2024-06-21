@@ -1,9 +1,18 @@
-import { useState, useRef } from 'react';
+import { useState, useRef , useContext} from 'react';
 import { Button, TextField, Box, Typography, Container, Alert, Snackbar } from '@mui/material'
 import { useNavigate } from 'react-router-dom';
+import useAuthentication from './Authentication';
+import { UserContext } from '../../contexts/user-context';
 
 
-function Login() {
+function Login (props) {
+
+  // const { setUserLoged } = props
+
+  const { userLoged, setUserLoged } = useContext(UserContext);
+
+  const navigate = useNavigate();
+  const { authenticate } = useAuthentication();
 
   const [values, setValues] = useState({
     email: '',
@@ -24,7 +33,6 @@ function Login() {
     message: ''
   });
 
-  const navigate = useNavigate();
 
   const showAlert = (message, severity) => {
     setAlert({ open: true, message, severity });
@@ -34,7 +42,7 @@ function Login() {
   };
 
   const handleClick = () => {
-    console.log(values);
+
     if (!emailRef.current.value) {
       emailRef.current.focus();
       setErrors(prevErrors => ({ ...prevErrors, email: true }));
@@ -54,9 +62,16 @@ function Login() {
       return;
     }
 
-    showAlert("¡Usuario ingresado correctamente!", "success");
-    setValues({ email: '', password: '' });
-    navigate('/')
+    const { authenticated, role } = authenticate(values.email, values.password);
+    
+    if (authenticated) {
+      showAlert("¡Usuario ingresado correctamente!", "success");
+      setValues({ email: '', password: '' });
+      navigate('/');
+      setUserLoged({ authenticated, role })
+    } else {
+      showAlert("Credenciales incorrectas", "error");
+    }
   };
 
   const handleChange = (event) => {
@@ -73,8 +88,8 @@ function Login() {
 
 
   return (
-    
-    <Container maxWidth="xs"  sx={{display: 'flex', justifyContent: 'center', alignItems: 'center', mt: '5%' }}>
+
+    <Container maxWidth="xs" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mt: '5%' }}>
       <Box
         sx={{
           marginTop: 8,
@@ -140,16 +155,18 @@ function Login() {
           <Button
             fullWidth
             variant="contained"
-            sx={{ mt: 3, backgroundColor: '#051c67',
+            sx={{
+              mt: 3, backgroundColor: '#051c67',
               '&:hover': {
-                  backgroundColor: '#051c40',
-              } }}
+                backgroundColor: '#051c40',
+              }
+            }}
             onClick={handleClick}
           >
             Continuar
           </Button>
         </Box>
-        <Box sx={{ mt: 3}}><p>No tenes cuenta? <a href='#'>Registrate</a></p></Box>
+        <Box sx={{ mt: 3 }}><p>No tenes cuenta? <a href='#'>Registrate</a></p></Box>
       </Box>
     </Container>
   );
