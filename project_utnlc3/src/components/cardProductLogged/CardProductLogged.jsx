@@ -12,11 +12,13 @@ import CardCover from "@mui/joy/CardCover";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import { UserContext } from "../../contexts/user-context";
 import { CartContext } from "../../contexts/cart-context";
+import { useNavigate } from 'react-router-dom';
 
 const CardProductLogged = ({ product }) => {
   const [hoveredCardId, setHoveredCardId] = useState(null);
   const { userLoged } = useContext(UserContext);
   const { addCart } = useContext(CartContext);
+  const navigate = useNavigate();
 
   if (!product) {
     return null;
@@ -24,6 +26,11 @@ const CardProductLogged = ({ product }) => {
 
   const truncateName = (name) => {
     return name.substring(0, 25) + (name.length > 25 ? "..." : "");
+  };
+
+  const handleLinkClick = (event) => {
+    event.preventDefault();
+    navigate(`/productView/${product.id}`, { state: { product } });
   };
 
   return (
@@ -55,8 +62,8 @@ const CardProductLogged = ({ product }) => {
       <CardContent>
         <Typography level="body-xs">{product.category}</Typography>
         <Link
-          href={product.link}
-          target="_blank"
+          href={`/productView/${product.id}`} 
+          onClick={handleLinkClick}
           fontWeight="lg"
           color="neutral"
           textColor={
@@ -72,6 +79,7 @@ const CardProductLogged = ({ product }) => {
             "&:hover": {
               color: "grey",
               textDecoration: "none",
+              cursor: 'pointer'
             },
           }}
         >
@@ -127,3 +135,4 @@ CardProductLogged.propTypes = {
 };
 
 export default CardProductLogged;
+

@@ -1,44 +1,87 @@
 import PropTypes from "prop-types";
+import { useNavigate, useLocation, useParams } from 'react-router-dom';
+import { useState, useContext } from 'react';
+import { Box, Grid, Card, CardMedia, CardContent } from '@mui/material';
+import { Button, Typography } from "@mui/joy";
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import { CartContext } from "../../contexts/cart-context";
+import { UserContext } from "../../contexts/user-context";
+import { Link as MUILink } from "@mui/joy";
 
-const ProductView = ({ producto }) => {
+
+
+const ProductView = () => {
+  const location = useLocation();
+  const { addCart } = useContext(CartContext);
+  const { userLoged } = useContext(UserContext);
+  const [product, setProduct] = useState(location.state?.product || null);
+  const navigate = useNavigate();
+
+  const handleClickLogin = (event) => {
+    event.preventDefault();
+    navigate(`/login`);
+  };
+
+  if (!product) {
+    return <div>Loading...</div>;
+  }
+
   return (
-    <div className="card mb-4">
-      <div className="row no-gutters">
-        <div className="col-md-4">
-          <img src={producto.image} className="card-img" alt={producto.name} />
-        </div>
-        <div className="col-md-8">
-          <div className="card-body">
-            <h5 className="card-title">{producto.name}</h5>
-            <p className="card-text">
-              <strong>Price:</strong> ${producto.price}
-            </p>
-            <p className="card-text">
-              <strong>Description:</strong> {producto.description}
-            </p>
-            <p className="card-text">
-              <strong>Category:</strong> {producto.category}
-            </p>
-            <p className="card-text">
-              <strong>Stock:</strong> {producto.stock}
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
+    <Box sx={{ padding: 4 }}>
+      <Grid container spacing={2}>
+        <Grid item xs={12} md={6} sx={{ padding: 4, marginLeft: 15 }}>
+          <Card>
+            <CardMedia
+              component="img"
+              height="450"
+              image={product.image}
+            />
+          </Card>
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <Card sx={{ padding: 2 }}>
+            <CardContent>
+              <Typography level="h2" gutterBottom>
+                {product.name}
+              </Typography>
+              <Typography level="h3" gutterBottom>
+                {product.category}
+              </Typography>
+              <Typography level="h2" color="primary" gutterBottom>
+                $ {product.price}
+              </Typography>
+              <Typography level="body1" color="success" gutterBottom>
+                Hasta 12 cuotas
+              </Typography>
+              <Typography level="body1" color="success" gutterBottom>
+                Envío a todo el país
+              </Typography>
+              <Box display="flex" alignItems="center" mt={2} mb={2}>
+              </Box>
+              {userLoged.authenticated ? <Button
+                variant="solid"
+                color="primary"
+                size="lg"
+                startDecorator={<AddShoppingCartIcon />}
+                onClick={() => addCart(product)}
+              >
+                Agregar al carrito
+              </Button>
+                :
+                  <Button
+                    variant="solid"
+                    color="primary"
+                    size="lg"
+                    onClick={handleClickLogin}
+                  >
+                    Iniciar sesión
+                  </Button>}
+            </CardContent>
+          </Card>
+        </Grid>
+      </Grid>
+    </Box >
   );
-};
-
-ProductView.propTypes = {
-  producto: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    description: PropTypes.string,
-    image: PropTypes.string,
-    category: PropTypes.string,
-    stock: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  }).isRequired,
 };
 
 export default ProductView;

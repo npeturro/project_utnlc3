@@ -15,6 +15,7 @@ import ProductsByCategory from "./components/productsByCategory/ProductsByCatego
 import { UserProvider } from './contexts/user-context';
 import { CartProvider } from './contexts/cart-context';
 import { CartelProvider } from './contexts/alert-context';
+import ProductView from './components/productView/ProductView';
 
 const App = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -89,6 +90,14 @@ const App = () => {
             element: (
                 <MainLayout>
                     <ProductsByCategory />
+                </MainLayout>
+            )
+        },
+        {
+            path: "/productView/:id",
+            element: (
+                <MainLayout>
+                    <ProductView />
                 </MainLayout>
             )
         },
