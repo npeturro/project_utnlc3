@@ -5,12 +5,11 @@ import Footer from '../../footer/Footer';
 import WhatsAppButton from '../../whatsappButton/WhatsappButoon';
 
 const MainLayout = ({ children, onLogOff }) => {
-
-
+    
     return (
         <div className='main-layout'>
             <div className='header'>
-                <NavBar onLogOff = {onLogOff}/>
+                <NavBar onLogOff={onLogOff} />
             </div>
             <div className='content'>
                 {children}
@@ -23,4 +22,4 @@ const MainLayout = ({ children, onLogOff }) => {
     )
 }
 
-export default MainLayout
+export default MainLayout;

@@ -11,6 +11,7 @@ import ProductCrud from './components/productCrud/ProductCrud';
 import About from './components/about/About';
 import UserCrud from './components/userCrud/userCrud';
 import Checkout from './components/checkout/Checkout';
+import ProductsByCategory from "./components/productsByCategory/ProductsByCategory";
 import { UserProvider } from './contexts/user-context';
 import { CartProvider } from './contexts/cart-context';
 import { CartelProvider } from './contexts/alert-context';
@@ -80,6 +81,14 @@ const App = () => {
             element: (
                 <MainLayout>
                     <About />
+                </MainLayout>
+            )
+        },
+        {
+            path: "/products/:category",
+            element: (
+                <MainLayout>
+                    <ProductsByCategory />
                 </MainLayout>
             )
         },

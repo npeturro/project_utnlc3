@@ -69,7 +69,7 @@ const CardProductLogged = ({ product }) => {
           {product.oldPrice}
         </Typography>
         <Typography level="title-lg" sx={{ mt: 1, fontWeight: "xl" }}>
-          {product.price.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })}{" "}
+          {product.price}{" "}
           <Chip variant="soft" color="success" size="sm">
             Oferta
           </Chip>
