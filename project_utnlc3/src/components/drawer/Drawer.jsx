@@ -47,7 +47,7 @@ const DrawerScroll = () => {
     const handleCategoryClick = (category) => {
         navigate(`/products/${category}`)
         setOpen(false);
-        console.log(userLoged.name)
+        
     };
 
     return (
