@@ -1,15 +1,9 @@
 import { useState, useEffect, useContext } from 'react';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
-import Button from '@mui/joy/Button';
-import { Link } from 'react-router-dom';
-import { Popover, MenuList, MenuItem, Tooltip, Badge } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { Link } from 'react-router-dom';
+import { Popover, MenuList, MenuItem, Tooltip, Badge, Grid, Button, InputBase, IconButton, Toolbar, AppBar, Typography } from '@mui/material';
 import fondo from '../../images/fondo.png'
 import logoImage from '../../images/icon one tech_Blanco fondo transparente.png'
 import axios from 'axios';
@@ -78,114 +72,108 @@ const NavBar = () => {
 
   return (
     <>
-      <AppBar
-        position="fixed" sx={{ backgroundImage: `url(${fondo})`, backgroundSize: 'cover' }}
-      >
+      <AppBar position="fixed" sx={{ backgroundImage: `url(${fondo})`, backgroundSize: 'cover' }}>
         <Toolbar style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
-            <div style={{ display: 'flex', alignItems: 'center' }}>
+          <Grid style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+            <Grid style={{ display: 'flex', alignItems: 'center' }}>
               <Link to="/">
-                <img src={logoImage} alt="Logo de tu empresa" style={{ width: 50, marginRight: 10 }} />
+                <img src={logoImage} alt="Logo" style={{ width: 50, marginRight: 10 }} />
               </Link>
-              <Typography variant="h6" component="div">
+              <Typography variant="h6" component="Grid">
                 ONE TECH
               </Typography>
-            </div>
+            </Grid>
             <Drawer />
-          </div>
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-            <div style={{ marginRight: 10 }}>
-              <IconButton color="inherit" aria-label="search">
+          </Grid>
+          <Grid style={{ display: 'flex', flex: 1, justifyContent: 'center' }}>
+            <Grid style={{ display: 'flex', width:'500px', alignItems: 'center', backgroundColor: 'white', borderRadius: 4, padding: '2px 10px', borderRadius: '50px' }}>
+              <IconButton color="black" aria-label="search">
                 <SearchIcon />
               </IconButton>
-            </div>
-            <div style={{ marginRight: 10 }}>
               <InputBase
                 placeholder="Buscar..."
                 inputProps={{ 'aria-label': 'buscar' }}
-                style={{ color: 'white' }}
+                style={{ color: 'black', marginLeft: 10, width:'500px' }}
                 value={searchText}
                 onChange={handleSearchChange}
               />
-            </div>
-
-            <Tooltip title='Carrito de compras'>
-              <Link to="/cart" style={{ textDecoration: 'none', color: 'inherit' }}>
-                {/* <IconButton color="inherit" aria-label="carrito de compras">
-                  <ShoppingCartIcon />
-                </IconButton> */}
-                <Badge color="secondary" badgeContent={count}>
-                  <ShoppingCartIcon />
-                </Badge>
-              </Link>
-            </Tooltip>
-            <Tooltip title='Perfil'>
-              <IconButton
-                color="inherit"
-                aria-label="login"
-                onClick={handlePopoverOpen}
+            </Grid>
+          </Grid>
+          <Grid style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <Grid style={{ display: 'flex', alignItems: 'center', marginBottom: 10 }}>
+              <Tooltip title='Carrito de compras'>
+                <Link to="/cart" style={{ textDecoration: 'none', color: 'inherit' }}>
+                  <Badge color="secondary" badgeContent={count}>
+                    <ShoppingCartIcon />
+                  </Badge>
+                </Link>
+              </Tooltip>
+              <Tooltip title='Perfil'>
+                <IconButton color="inherit" aria-label="login" onClick={handlePopoverOpen}>
+                  <AccountCircleIcon />
+                </IconButton>
+              </Tooltip>
+              <Popover
+                id={id}
+                open={open}
+                anchorEl={anchorEl}
+                onClose={handlePopoverClose}
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'center',
+                }}
               >
-                <AccountCircleIcon />
-              </IconButton>
-            </Tooltip>
-            <Popover
-              id={id}
-              open={open}
-              anchorEl={anchorEl}
-              onClose={handlePopoverClose}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'center',
-              }}
-            >
-              <div style={{ padding: '5px' }}>
-                <MenuList
-                  disablePadding
-                  dense
-                  sx={{
-                    p: '8px',
-                    '& > *': {
-                      borderRadius: 1
-                    }
-                  }}
-                >
-                  {!userLoged.authenticated && (
-                    <Link to="/login" style={{ textDecoration: 'none', color: 'inherit' }}>
-                      <MenuItem onClick={handlePopoverClose}>
-                        Iniciar sesión
+                <Grid style={{ padding: '5px' }}>
+                  <MenuList
+                    disablePadding
+                    dense
+                    sx={{
+                      p: '8px',
+                      '& > *': {
+                        borderRadius: 1
+                      }
+                    }}
+                  >
+                    {!userLoged.authenticated && (
+                      <Link to="/login" style={{ textDecoration: 'none', color: 'inherit' }}>
+                        <MenuItem onClick={handlePopoverClose}>
+                          Iniciar sesión
+                        </MenuItem>
+                      </Link>
+                    )}
+                    {!userLoged.authenticated && (
+                      <MenuItem>
+                        Registrarse
                       </MenuItem>
-                    </Link>
-                  )}
-                  {!userLoged.authenticated && (
-                    <MenuItem>
-                      Registrarse
-                    </MenuItem>
-                  )}
-                  {userLoged.authenticated && (
-                    <MenuItem onClick={handleCerrar}>
-                      Cerrar sesión
-                    </MenuItem>
-                  )}
-                </MenuList>
-              </div>
-            </Popover>
+                    )}
+                    {userLoged.authenticated && (
+                      <MenuItem onClick={handleCerrar}>
+                        Cerrar sesión
+                      </MenuItem>
+                    )}
+                  </MenuList>
+                </Grid>
+              </Popover>
+            </Grid>
             <Link to="/about">
-              <Button variant="soft" color="neutral" size="sm" style={{ marginLeft: 10 }}>
+              <Button sx={{color:'white'}}>
                 Nosotros
               </Button>
             </Link>
-          </div>
+          </Grid>
         </Toolbar>
       </AppBar>
 
-      {/* <div style={{ marginTop: '80px', padding: '20px' }}>
+
+
+      {/* <Grid style={{ marginTop: '80px', padding: '20px' }}>
         <Typography variant="h6">Resultados de búsqueda:</Typography>
         <ul>
           {filteredProductos.map((producto) => (
             <li key={producto.id}>{producto.name}</li>
           ))}
         </ul>
-      </div> */}
+      </Grid> */}
     </>
   );
 };
