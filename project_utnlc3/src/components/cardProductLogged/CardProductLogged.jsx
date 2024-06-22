@@ -22,6 +22,10 @@ const CardProductLogged = ({ product }) => {
     return null;
   }
 
+  const truncateName = (name) => {
+    return name.substring(0, 25) + (name.length > 25 ? "..." : "");
+  };
+
   return (
     <Card
       key={product.id}
@@ -37,7 +41,7 @@ const CardProductLogged = ({ product }) => {
       onMouseLeave={() => setHoveredCardId(null)}
     >
       <CardOverflow>
-        <AspectRatio minHeight="320px" sx={{ minWidth: 200 }}>
+        <AspectRatio minHeight="230px" sx={{ minWidth: 200 }}>
           <img src={product.image} loading="lazy" alt={product.name} />
         </AspectRatio>
       </CardOverflow>
@@ -55,11 +59,25 @@ const CardProductLogged = ({ product }) => {
           target="_blank"
           fontWeight="lg"
           color="neutral"
-          textColor="text.primary"
+          textColor={
+            hoveredCardId === product.id ? "text.primary" : "text.disabled"
+          }
           level="h3"
+          sx={{
+            textOverflow: "ellipsis",
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            textDecoration: "none",
+            color: hoveredCardId === product.id ? "grey" : "inherit",
+            "&:hover": {
+              color: "grey",
+              textDecoration: "none",
+            },
+          }}
         >
-          {product.name}
+          {truncateName(product.name)}
         </Link>
+
         <Typography
           sx={{
             textDecoration: "line-through",
@@ -78,21 +96,19 @@ const CardProductLogged = ({ product }) => {
           <b>{product.stock}</b> Unidades disponibles
         </Typography>
       </CardContent>
-      {
-        userLoged.authenticated && (
-          <CardOverflow>
-            <Button
-              variant="solid"
-              color="primary"
-              size="lg"
-              startDecorator={<AddShoppingCartIcon />}
-              onClick={() => addCart(product)}
-            >
-              Agregar al carrito
-            </Button>
-          </CardOverflow>
-        )
-      }
+      {userLoged.authenticated && (
+        <CardOverflow>
+          <Button
+            variant="solid"
+            color="primary"
+            size="lg"
+            startDecorator={<AddShoppingCartIcon />}
+            onClick={() => addCart(product)}
+          >
+            Agregar al carrito
+          </Button>
+        </CardOverflow>
+      )}
     </Card>
   );
 };
