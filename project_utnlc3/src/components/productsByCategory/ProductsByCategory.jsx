@@ -40,7 +40,7 @@ const ProductsByCategory = ({ selected }) => {
                     <Card
                         key={product.id}
                         sx={{
-                            width: 200, // Reduced width
+                            width: 200,
                             maxWidth: "100%",
                             boxShadow: "sm",
                             transition: "transform 0.2s ease",
@@ -51,7 +51,7 @@ const ProductsByCategory = ({ selected }) => {
                         onMouseLeave={() => setHoveredCardId(null)}
                     >
                         <CardOverflow>
-                            <AspectRatio minHeight="200px" sx={{ minWidth: 160 }}> {/* Reduced minHeight and minWidth */}
+                            <AspectRatio minHeight="200px" sx={{ minWidth: 160 }}>
                                 <img src={product.image} loading="lazy" alt={product.name} />
                             </AspectRatio>
                         </CardOverflow>
@@ -62,8 +62,8 @@ const ProductsByCategory = ({ selected }) => {
                                 borderColor: "#777",
                             }}
                         ></CardCover>
-                        <CardContent sx={{ padding: '8px' }}> {/* Reduced padding */}
-                            <Typography level="body-xs" fontSize="small">{product.category}</Typography> {/* Adjust font size */}
+                        <CardContent sx={{ padding: '8px' }}>
+                            <Typography level="body-xs" fontSize="small">{product.category}</Typography>
                             <Link
                                 href={product.link}
                                 target="_blank"
@@ -71,7 +71,7 @@ const ProductsByCategory = ({ selected }) => {
                                 color="neutral"
                                 textColor="text.primary"
                                 level="h3"
-                                sx={{ fontSize: 'medium' }} // Adjust font size
+                                sx={{ fontSize: 'medium' }}
                             >
                                 {product.name}
                             </Link>
@@ -79,7 +79,7 @@ const ProductsByCategory = ({ selected }) => {
                                 sx={{
                                     textDecoration: "line-through",
                                     color: "rgba(0, 0, 0, 0.8)",
-                                    fontSize: 'small', // Adjust font size
+                                    fontSize: 'small',
                                 }}
                             >
                                 {product.oldPrice}
@@ -90,7 +90,7 @@ const ProductsByCategory = ({ selected }) => {
                                     Oferta
                                 </Chip>
                             </Typography>
-                            <Typography level="body-sm" fontStyle={"italic"} fontSize="small"> {/* Adjust font size */}
+                            <Typography level="body-sm" fontStyle={"italic"} fontSize="small">
                                 <b>{product.stock}</b> Unidades disponibles
                             </Typography>
                         </CardContent>
@@ -98,9 +98,9 @@ const ProductsByCategory = ({ selected }) => {
                             <Button
                                 variant="solid"
                                 color="primary"
-                                size="md" // Adjust button size
+                                size="md"
                                 startDecorator={<AddShoppingCartIcon />}
-                                sx={{ fontSize: 'small' }} // Adjust font size
+                                sx={{ fontSize: 'small' }}
                             >
                                 Agregar al carrito
                             </Button>

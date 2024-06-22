@@ -63,13 +63,13 @@ function Login (props) {
       return;
     }
 
-    const { authenticated, role } = authenticate(values.email, values.password);
+    const { authenticated, role, name } = authenticate(values.email, values.password);
     
     if (authenticated) {
       showAlert("¡Usuario ingresado correctamente!", "success");
       setValues({ email: '', password: '' });
       navigate('/');
-      setUserLoged({ authenticated, role })
+      setUserLoged({ authenticated, role, name })
     } else {
       showAlert("Credenciales incorrectas", "error");
     }

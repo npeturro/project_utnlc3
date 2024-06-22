@@ -11,7 +11,7 @@ import ModalClose from '@mui/joy/ModalClose';
 import Menu from '@mui/icons-material/Menu';
 import IconButton from '@mui/material/IconButton';
 import { UserContext } from '../../contexts/user-context';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate from react-router-dom
+import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 
 const DrawerScroll = () => {
@@ -19,8 +19,7 @@ const DrawerScroll = () => {
     const [categories, setCategories] = useState([]);
     const { userLoged } = useContext(UserContext);
     const [alert, setAlert] = useState({ message: "", type: "" });
-    const navigate = useNavigate(); // Get navigate function from useNavigate
-
+    const navigate = useNavigate();
     useEffect(() => {
         cargarCategorias();
     }, []);
@@ -46,8 +45,9 @@ const DrawerScroll = () => {
     };
 
     const handleCategoryClick = (category) => {
-        navigate(`/products/${category}`); // Navigate to products by category route
-        setOpen(false); // Close drawer after selecting a category
+        navigate(`/products/${category}`)
+        setOpen(false);
+        console.log(userLoged.name)
     };
 
     return (

@@ -6,7 +6,8 @@ const UserProvider = ({ children }) => {
 
     const [userLoged, setUserLoged] = useState({
         authenticated: false,
-        role: ''
+        role: '',
+        name: ''
     });
 
     useEffect(() => { }, [userLoged]);
