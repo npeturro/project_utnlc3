@@ -13,7 +13,9 @@ const Carrusel = ({ products }) => {
 
   return (
     <div className="carousel-container">
-      <h2>Productos Destacados</h2>
+      <h2 style={{ textAlign: "center" }}>
+        ONE TECH - TRANSFORMING IDEAS INTO REALITY{" "}
+      </h2>
       <Carousel
         variant="dark"
         interval={8000}

@@ -1,5 +1,4 @@
 import { useState, useContext } from "react";
-import InfoBar from "../infoBar/InfoBar";
 import { Link } from "react-router-dom";
 import CarruselContainer from "../carruselContainer/CarruselContainer";
 import { UserContext } from "../../contexts/user-context";
@@ -102,7 +101,6 @@ const Index = () => {
               <img src="https://images.samsung.com/is/image/samsung/assets/ar/bespoke-ai-2024/bannersbespokeAI_1366x607v2.png?imwidth=1366"></img>
             </Carousel.Item>
           </Carousel>
-          <InfoBar />
           <CarruselContainer />
           <img
             src="https://airoldi.com.ar/media/wysiwyg/Banner-CX_002_.jpg"
