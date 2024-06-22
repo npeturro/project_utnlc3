@@ -12,17 +12,19 @@ import About from './components/about/About';
 import UserCrud from './components/userCrud/userCrud';
 import Checkout from './components/checkout/Checkout';
 import { UserProvider } from './contexts/user-context';
+import { CartProvider } from './contexts/cart-context';
+import { CartelProvider } from './contexts/alert-context';
 
 const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const loginHandler = () => {
-    setIsLoggedIn(true);
-  };
+    const loginHandler = () => {
+        setIsLoggedIn(true);
+    };
 
-  const logOutHandler = () => {
-    setIsLoggedIn(false);
-  };
+    const logOutHandler = () => {
+        setIsLoggedIn(false);
+    };
 
     const router = createBrowserRouter([
         {
@@ -45,7 +47,7 @@ const App = () => {
             path: "/",
             element: (
                 <MainLayout>
-                    <Index/>
+                    <Index />
                 </MainLayout>
             )
         },
@@ -90,13 +92,17 @@ const App = () => {
 
     return (
         <div>
-            <UserProvider>
-                {<RouterProvider router={router} />}
-            </UserProvider>
+            <CartelProvider>
+                <UserProvider>
+                    <CartProvider>
+                        {<RouterProvider router={router} />}
+                    </CartProvider>
+                </UserProvider>
+            </CartelProvider>
         </div>
     )
 
-  return <div>{<RouterProvider router={router} />}</div>;
+    return <div>{<RouterProvider router={router} />}</div>;
 };
 
 export default App;

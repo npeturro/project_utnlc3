@@ -8,13 +8,14 @@ import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import Button from '@mui/joy/Button';
 import { Link } from 'react-router-dom';
-import { Popover, MenuList, MenuItem, Tooltip } from '@mui/material';
+import { Popover, MenuList, MenuItem, Tooltip, Badge } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import fondo from '../../images/fondo.png'
 import logoImage from '../../images/icon one tech_Blanco fondo transparente.png'
 import axios from 'axios';
 import { UserContext } from '../../contexts/user-context';
 import Drawer from '../drawer/Drawer';
+import { CartContext } from '../../contexts/cart-context';
 
 const NavBar = () => {
 
@@ -24,6 +25,7 @@ const NavBar = () => {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const { userLoged, setUserLoged } = useContext(UserContext);
+  const { count, setCart, setCount } = useContext(CartContext);
 
   // useEffect(() => {
   //   const fetchProductos = async () => {
@@ -65,6 +67,9 @@ const NavBar = () => {
       authenticated: false,
       role: ''
     });
+    setCart([]);
+    setCount(0);
+    handlePopoverClose()
   };
 
   const open = Boolean(anchorEl);
@@ -106,9 +111,12 @@ const NavBar = () => {
 
             <Tooltip title='Carrito de compras'>
               <Link to="/cart" style={{ textDecoration: 'none', color: 'inherit' }}>
-                <IconButton color="inherit" aria-label="carrito de compras">
+                {/* <IconButton color="inherit" aria-label="carrito de compras">
                   <ShoppingCartIcon />
-                </IconButton>
+                </IconButton> */}
+                <Badge color="secondary" badgeContent={count}>
+                  <ShoppingCartIcon />
+                </Badge>
               </Link>
             </Tooltip>
             <Tooltip title='Perfil'>

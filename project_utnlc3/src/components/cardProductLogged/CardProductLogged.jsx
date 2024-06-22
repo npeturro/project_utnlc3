@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import PropTypes from "prop-types";
 import AspectRatio from "@mui/joy/AspectRatio";
 import Button from "@mui/joy/Button";
@@ -10,9 +10,13 @@ import Link from "@mui/joy/Link";
 import Typography from "@mui/joy/Typography";
 import CardCover from "@mui/joy/CardCover";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import { UserContext } from "../../contexts/user-context";
+import { CartContext } from "../../contexts/cart-context";
 
 const CardProductLogged = ({ product }) => {
   const [hoveredCardId, setHoveredCardId] = useState(null);
+  const { userLoged } = useContext(UserContext);
+  const { addCart } = useContext(CartContext);
 
   if (!product) {
     return null;
@@ -65,7 +69,7 @@ const CardProductLogged = ({ product }) => {
           {product.oldPrice}
         </Typography>
         <Typography level="title-lg" sx={{ mt: 1, fontWeight: "xl" }}>
-          {product.price}{" "}
+          {product.price.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })}{" "}
           <Chip variant="soft" color="success" size="sm">
             Oferta
           </Chip>
@@ -74,16 +78,21 @@ const CardProductLogged = ({ product }) => {
           <b>{product.stock}</b> Unidades disponibles
         </Typography>
       </CardContent>
-      <CardOverflow>
-        <Button
-          variant="solid"
-          color="primary"
-          size="lg"
-          startDecorator={<AddShoppingCartIcon />}
-        >
-          Agregar al carrito
-        </Button>
-      </CardOverflow>
+      {
+        userLoged.authenticated && (
+          <CardOverflow>
+            <Button
+              variant="solid"
+              color="primary"
+              size="lg"
+              startDecorator={<AddShoppingCartIcon />}
+              onClick={() => addCart(product)}
+            >
+              Agregar al carrito
+            </Button>
+          </CardOverflow>
+        )
+      }
     </Card>
   );
 };
