@@ -1,117 +1,114 @@
-import { useState, useEffect } from 'react';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import './App.css'
+import { useState, useEffect } from "react";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import "./App.css";
 import CardProductLogged from "./components/cardProductLogged/CardProductLogged";
 import Login from "./components/login/Login";
-import Cart from './components/cart/Cart';
-import MainLayout from './components/layout/mainLayout/MainLayout';
-import NotFound from './components/notFound/NotFound';
-import Index from './components/index/Index';
-import ProductCrud from './components/productCrud/ProductCrud';
-import About from './components/about/About';
-import UserCrud from './components/userCrud/userCrud';
-import Checkout from './components/checkout/Checkout';
+import Cart from "./components/cart/Cart";
+import MainLayout from "./components/layout/mainLayout/MainLayout";
+import NotFound from "./components/notFound/NotFound";
+import Index from "./components/index/Index";
+import ProductCrud from "./components/productCrud/ProductCrud";
+import About from "./components/about/About";
+import UserCrud from "./components/userCrud/userCrud";
+import Checkout from "./components/checkout/Checkout";
 import ProductsByCategory from "./components/productsByCategory/ProductsByCategory";
-import { UserProvider } from './contexts/user-context';
-import { CartProvider } from './contexts/cart-context';
-import { CartelProvider } from './contexts/alert-context';
+import { UserProvider } from "./contexts/user-context";
+import { CartProvider } from "./contexts/cart-context";
+import { CartelProvider } from "./contexts/alert-context";
 
 const App = () => {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-    const loginHandler = () => {
-        setIsLoggedIn(true);
-    };
+  const loginHandler = () => {
+    setIsLoggedIn(true);
+  };
 
-    const logOutHandler = () => {
-        setIsLoggedIn(false);
-    };
+  const logOutHandler = () => {
+    setIsLoggedIn(false);
+  };
 
-    const router = createBrowserRouter([
-        {
-            path: "/login",
-            element: (
-                <MainLayout>
-                    <Login />
-                </MainLayout>
-            )
-        },
-        {
-            path: "/cart",
-            element: (
-                <MainLayout>
-                    <Cart />
-                </MainLayout>
-            )
-        },
-        {
-            path: "/",
-            element: (
-                <MainLayout>
-                    <Index />
-                </MainLayout>
-            )
-        },
-        {
-            path: "/product",
-            element: (
-                <MainLayout>
-                    <ProductCrud />
-                </MainLayout>
-            )
-        },
-        {
-            path: "/checkout",
-            element: (
-                <MainLayout>
-                    <Checkout />
-                </MainLayout>
-            )
-        },
-        {
-            path: "/users",
-            element: (
-                <MainLayout>
-                    <UserCrud />
-                </MainLayout>
-            )
-        },
-        {
-            path: "/about",
-            element: (
-                <MainLayout>
-                    <About />
-                </MainLayout>
-            )
-        },
-        {
-            path: "/products/:category",
-            element: (
-                <MainLayout>
-                    <ProductsByCategory />
-                </MainLayout>
-            )
-        },
-        {
-            path: "*",
-            element: <NotFound />,
-        },
+  const router = createBrowserRouter([
+    {
+      path: "/login",
+      element: (
+        <MainLayout>
+          <Login />
+        </MainLayout>
+      ),
+    },
+    {
+      path: "/cart",
+      element: (
+        <MainLayout>
+          <Cart />
+        </MainLayout>
+      ),
+    },
+    {
+      path: "/",
+      element: (
+        <MainLayout>
+          <Index />
+        </MainLayout>
+      ),
+    },
+    {
+      path: "/product",
+      element: (
+        <MainLayout>
+          <ProductCrud />
+        </MainLayout>
+      ),
+    },
+    {
+      path: "/checkout",
+      element: (
+        <MainLayout>
+          <Checkout />
+        </MainLayout>
+      ),
+    },
+    {
+      path: "/users",
+      element: (
+        <MainLayout>
+          <UserCrud />
+        </MainLayout>
+      ),
+    },
+    {
+      path: "/about",
+      element: (
+        <MainLayout>
+          <About />
+        </MainLayout>
+      ),
+    },
+    {
+      path: "/products/:category",
+      element: (
+        <MainLayout>
+          <ProductsByCategory />
+        </MainLayout>
+      ),
+    },
+    {
+      path: "*",
+      element: <NotFound />,
+    },
+  ]);
 
-    ]);
+  return (
+    <div>
+      <CartelProvider>
+        <UserProvider>
+          <CartProvider>{<RouterProvider router={router} />}</CartProvider>
+        </UserProvider>
+      </CartelProvider>
+    </div>
+  );
 
-    return (
-        <div>
-            <CartelProvider>
-                <UserProvider>
-                    <CartProvider>
-                        {<RouterProvider router={router} />}
-                    </CartProvider>
-                </UserProvider>
-            </CartelProvider>
-        </div>
-    )
-
-    return <div>{<RouterProvider router={router} />}</div>;
+  return <div>{<RouterProvider router={router} />}</div>;
 };
 
 export default App;

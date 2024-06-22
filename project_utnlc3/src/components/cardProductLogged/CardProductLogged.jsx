@@ -42,7 +42,16 @@ const CardProductLogged = ({ product }) => {
     >
       <CardOverflow>
         <AspectRatio minHeight="230px" sx={{ minWidth: 200 }}>
-          <img src={product.image} loading="lazy" alt={product.name} />
+          <img
+            src={product.image}
+            loading="lazy"
+            alt={product.name}
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+            }}
+          />
         </AspectRatio>
       </CardOverflow>
       <CardCover
