@@ -39,9 +39,6 @@ const About = () => {
                 <Typography variant="overline" component="div" gutterBottom>
                     NUESTRA MISIÓN
                 </Typography>
-                <Typography variant="overline" component="div" gutterBottom>
-                    NUESTRA MISIÓN
-                </Typography>
                 <Typography variant="h5" component="h2" gutterBottom>
                     Simplificamos tu vida
                 </Typography>

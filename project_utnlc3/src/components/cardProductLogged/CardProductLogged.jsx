@@ -65,7 +65,7 @@ const CardProductLogged = ({ product }) => {
           {product.oldPrice}
         </Typography>
         <Typography level="title-lg" sx={{ mt: 1, fontWeight: "xl" }}>
-          {product.price}{" "}
+          $ {product.price}{" "}
           <Chip variant="soft" color="success" size="sm">
             Oferta
           </Chip>
