@@ -3,13 +3,14 @@ import { Button, TextField, Box, Typography, Container, Alert, Snackbar } from '
 import { useNavigate } from 'react-router-dom';
 import useAuthentication from './Authentication';
 import { UserContext } from '../../contexts/user-context';
-
+import { CartelContext } from '../../contexts/alert-context';
 
 function Login (props) {
 
   // const { setUserLoged } = props
 
   const { userLoged, setUserLoged } = useContext(UserContext);
+  const { handleCartel } = useContext(CartelContext);
 
   const navigate = useNavigate();
   const { authenticate } = useAuthentication();
