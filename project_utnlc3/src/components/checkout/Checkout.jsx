@@ -67,7 +67,7 @@ const Checkout = (props) => {
                     <Card sx={{ maxWidth: 500, flex: 1 }}>
                         <CardContent>
                             <Typography variant="h6" component="div" color={'black'}>
-                                Resumen del pedido
+                                <b>Resumen del pedido</b>
                             </Typography>
                             <Divider sx={{ my: 2 }} />
                             {products.map((producto) => (
