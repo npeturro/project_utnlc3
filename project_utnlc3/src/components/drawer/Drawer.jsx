@@ -20,6 +20,7 @@ const DrawerScroll = () => {
     const { userLoged } = useContext(UserContext);
     const [alert, setAlert] = useState({ message: "", type: "" });
     const navigate = useNavigate();
+
     useEffect(() => {
         cargarCategorias();
     }, []);
@@ -45,9 +46,13 @@ const DrawerScroll = () => {
     };
 
     const handleCategoryClick = (category) => {
-        navigate(`/products/${category}`)
+        navigate(`/products/${category}`);
         setOpen(false);
-        
+    };
+
+    const handleViewAllProducts = () => {
+        navigate(`/products`);
+        setOpen(false);
     };
 
     return (
@@ -75,6 +80,11 @@ const DrawerScroll = () => {
                                 </ListItemButton>
                             </ListItem>
                         )}
+                        <ListItem>
+                            <ListItemButton onClick={handleViewAllProducts}>
+                                <b>Ver todos</b>
+                            </ListItemButton>
+                        </ListItem>
                     </List>
                 </DialogContent>
                 <Box

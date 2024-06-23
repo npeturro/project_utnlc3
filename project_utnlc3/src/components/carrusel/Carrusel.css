@@ -57,7 +57,7 @@
   }
   
   .product-card {
-    flex: 1 1 23%; /* Ajusta el valor para controlar el tamaño de las tarjetas */
+    flex: 1 1 23%;
     margin: 10px;
-    max-width: 23%; /* Asegura que las tarjetas no crezcan más del 23% del contenedor */
+    max-width: 23%;
   }

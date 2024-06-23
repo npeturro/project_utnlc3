@@ -24,10 +24,6 @@ const CardProductLogged = ({ product }) => {
     return null;
   }
 
-  const truncateName = (name) => {
-    return name.substring(0, 25) + (name.length > 25 ? "..." : "");
-  };
-
   const handleLinkClick = (event) => {
     event.preventDefault();
     navigate(`/productView/${product.id}`, { state: { product } });
@@ -37,7 +33,7 @@ const CardProductLogged = ({ product }) => {
     <Card
       key={product.id}
       sx={{
-        width: 250,
+        width: 270,
         maxWidth: "100%",
         boxShadow: "sm",
         transition: "transform 0.2s ease",
@@ -48,7 +44,7 @@ const CardProductLogged = ({ product }) => {
       onMouseLeave={() => setHoveredCardId(null)}
     >
       <CardOverflow>
-        <AspectRatio minHeight="230px" sx={{ minWidth: 200 }}>
+        <AspectRatio ratio="4/3">
           <img
             src={product.image}
             loading="lazy"
@@ -56,7 +52,7 @@ const CardProductLogged = ({ product }) => {
             style={{
               width: "100%",
               height: "100%",
-              objectFit: "cover",
+              objectFit: "contain",
             }}
           />
         </AspectRatio>
@@ -71,7 +67,7 @@ const CardProductLogged = ({ product }) => {
       <CardContent>
         <Typography level="body-xs">{product.category}</Typography>
         <Link
-          href={`/productView/${product.id}`} 
+          href={`/productView/${product.id}`}
           onClick={handleLinkClick}
           fontWeight="lg"
           color="neutral"
@@ -80,8 +76,9 @@ const CardProductLogged = ({ product }) => {
           }
           level="h3"
           sx={{
-            textOverflow: "ellipsis",
-            whiteSpace: "nowrap",
+            display: "-webkit-box",
+            WebkitBoxOrient: "vertical",
+            WebkitLineClamp: 2,
             overflow: "hidden",
             textDecoration: "none",
             color: hoveredCardId === product.id ? "grey" : "inherit",
@@ -92,7 +89,7 @@ const CardProductLogged = ({ product }) => {
             },
           }}
         >
-          {truncateName(product.name)}
+          {product.name}
         </Link>
 
         <Typography
@@ -104,10 +101,24 @@ const CardProductLogged = ({ product }) => {
           {product.oldPrice}
         </Typography>
         <Typography level="title-lg" sx={{ mt: 1, fontWeight: "xl" }}>
-          $ {product.price}{" "}
-          <Chip variant="soft" color="success" size="sm">
-            Oferta
-          </Chip>
+          {
+            product.price > 1500000 ? (
+              <>
+                <span style={{ textDecoration: 'line-through' }}>
+                  {product.price.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })}
+                </span>
+                <br />
+                {((product.price * 0.95)).toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })}{" "}
+                <Chip variant="soft" color="success" size="sm">
+                  Oferta
+                </Chip>
+              </>
+            ) : (
+              product.price.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })
+            )
+          }
+
+
         </Typography>
         <Typography level="body-sm" fontStyle={"italic"}>
           <b>{product.stock}</b> Unidades disponibles
@@ -144,4 +155,3 @@ CardProductLogged.propTypes = {
 };
 
 export default CardProductLogged;
-
