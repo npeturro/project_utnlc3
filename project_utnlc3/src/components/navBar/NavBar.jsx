@@ -1,19 +1,31 @@
-import { useState, useEffect, useContext } from 'react';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import SearchIcon from '@mui/icons-material/Search';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { Link } from 'react-router-dom';
-import { Popover, MenuList, MenuItem, Tooltip, Badge, Grid, Button, InputBase, IconButton, Toolbar, AppBar, Typography } from '@mui/material';
-import fondo from '../../images/fondo.png'
-import logoImage from '../../images/icon one tech_Blanco fondo transparente.png'
-import axios from 'axios';
-import { UserContext } from '../../contexts/user-context';
-import Drawer from '../drawer/Drawer';
-import { CartContext } from '../../contexts/cart-context';
+import { useState, useEffect, useContext } from "react";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import SearchIcon from "@mui/icons-material/Search";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { Link } from "react-router-dom";
+import {
+  Popover,
+  MenuList,
+  MenuItem,
+  Tooltip,
+  Badge,
+  Grid,
+  Button,
+  InputBase,
+  IconButton,
+  Toolbar,
+  AppBar,
+  Typography,
+} from "@mui/material";
+import fondo from "../../images/fondo.png";
+import logoImage from "../../images/icon one tech_Blanco fondo transparente.png";
+import axios from "axios";
+import { UserContext } from "../../contexts/user-context";
+import Drawer from "../drawer/Drawer";
+import { CartContext } from "../../contexts/cart-context";
 
 const NavBar = () => {
-
-  const [searchText, setSearchText] = useState('');
+  const [searchText, setSearchText] = useState("");
   const [productos, setProductos] = useState([]);
   const [filteredProductos, setFilteredProductos] = useState(productos);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -59,25 +71,43 @@ const NavBar = () => {
   const handleCerrar = () => {
     setUserLoged({
       authenticated: false,
-      role: ''
+      role: "",
     });
     setCart([]);
     setCount(0);
-    handlePopoverClose()
+    handlePopoverClose();
   };
 
   const open = Boolean(anchorEl);
-  const id = open ? 'simple-popover' : undefined;
-
+  const id = open ? "simple-popover" : undefined;
 
   return (
     <>
-      <AppBar position="fixed" sx={{ backgroundImage: `url(${fondo})`, backgroundSize: 'cover' }}>
-        <Toolbar style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
-          <Grid style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
-            <Grid style={{ display: 'flex', alignItems: 'center' }}>
+      <AppBar
+        position="fixed"
+        sx={{ backgroundImage: `url(${fondo})`, backgroundSize: "cover" }}
+      >
+        <Toolbar
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            width: "100%",
+          }}
+        >
+          <Grid
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "flex-start",
+            }}
+          >
+            <Grid style={{ display: "flex", alignItems: "center" }}>
               <Link to="/">
-                <img src={logoImage} alt="Logo" style={{ width: 50, marginRight: 10 }} />
+                <img
+                  src={logoImage}
+                  alt="Logo"
+                  style={{ width: 50, marginRight: 10 }}
+                />
               </Link>
               <Typography variant="h6" component="Grid">
                 ONE TECH
@@ -85,31 +115,59 @@ const NavBar = () => {
             </Grid>
             <Drawer />
           </Grid>
-          <Grid style={{ display: 'flex', flex: 1, justifyContent: 'center' }}>
-            <Grid style={{ display: 'flex', width: '500px', alignItems: 'center', backgroundColor: 'white', borderRadius: 4, padding: '2px 10px', borderRadius: '50px' }}>
+          <Grid style={{ display: "flex", flex: 1, justifyContent: "center" }}>
+            <Grid
+              style={{
+                display: "flex",
+                width: "500px",
+                alignItems: "center",
+                backgroundColor: "white",
+                padding: "2px 10px",
+                borderRadius: "50px",
+              }}
+            >
               <IconButton color="black" aria-label="search">
                 <SearchIcon />
               </IconButton>
               <InputBase
                 placeholder="Buscar..."
-                inputProps={{ 'aria-label': 'buscar' }}
-                style={{ color: 'black', marginLeft: 10, width: '500px' }}
+                inputProps={{ "aria-label": "buscar" }}
+                style={{ color: "black", marginLeft: 10, width: "500px" }}
                 value={searchText}
                 onChange={handleSearchChange}
               />
             </Grid>
           </Grid>
-          <Grid style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <Grid style={{ display: 'flex', alignItems: 'center', marginBottom: 10 }}>
-              <Tooltip title='Carrito de compras'>
-                <Link to="/cart" style={{ textDecoration: 'none', color: 'inherit' }}>
+          <Grid
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <Grid
+              style={{
+                display: "flex",
+                alignItems: "center",
+                marginBottom: 10,
+              }}
+            >
+              <Tooltip title="Carrito de compras">
+                <Link
+                  to="/cart"
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
                   <Badge color="secondary" badgeContent={count}>
                     <ShoppingCartIcon />
                   </Badge>
                 </Link>
               </Tooltip>
-              <Tooltip title='Perfil'>
-                <IconButton color="inherit" aria-label="login" onClick={handlePopoverOpen}>
+              <Tooltip title="Perfil">
+                <IconButton
+                  color="inherit"
+                  aria-label="login"
+                  onClick={handlePopoverOpen}
+                >
                   <AccountCircleIcon />
                 </IconButton>
               </Tooltip>
@@ -119,54 +177,54 @@ const NavBar = () => {
                 anchorEl={anchorEl}
                 onClose={handlePopoverClose}
                 anchorOrigin={{
-                  vertical: 'bottom',
-                  horizontal: 'center',
+                  vertical: "bottom",
+                  horizontal: "center",
                 }}
               >
-                <Grid style={{ padding: '5px' }}>
+                <Grid style={{ padding: "5px" }}>
                   <MenuList
                     disablePadding
                     dense
                     sx={{
-                      p: '8px',
-                      '& > *': {
-                        borderRadius: 1
-                      }
+                      p: "8px",
+                      "& > *": {
+                        borderRadius: 1,
+                      },
                     }}
                   >
                     {!userLoged.authenticated && (
-                      <Link to="/login" style={{ textDecoration: 'none', color: 'inherit' }}>
+                      <Link
+                        to="/login"
+                        style={{ textDecoration: "none", color: "inherit" }}
+                      >
                         <MenuItem onClick={handlePopoverClose}>
                           Iniciar sesión
                         </MenuItem>
                       </Link>
                     )}
                     {!userLoged.authenticated && (
-                      <Link to="/register" style={{ textDecoration: 'none', color: 'inherit' }}>
+                      <Link
+                        to="/register"
+                        style={{ textDecoration: "none", color: "inherit" }}
+                      >
                         <MenuItem onClick={handlePopoverClose}>
                           Registrarse
                         </MenuItem>
                       </Link>
                     )}
                     {userLoged.authenticated && (
-                      <MenuItem onClick={handleCerrar}>
-                        Cerrar sesión
-                      </MenuItem>
+                      <MenuItem onClick={handleCerrar}>Cerrar sesión</MenuItem>
                     )}
                   </MenuList>
                 </Grid>
               </Popover>
             </Grid>
             <Link to="/about">
-              <Button sx={{ color: 'white' }}>
-                Nosotros
-              </Button>
+              <Button sx={{ color: "white" }}>Nosotros</Button>
             </Link>
           </Grid>
         </Toolbar>
       </AppBar>
-
-
 
       {/* <Grid style={{ marginTop: '80px', padding: '20px' }}>
         <Typography variant="h6">Resultados de búsqueda:</Typography>
