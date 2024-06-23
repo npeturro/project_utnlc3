@@ -31,7 +31,7 @@ const Index = () => {
 
   return (
     <Box>
-      <Container maxWidth="xl" sx={{ mt: "7%", mb: "3%" }}>
+      <Container maxWidth="xl" sx={{ mt: "1%", mb: "3%" }}>
         <Stack spacing={1}>
           {userLoged.authenticated &&
             (userLoged.role === "Admin" || userLoged.role === "SuperAdmin") && (

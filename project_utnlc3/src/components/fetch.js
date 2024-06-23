@@ -13,3 +13,27 @@ export const Get = async (consulta) => {
         return null;
     }
 }
+
+export const PostRegister = async (values) => {
+    try {
+        const nuevoUsuario = { 
+            username: values.user, 
+            password: values.password, 
+            fullName: `${values.name} ${values.lastname}`, 
+            email: values.email, 
+            phone: values.number,
+            address: values.street, 
+            role: "Cliente", 
+            isActive: "Si" 
+        };
+
+        const response = await axios.post('http://onetechapi-utn.ddns.net/api/users', nuevoUsuario);
+
+        return "ok";
+    } catch (error) {
+        console.error('Error al registrar usuario:', error);
+        return "error";
+    }
+}
+
+

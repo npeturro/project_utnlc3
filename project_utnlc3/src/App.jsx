@@ -16,6 +16,7 @@ import { UserProvider } from './contexts/user-context';
 import { CartProvider } from './contexts/cart-context';
 import { CartelProvider } from './contexts/alert-context';
 import ProductView from './components/productView/ProductView';
+import Register from './components/register/Register';
 
 const App = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -34,6 +35,14 @@ const App = () => {
             element: (
                 <MainLayout>
                     <Login />
+                </MainLayout>
+            )
+        },
+        {
+            path: "/register",
+            element: (
+                <MainLayout>
+                    <Register />
                 </MainLayout>
             )
         },

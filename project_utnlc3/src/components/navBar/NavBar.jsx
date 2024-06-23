@@ -86,14 +86,14 @@ const NavBar = () => {
             <Drawer />
           </Grid>
           <Grid style={{ display: 'flex', flex: 1, justifyContent: 'center' }}>
-            <Grid style={{ display: 'flex', width:'500px', alignItems: 'center', backgroundColor: 'white', borderRadius: 4, padding: '2px 10px', borderRadius: '50px' }}>
+            <Grid style={{ display: 'flex', width: '500px', alignItems: 'center', backgroundColor: 'white', borderRadius: 4, padding: '2px 10px', borderRadius: '50px' }}>
               <IconButton color="black" aria-label="search">
                 <SearchIcon />
               </IconButton>
               <InputBase
                 placeholder="Buscar..."
                 inputProps={{ 'aria-label': 'buscar' }}
-                style={{ color: 'black', marginLeft: 10, width:'500px' }}
+                style={{ color: 'black', marginLeft: 10, width: '500px' }}
                 value={searchText}
                 onChange={handleSearchChange}
               />
@@ -142,9 +142,11 @@ const NavBar = () => {
                       </Link>
                     )}
                     {!userLoged.authenticated && (
-                      <MenuItem>
-                        Registrarse
-                      </MenuItem>
+                      <Link to="/register" style={{ textDecoration: 'none', color: 'inherit' }}>
+                        <MenuItem onClick={handlePopoverClose}>
+                          Registrarse
+                        </MenuItem>
+                      </Link>
                     )}
                     {userLoged.authenticated && (
                       <MenuItem onClick={handleCerrar}>
@@ -156,7 +158,7 @@ const NavBar = () => {
               </Popover>
             </Grid>
             <Link to="/about">
-              <Button sx={{color:'white'}}>
+              <Button sx={{ color: 'white' }}>
                 Nosotros
               </Button>
             </Link>
