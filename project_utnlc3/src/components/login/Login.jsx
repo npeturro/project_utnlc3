@@ -105,9 +105,6 @@ function Login (props) {
           boxShadow: 1
         }}
       >
-        <Box>
-
-        </Box>
         <Snackbar
           open={alert.open}
           autoHideDuration={10000}
@@ -167,7 +164,7 @@ function Login (props) {
             Continuar
           </Button>
         </Box>
-        <Box sx={{ mt: 3 }}><p>No tenes cuenta? <a href='#'>Registrate</a></p></Box>
+        <Box sx={{ mt: 3 }}><p>No tenes cuenta? <a href='/register'>Registrate</a></p></Box>
       </Box>
     </Container>
   );
