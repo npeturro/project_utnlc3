@@ -1,16 +1,8 @@
-import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
-import CarruselContainer from "../carruselContainer/CarruselContainer";
-import { UserContext } from "../../contexts/user-context";
-import Carousel from "react-bootstrap/Carousel";
 import {
   Box,
   Container,
-  Stack,
   Button,
-  Popover,
-  MenuItem,
-  MenuList,
   Typography,
 } from "@mui/material";
 
