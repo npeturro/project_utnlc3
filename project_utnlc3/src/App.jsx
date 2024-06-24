@@ -18,6 +18,7 @@ import { CartelProvider } from './contexts/alert-context';
 import ProductView from './components/productView/ProductView';
 import Register from './components/register/Register';
 import AllProducts from './components/allProducts/AllProducts';
+import Order from './components/order/Order';
 
 const App = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -116,6 +117,14 @@ const App = () => {
             element: (
                 <MainLayout>
                     <ProductView />
+                </MainLayout>
+            )
+        },
+        {
+            path: "/order",
+            element: (
+                <MainLayout>
+                    <Order />
                 </MainLayout>
             )
         },

@@ -4,8 +4,6 @@ import {
     Box,
     Container,
     Radio,
-    FormControl,
-    FormLabel,
     RadioGroup,
     FormControlLabel,
     Typography,
@@ -14,13 +12,12 @@ import {
     Grid,
     Button,
     Divider,
-    Accordion,
-    AccordionSummary,
-    AccordionDetails,
+    TextField,
+    Stack, 
+    CircularProgress
 } from "@mui/material";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
-import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Checkout = (props) => {
     // const [preferenceId, setPreferenceId] = useState(null);
@@ -32,67 +29,80 @@ const Checkout = (props) => {
 
     const location = useLocation();
     const { state } = location;
+    const navigate = useNavigate();
 
-    // let total = 0;
+    const [method, setMethod] = useState('sucursal');
+    const handleMethod = (event) => {
+        setMethod(event.target.value);
+    };
 
-    // products.forEach((item) => {
-    //     total += item.quantity * item.price;
-    // });
+    const [isLoading, setIsLoading] = useState(false);
 
-    // const createPreference = async () => {
-    //     try {
-    //         const response = await axios.post(
-    //             "http://onetechapi-utn.ddns.net/api/Payments/create-preference",
-    //             {
-    //                 title: "producto",
-    //                 quantity: 1,
-    //                 price: 100,
-    //             }
-    //         );
-    //         console.log(response)
-    //         const { id } = response.data;
-    //         return id;
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // };
-
-    // const handleBuy = async () => {
-    //     const id = await createPreference();
-    //     if (id) {
-    //         setPreferenceId(id);
-    //     }
-    // };
-
-    // handleBuy()
-    console.log(state)
+    const handleEfectivo = () => {
+        setIsLoading(true);
+        setTimeout(() => {
+            navigate('/order', { state: { method } });
+        }, 2000);
+    };
 
     return (
         <>
             <Container maxWidth="xl">
-                <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
-                    <Card sx={{ maxWidth: 500, flex: 1 }}>
-                        <CardContent>
-                            <Typography variant="h6" component="div" color={"black"}>
-                                <b>Resumen del pedido</b>
-                            </Typography>
-                            <Divider sx={{ my: 2 }} />
-                            {state.cart.map((producto) => (
-                                <Grid container spacing={2} key={producto.id}>
-                                    <Grid item xs={12} sm container>
-                                        <Grid item xs container direction="column" spacing={2}>
-                                            <Grid item xs>
-                                                <Typography
-                                                    gutterBottom
-                                                    variant="subtitle1"
-                                                    component="div"
-                                                >
-                                                    {producto.name}
-                                                </Typography>
-                                                <Typography variant="body2" gutterBottom>
-
-                                                    {
-                                                        producto.price > 1500000 ? (
+                <Box sx={{ display: "flex", justifyContent: "space-between", mt: 4, width: "100%" }}>
+                    <Stack sx={{ width: "48%" }}>
+                        <Card>
+                            <CardContent>
+                                <Typography variant="h6" component="div" color={"black"}>
+                                    <b>Forma de envío</b>
+                                </Typography>
+                                <Divider sx={{ my: 2 }} />
+                                <RadioGroup
+                                    aria-labelledby="demo-radio-buttons-group-label"
+                                    defaultValue="sucursal"
+                                    name="radio-buttons-group"
+                                    value={method}
+                                    onChange={handleMethod}
+                                >
+                                    <FormControlLabel value="sucursal" control={<Radio />} label="Retiro en sucursal" />
+                                    <FormControlLabel value="domicilio" control={<Radio />} label="Entrega a domicilio" />
+                                </RadioGroup>
+                                {method === 'sucursal' && (
+                                    <Typography sx={{ mt: 2 }}>
+                                        Dirección de retiro: Zeballos 1341, Rosario, Argentina.
+                                    </Typography>
+                                )}
+                                {method === 'domicilio' && (
+                                    <TextField
+                                        sx={{ mt: 2 }}
+                                        fullWidth
+                                        label="Dirección de entrega"
+                                        variant="outlined"
+                                    />
+                                )}
+                            </CardContent>
+                        </Card>
+                    </Stack>
+                    <Stack sx={{ width: "48%" }}>
+                        <Card sx={{ maxWidth: "100%", flex: 1 }}>
+                            <CardContent>
+                                <Typography variant="h6" component="div" color={"black"}>
+                                    <b>Resumen del pedido</b>
+                                </Typography>
+                                <Divider sx={{ my: 2 }} />
+                                {state.cart.map((producto) => (
+                                    <Grid container spacing={2} key={producto.id}>
+                                        <Grid item xs={12} sm container>
+                                            <Grid item xs container direction="column" spacing={2}>
+                                                <Grid item xs>
+                                                    <Typography
+                                                        gutterBottom
+                                                        variant="subtitle1"
+                                                        component="div"
+                                                    >
+                                                        {producto.name}
+                                                    </Typography>
+                                                    <Typography variant="body2" gutterBottom>
+                                                        {producto.price > 1500000 ? (
                                                             <>
                                                                 Precio con descuento: {((producto.price * 0.95)).toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })}
                                                             </>
@@ -100,63 +110,57 @@ const Checkout = (props) => {
                                                             <>
                                                                 Precio: {(producto.price).toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })}
                                                             </>
-                                                        )
-                                                    }
-                                                </Typography>
-                                                <Typography variant="body2" color="text.secondary">
-                                                    <strong>Cantidad:</strong> {producto.quantity}
-                                                </Typography>
-                                            </Grid>
-                                            <Grid item>
-                                                <Typography variant="body2">
-                                                    <strong>Total:</strong>
-                                               
-                                                    {
-                                                        producto.price > 1500000 ? (
+                                                        )}
+                                                    </Typography>
+                                                    <Typography variant="body2" color="text.secondary">
+                                                        <strong>Cantidad:</strong> {producto.quantity}
+                                                    </Typography>
+                                                </Grid>
+                                                <Grid item>
+                                                    <Typography variant="body2">
+                                                        <strong>Total:</strong>
+                                                        {producto.price > 1500000 ? (
                                                             <>
                                                                 {((producto.price * 0.95) * producto.quantity).toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })}{" "}
                                                             </>
                                                         ) : (
                                                             (producto.price * producto.quantity).toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })
-                                                        )
-                                                    }
-                                                </Typography>
+                                                        )}
+                                                    </Typography>
+                                                </Grid>
+                                                <Divider sx={{ my: 2 }} />
                                             </Grid>
-                                            <Divider sx={{ my: 2 }} />
                                         </Grid>
                                     </Grid>
-                                </Grid>
-                            ))}
-                            <Typography variant="h6" fontWeight="bold" sx={{ mt: 2 }}>
-                                Total:{" "}
-                                {state.total.toLocaleString("es-AR", {
-                                    style: "currency",
-                                    currency: "ARS",
-                                })}
-                            </Typography>
-                        </CardContent>
-                    </Card>
+                                ))}
+                                <Typography variant="h6" fontWeight="bold" sx={{ mt: 2 }}>
+                                    Total:{" "}
+                                    {state.total.toLocaleString("es-AR", {
+                                        style: "currency",
+                                        currency: "ARS",
+                                    })}
+                                </Typography>
+                            </CardContent>
+                        </Card>
+                        <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
+
+                            <Button
+                                sx={{ mr: '20px' }}
+                                onClick={handleEfectivo}
+                                disabled={isLoading}
+                                startIcon={isLoading && <CircularProgress size={20} />}
+                            >
+                                {isLoading ? 'Cargando...' : 'Pagar en efectivo'}
+                            </Button>
+
+                            <Wallet
+                                initialization={{ preferenceId: state.id }}
+                                customization={{ texts: { valueProp: "smart_option" } }}
+                            />
+                        </Box>
+                    </Stack>
                 </Box>
-                <Box sx={{ display: "flex", justifyContent: "center", p: 2 }}>
-                    {/* <Button
-                        variant="contained"
-                        onClick={handleBuy}
-                        sx={{
-                            mt: 2,
-                            backgroundColor: '#051c67',
-                            borderRadius: '50px',
-                            '&:hover': {
-                                backgroundColor: '#051c40',
-                            }
-                        }}>
-                        
-                        Ir a pagar
-                    </Button> */}
-                    <Wallet
-                        initialization={{ preferenceId: state.id }}
-                        customization={{ texts: { valueProp: "smart_option" } }}
-                    />
-                </Box>
+
             </Container>
         </>
     );
