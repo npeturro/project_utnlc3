@@ -20,7 +20,7 @@ const CartelProvider = ({ children }) => {
     }
     
     return (
-        <CartelContext.Provider value={setOpenCartel}>
+        <CartelContext.Provider value={handleCartel}>
             <Snackbar
                 anchorOrigin={{
                     vertical: 'top',

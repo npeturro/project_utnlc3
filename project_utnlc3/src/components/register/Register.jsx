@@ -8,7 +8,7 @@ function Register(props) {
 
     // const { setUserLoged } = props
 
-    const { handleCartel } = useContext(CartelContext);
+    const cartel = useContext(CartelContext)
 
     const navigate = useNavigate();
     const { authenticateRegister } = useRegister();
@@ -41,19 +41,6 @@ function Register(props) {
     const numberRef = useRef(null);
     const streetRef = useRef(null);
 
-    const [alert, setAlert] = useState({
-        open: false,
-        severity: 'success',
-        message: ''
-    });
-
-
-    const showAlert = (message, severity) => {
-        setAlert({ open: true, message, severity });
-        setTimeout(() => {
-            setAlert(prevAlert => ({ ...prevAlert, open: false }));
-        }, 10000);
-    };
 
     const handleClick = async () => {
 
@@ -108,11 +95,17 @@ function Register(props) {
         const registerValidate = await authenticateRegister(values);
 
         if (registerValidate.success) {
-            showAlert(registerValidate.success, "success");
+            cartel({
+                tipo: 'success',
+                text: registerValidate.success
+            })
             setValues({ email: '', password: '', name: '', lastname: '', street: '', number: '', user: '' });
             navigate('/');
         } else {
-            showAlert(registerValidate.error, "error");
+            cartel({
+                tipo: 'error',
+                text: registerValidate.error
+            })
         }
     };
 
@@ -146,20 +139,6 @@ function Register(props) {
                     boxShadow: 1
                 }}
             >
-                <Snackbar
-                    open={alert.open}
-                    autoHideDuration={10000}
-                    onClose={() => setAlert(prevAlert => ({ ...prevAlert, open: false }))}
-                    anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-                >
-                    <Alert
-                        onClose={() => setAlert(prevAlert => ({ ...prevAlert, open: false }))}
-                        severity={alert.severity}
-                        sx={{ width: '100%' }}
-                    >
-                        {alert.message}
-                    </Alert>
-                </Snackbar>
                 <Typography variant="h5">
                     Registrarse
                 </Typography>

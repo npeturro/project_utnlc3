@@ -138,7 +138,7 @@ const App = () => {
         </div>
     )
 
-    return <div>{<RouterProvider router={router} />}</div>;
+    //return <div>{<RouterProvider router={router} />}</div>;
 };
 
 export default App;
