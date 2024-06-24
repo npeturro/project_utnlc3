@@ -12,14 +12,14 @@ import CardCover from "@mui/joy/CardCover";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import { UserContext } from "../../contexts/user-context";
 import { CartContext } from "../../contexts/cart-context";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import { CartelContext } from "../../contexts/alert-context";
 
 const CardProductLogged = ({ product }) => {
   const [hoveredCardId, setHoveredCardId] = useState(null);
   const { userLoged } = useContext(UserContext);
   const { addCart } = useContext(CartContext);
-  const cartel = useContext(CartelContext)
+  const cartel = useContext(CartelContext);
   const navigate = useNavigate();
 
   if (!product) {
@@ -32,12 +32,12 @@ const CardProductLogged = ({ product }) => {
   };
 
   const handleAddCart = (product) => {
-    addCart(product)
+    addCart(product);
     cartel({
-      tipo: 'success',
-      text: `${product.name} agregado con éxito`
-    })
-  }
+      tipo: "success",
+      text: `${product.name} agregado con éxito`,
+    });
+  };
 
   return (
     <Card
@@ -48,6 +48,7 @@ const CardProductLogged = ({ product }) => {
         boxShadow: "sm",
         transition: "transform 0.2s ease",
         transform: hoveredCardId === product.id ? "scale(1.05)" : "scale(1)",
+        backgroundColor: "#fff",
       }}
       variant="soft"
       onMouseEnter={() => setHoveredCardId(product.id)}
@@ -63,6 +64,7 @@ const CardProductLogged = ({ product }) => {
               width: "100%",
               height: "100%",
               objectFit: "contain",
+              backgroundColor: "#fff",
             }}
           />
         </AspectRatio>
@@ -70,7 +72,7 @@ const CardProductLogged = ({ product }) => {
       <CardCover
         sx={{
           background:
-            "linear-gradient(to top, rgba(207, 220, 226, 0.2), rgba(0,0,0,0) 200px), linear-gradient(to top, rgba(207, 220, 226, 0.4), rgba(0,0,0,0) 300px)",
+            "linear-gradient(to top, rgb(255, 255, 255), 0.2), rgba(0,0,0,0) 200px), linear-gradient(to top, rgba(207, 220, 226, 0.4), rgba(0,0,0,0) 300px)",
           borderColor: "#777",
         }}
       ></CardCover>
@@ -95,7 +97,7 @@ const CardProductLogged = ({ product }) => {
             "&:hover": {
               color: "grey",
               textDecoration: "none",
-              cursor: 'pointer'
+              cursor: "pointer",
             },
           }}
         >
@@ -111,24 +113,29 @@ const CardProductLogged = ({ product }) => {
           {product.oldPrice}
         </Typography>
         <Typography level="title-lg" sx={{ mt: 1, fontWeight: "xl" }}>
-          {
-            product.price > 1500000 ? (
-              <>
-                <span style={{ textDecoration: 'line-through' }}>
-                  {product.price.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })}
-                </span>
-                <br />
-                {((product.price * 0.95)).toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })}{" "}
-                <Chip variant="soft" color="success" size="sm">
-                  Oferta
-                </Chip>
-              </>
-            ) : (
-              product.price.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })
-            )
-          }
-
-
+          {product.price > 1500000 ? (
+            <>
+              <span style={{ textDecoration: "line-through" }}>
+                {product.price.toLocaleString("es-AR", {
+                  style: "currency",
+                  currency: "ARS",
+                })}
+              </span>
+              <br />
+              {(product.price * 0.95).toLocaleString("es-AR", {
+                style: "currency",
+                currency: "ARS",
+              })}{" "}
+              <Chip variant="soft" color="success" size="sm">
+                Oferta
+              </Chip>
+            </>
+          ) : (
+            product.price.toLocaleString("es-AR", {
+              style: "currency",
+              currency: "ARS",
+            })
+          )}
         </Typography>
         <Typography level="body-sm" fontStyle={"italic"}>
           <b>{product.stock}</b> Unidades disponibles
