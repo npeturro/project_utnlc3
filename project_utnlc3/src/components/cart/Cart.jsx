@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Grid, Typography, Button, Card, CardMedia, CardContent, IconButton, TextField, Box, Drawer } from '@mui/material';
+import { Grid, Typography, Button, Card, CardMedia, CardContent, IconButton, TextField, Box, Drawer, Chip } from '@mui/material';
 import { Delete, Add, Remove, ShoppingCart } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import Checkout from '../checkout/Checkout';
@@ -33,7 +33,9 @@ function Cart() {
         removeCart(id);
     };
 
-    const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    const subtotal = cart.reduce((sum, product) => sum + product.price * product.quantity, 0);
+
+    const total = cart.reduce((sum, product) => sum + (product.price > 1500000 ? product.price * 0.95 : product.price) * product.quantity, 0);
 
     const [preferenceId, setPreferenceId] = useState('');
 
@@ -48,8 +50,8 @@ function Cart() {
                     currencyId: "ARS"
                 }
             );
-    
-           
+
+
             return response.data.id;
         } catch (error) {
             console.log(error);
@@ -73,8 +75,8 @@ function Cart() {
                 cart.length >= 1 ? (
                     <Box sx={{ flexGrow: 1, overflowY: 'auto', position: 'relative', minHeight: '600px' }}>
                         <Grid container spacing={2} sx={{ mb: 4 }}>
-                            {cart.map((item) => (
-                                <Grid item xs={12} key={item.id}>
+                            {cart.map((product) => (
+                                <Grid item xs={12} key={product.id}>
                                     <Card sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
                                         <CardMedia
                                             component="img"
@@ -83,23 +85,35 @@ function Cart() {
                                                 height: 100,
                                                 mr: 2
                                             }}
-                                            image={item.image}
-                                            alt={item.name}
+                                            image={product.image}
+                                            alt={product.name}
                                         />
 
                                         <CardContent sx={{ flex: '1 0 auto', display: 'flex', alignItems: 'center' }}>
-                                            <Typography component="div" variant="h6" sx={{ flex: '1', minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{item.name}</Typography>
+                                            <Typography component="div" variant="h6" sx={{ flex: '1', minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{product.name}</Typography>
                                             <Typography variant="subtitle1" color="text.secondary" component="div" sx={{ flex: '1', textAlign: 'center', minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                                                {item.price.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })}
+                                                {
+                                                    product.price > 1500000 ? (
+                                                        <>
+                                                            <span style={{ textDecoration: 'line-through' }}>
+                                                                {product.price.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })}
+                                                            </span>
+                                                            <br />
+                                                            {((product.price * 0.95)).toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })}
+                                                        </>
+                                                    ) : (
+                                                        product.price.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })
+                                                    )
+                                                }
                                             </Typography>
                                             <Box sx={{ display: 'flex', alignItems: 'center', flex: 1 }}>
                                                 <Box sx={{ display: 'flex', alignItems: 'center', border: '1px solid #ccc', borderRadius: '4px', p: 0.5 }}>
-                                                    <IconButton onClick={() => handleQuantityChange(item.id, -1)} disabled={item.quantity === 1}>
+                                                    <IconButton onClick={() => handleQuantityChange(product.id, -1)} disabled={product.quantity === 1}>
                                                         <Remove />
                                                     </IconButton>
                                                     <TextField
                                                         type="text"
-                                                        value={item.quantity}
+                                                        value={product.quantity}
                                                         InputProps={{
                                                             readOnly: true,
                                                             disableUnderline: true,
@@ -121,16 +135,24 @@ function Cart() {
                                                             justifyContent: 'center',
                                                         }}
                                                     />
-                                                    <IconButton onClick={() => handleQuantityChange(item.id, 1)}>
+                                                    <IconButton onClick={() => handleQuantityChange(product.id, 1)}>
                                                         <Add />
                                                     </IconButton>
                                                 </Box>
-                                                <IconButton onClick={() => handleRemoveItem(item.id)} sx={{ ml: 1 }}>
+                                                <IconButton onClick={() => handleRemoveItem(product.id)} sx={{ ml: 1 }}>
                                                     <Delete />
                                                 </IconButton>
                                             </Box>
                                             <Typography variant="h6" sx={{ flex: '1', textAlign: 'right', minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                                                {(item.price * item.quantity).toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })}
+                                                {
+                                                    product.price > 1500000 ? (
+                                                        <>
+                                                            {((product.price * 0.95) * product.quantity).toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })}{" "}
+                                                        </>
+                                                    ) : (
+                                                        (product.price * product.quantity).toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })
+                                                    )
+                                                }
                                             </Typography>
                                         </CardContent>
                                     </Card>
@@ -140,7 +162,7 @@ function Cart() {
 
                         <div style={{ position: 'absolute', bottom: 0, left: 0, width: '100%', textAlign: 'center' }}>
                             <Card sx={{ p: 2 }}>
-                                <Typography variant="h7">Subtotal: {total.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })}</Typography>
+                                <Typography variant="h7">Subtotal: {subtotal.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })}</Typography>
                                 <Typography variant="h6" fontWeight="bold" sx={{ mt: 2 }}>Total: {total.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })}</Typography>
                                 <Button variant="contained"
                                     sx={{
