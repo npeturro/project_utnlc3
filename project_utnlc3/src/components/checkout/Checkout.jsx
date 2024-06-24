@@ -90,7 +90,18 @@ const Checkout = (props) => {
                                                     {producto.name}
                                                 </Typography>
                                                 <Typography variant="body2" gutterBottom>
-                                                    Precio: ${producto.price.toFixed(2)}
+
+                                                    {
+                                                        producto.price > 1500000 ? (
+                                                            <>
+                                                                Precio con descuento: {((producto.price * 0.95)).toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })}
+                                                            </>
+                                                        ) : (
+                                                            <>
+                                                                Precio: {(producto.price).toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })}
+                                                            </>
+                                                        )
+                                                    }
                                                 </Typography>
                                                 <Typography variant="body2" color="text.secondary">
                                                     <strong>Cantidad:</strong> {producto.quantity}
@@ -98,8 +109,17 @@ const Checkout = (props) => {
                                             </Grid>
                                             <Grid item>
                                                 <Typography variant="body2">
-                                                    <strong>Total:</strong> $
-                                                    {(producto.quantity * producto.price).toFixed(2)}
+                                                    <strong>Total:</strong>
+                                               
+                                                    {
+                                                        producto.price > 1500000 ? (
+                                                            <>
+                                                                {((producto.price * 0.95) * producto.quantity).toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })}{" "}
+                                                            </>
+                                                        ) : (
+                                                            (producto.price * producto.quantity).toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })
+                                                        )
+                                                    }
                                                 </Typography>
                                             </Grid>
                                             <Divider sx={{ my: 2 }} />
