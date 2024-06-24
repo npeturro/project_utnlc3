@@ -1,10 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import UserList from '../userList/UserList';
 import UserForm from '../userForm/UserForm';
 import SearchBar from '../searchBar/SearchBar';
 import Alert from '../alert/Alert';
+import { CartelContext } from '../../contexts/alert-context';
 
 const UserCrud = () => {
   const [usuarios, setUsuarios] = useState([]);
@@ -18,8 +19,9 @@ const UserCrud = () => {
   const [role, setRole] = useState('');
   const [isActive, setIsActive] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
-  const [alert, setAlert] = useState({ message: '', type: '' });
-  
+
+  const cartel = useContext(CartelContext)
+
   useEffect(() => {
     cargarUsuarios();
   }, []);
@@ -28,9 +30,8 @@ const UserCrud = () => {
     axios.get('http://onetechapi-utn.ddns.net/api/users')
       .then(response => {
         setUsuarios(response.data);
-        setAlert({ message: 'Usuarios cargados correctamente', type: 'success' });
       })
-      .catch(error => setAlert({ message: 'Error al cargar los usuarios', type: 'error' }));
+      .catch(error => console.log(error));
   };
 
   const handleSubmit = (event) => {
@@ -42,17 +43,29 @@ const UserCrud = () => {
         .then(() => {
           cargarUsuarios();
           resetForm();
-          setAlert({ message: 'Usuario actualizado correctamente', type: 'success' });
+          cartel({
+            tipo: 'success',
+            text: 'Usuario actualizado correctamente!'
+          })
         })
-        .catch(error => setAlert({ message: 'Error al actualizar el usuario', type: 'error' }));
+        .catch(error => cartel({
+          tipo: 'error',
+          text: 'Error al actualizar usuario'
+        }));
     } else {
       axios.post('http://onetechapi-utn.ddns.net/api/users', nuevoUsuario)
         .then(response => {
           setUsuarios([...usuarios, response.data]);
+          cartel({
+            tipo: 'success',
+            text: 'Usuario ingresado correctamente!'
+          })
           resetForm();
-          setAlert({ message: 'Usuario creado correctamente', type: 'success' });
         })
-        .catch(error => setAlert({ message: 'Error al crear el usuario', type: 'error' }));
+        .catch(error => cartel({
+          tipo: 'error',
+          text: 'Error al ingresar usuario'
+        }));
     }
   };
 
@@ -84,9 +97,15 @@ const UserCrud = () => {
     axios.delete(`http://onetechapi-utn.ddns.net/api/users/${id}`)
       .then(() => {
         setUsuarios(usuarios.filter(usuario => usuario.id !== id));
-        setAlert({ message: 'Usuario eliminado correctamente', type: 'success' });
+        cartel({
+          tipo: 'success',
+          text: 'Usuario eliminado correctamente!'
+        })
       })
-      .catch(error => setAlert({ message: 'Error al eliminar el usuario', type: 'error' }));
+      .catch(error => cartel({
+        tipo: 'error',
+        text: 'Error al eliminar usuario'
+      }));
   };
 
   const handleSearch = (event) => {
