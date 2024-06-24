@@ -121,7 +121,11 @@ const App = () => {
         },
         {
             path: "*",
-            element: <NotFound />,
+            element: (
+                <MainLayout>
+                    <NotFound />
+                </MainLayout>
+            )
         },
 
     ]);
