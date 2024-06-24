@@ -1,21 +1,21 @@
 .main-layout {
     display: flex;
     flex-direction: column;
-    min-height: 100vh; /* Ensures the layout takes the full height of the viewport */
+    min-height: 100vh;
 }
 
 .header {
     position: fixed;
     top: 0;
     width: 100%;
-    z-index: 1000; /* Ensures the header stays on top */
-    background-color: white; /* Ensure the header background covers content behind it */
+    z-index: 1000; 
+    background-color: white; 
 }
 
 .content {
-    margin-top: 60px; /* Adjust this value based on the height of your header */
-    flex: 1; /* Allows the content to take the remaining space */
-    padding: 20px; /* Add padding if needed */
+    margin-top: 60px;
+    flex: 1; 
+    padding: 20px; 
 }
 
 .footer {
