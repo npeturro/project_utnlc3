@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useLocation } from "react-router-dom";
 import {
     Box,
@@ -13,15 +13,17 @@ import {
     Button,
     Divider,
     TextField,
-    Stack, 
+    Stack,
     CircularProgress
 } from "@mui/material";
 import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
 import { useNavigate } from "react-router-dom";
+import { CartContext } from "../../contexts/cart-context";
 
 const Checkout = (props) => {
     // const [preferenceId, setPreferenceId] = useState(null);
     // const { products, handleBuy, preferenceId } = props;
+    const { count, setCart, setCount } = useContext(CartContext);
 
     initMercadoPago("TEST-237a1067-59cb-4dd4-ac24-c796c2079e7b", {
         locale: "es-AR",
@@ -40,6 +42,8 @@ const Checkout = (props) => {
 
     const handleEfectivo = () => {
         setIsLoading(true);
+        setCart([]);
+        setCount(0);
         setTimeout(() => {
             navigate('/order', { state: { method } });
         }, 2000);
