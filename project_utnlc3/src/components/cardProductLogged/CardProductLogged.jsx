@@ -13,11 +13,13 @@ import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import { UserContext } from "../../contexts/user-context";
 import { CartContext } from "../../contexts/cart-context";
 import { useNavigate } from 'react-router-dom';
+import { CartelContext } from "../../contexts/alert-context";
 
 const CardProductLogged = ({ product }) => {
   const [hoveredCardId, setHoveredCardId] = useState(null);
   const { userLoged } = useContext(UserContext);
   const { addCart } = useContext(CartContext);
+  const cartel = useContext(CartelContext)
   const navigate = useNavigate();
 
   if (!product) {
@@ -28,6 +30,14 @@ const CardProductLogged = ({ product }) => {
     event.preventDefault();
     navigate(`/productView/${product.id}`, { state: { product } });
   };
+
+  const handleAddCart = (product) => {
+    addCart(product)
+    cartel({
+      tipo: 'success',
+      text: `${product.name} agregado con éxito`
+    })
+  }
 
   return (
     <Card
@@ -131,7 +141,7 @@ const CardProductLogged = ({ product }) => {
             color="primary"
             size="lg"
             startDecorator={<AddShoppingCartIcon />}
-            onClick={() => addCart(product)}
+            onClick={() => handleAddCart(product)}
           >
             Agregar al carrito
           </Button>

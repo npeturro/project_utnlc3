@@ -7,13 +7,11 @@ import { CartelContext } from '../../contexts/alert-context';
 
 function Login (props) {
 
-  // const { setUserLoged } = props
-
-  const { userLoged, setUserLoged } = useContext(UserContext);
-  const { handleCartel } = useContext(CartelContext);
+  const { setUserLoged } = useContext(UserContext);
 
   const navigate = useNavigate();
   const { authenticate } = useAuthentication();
+  const cartel = useContext(CartelContext)
 
   const [values, setValues] = useState({
     email: '',
@@ -28,50 +26,43 @@ function Login (props) {
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
 
-  const [alert, setAlert] = useState({
-    open: false,
-    severity: 'success',
-    message: ''
-  });
-
-
-  const showAlert = (message, severity) => {
-    setAlert({ open: true, message, severity });
-    setTimeout(() => {
-      setAlert(prevAlert => ({ ...prevAlert, open: false }));
-    }, 10000);
-  };
-
   const handleClick = () => {
 
     if (!emailRef.current.value) {
       emailRef.current.focus();
       setErrors(prevErrors => ({ ...prevErrors, email: true }));
-      showAlert("El campo usuario es obligatorio", "error");
       return;
     }
 
     if (!passwordRef.current.value) {
       passwordRef.current.focus();
       setErrors(prevErrors => ({ ...prevErrors, password: true }));
-      showAlert("El campo contraseña es obligatorio", "error");
       return;
     }
 
     if (!values.email.includes("@")) {
-      showAlert("Debe ingresar un correo valido", "error");
+      cartel({
+        tipo: 'error',
+        text: 'Debe ingresar un correo valido'
+      })
       return;
     }
 
     const { authenticated, role, name } = authenticate(values.email, values.password);
     
     if (authenticated) {
-      showAlert("¡Usuario ingresado correctamente!", "success");
       setValues({ email: '', password: '' });
       navigate('/');
       setUserLoged({ authenticated, role, name })
+      cartel({
+        tipo: 'success',
+        text: 'Usuario ingresado correctamente!'
+      })
     } else {
-      showAlert("Credenciales incorrectas", "error");
+      cartel({
+        tipo: 'error',
+        text: 'Credenciales incorrectas'
+      })
     }
   };
 
@@ -105,20 +96,6 @@ function Login (props) {
           boxShadow: 1
         }}
       >
-        <Snackbar
-          open={alert.open}
-          autoHideDuration={10000}
-          onClose={() => setAlert(prevAlert => ({ ...prevAlert, open: false }))}
-          anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-        >
-          <Alert
-            onClose={() => setAlert(prevAlert => ({ ...prevAlert, open: false }))}
-            severity={alert.severity}
-            sx={{ width: '100%' }}
-          >
-            {alert.message}
-          </Alert>
-        </Snackbar>
         <Typography variant="h5">
           Iniciar sesión
         </Typography>

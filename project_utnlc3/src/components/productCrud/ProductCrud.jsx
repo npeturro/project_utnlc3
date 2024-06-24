@@ -1,10 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import ProductList from "../productList/ProductList";
 import ProductForm from "../productForm/ProductForm";
 import SearchBar from "../searchBar/SearchBar";
 import Alert from "../alert/Alert";
+import { CartelContext } from "../../contexts/alert-context";
 
 const ProductCrud = () => {
   const [productos, setProductos] = useState([]);
@@ -18,7 +19,7 @@ const ProductCrud = () => {
     id: null,
   });
   const [searchTerm, setSearchTerm] = useState("");
-  const [alert, setAlert] = useState({ message: "", type: "" });
+  const cartel = useContext(CartelContext)
 
   useEffect(() => {
     cargarProductos();
@@ -30,12 +31,8 @@ const ProductCrud = () => {
         "http://onetechapi-utn.ddns.net/api/productos"
       );
       setProductos(response.data);
-      setAlert({
-        message: "Productos cargados correctamente",
-        type: "success",
-      });
     } catch (error) {
-      setAlert({ message: "Error al cargar los productos", type: "error" });
+      console.log(error)
     }
   };
 
@@ -56,24 +53,27 @@ const ProductCrud = () => {
           `http://onetechapi-utn.ddns.net/api/productos/${producto.id}`,
           nuevoProducto
         );
-        setAlert({
-          message: "Producto actualizado correctamente",
-          type: "success",
-        });
+        cartel({
+          tipo: 'success',
+          text: 'Producto actualizado correctamente!'
+        })
       } else {
         const response = await axios.post(
           "http://onetechapi-utn.ddns.net/api/productos",
           nuevoProducto
         );
         setProductos([...productos, response.data]);
-        setAlert({ message: "Producto creado correctamente", type: "success" });
+        cartel({
+          tipo: 'success',
+          text: 'Producto creado correctamente!'
+        })
       }
       cargarProductos();
       resetForm();
     } catch (error) {
-      setAlert({
-        message: `Error al ${producto.id ? "actualizar" : "crear"} el producto`,
-        type: "error",
+      cartel({
+        tipo: 'error',
+        text: `Error al ${producto.id ? "actualizar" : "crear"} el producto`
       });
     }
   };
@@ -106,12 +106,15 @@ const ProductCrud = () => {
     try {
       await axios.delete(`http://onetechapi-utn.ddns.net/api/productos/${id}`);
       setProductos(productos.filter((producto) => producto.id !== id));
-      setAlert({
-        message: "Producto eliminado correctamente",
-        type: "success",
-      });
+      cartel({
+        tipo: 'success',
+        text: 'Producto eliminado correctamente!'
+      })
     } catch (error) {
-      setAlert({ message: "Error al eliminar el producto", type: "error" });
+      cartel({
+        tipo: 'error',
+        text: `Error al eliminar el producto`
+      });
     }
   };
 
