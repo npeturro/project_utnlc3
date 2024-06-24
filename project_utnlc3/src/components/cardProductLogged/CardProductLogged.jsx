@@ -45,6 +45,7 @@ const CardProductLogged = ({ product }) => {
       sx={{
         width: 270,
         maxWidth: "100%",
+        minHeight: 450,
         boxShadow: "sm",
         transition: "transform 0.2s ease",
         transform: hoveredCardId === product.id ? "scale(1.05)" : "scale(1)",
