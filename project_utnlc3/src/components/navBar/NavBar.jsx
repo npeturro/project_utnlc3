@@ -3,7 +3,11 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import SearchIcon from "@mui/icons-material/Search";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { Link } from "react-router-dom";
+import CardProductLogged from '../cardProductLogged/CardProductLogged';
 import {
+  Box, 
+  Container, 
+  Stack,
   Popover,
   MenuList,
   MenuItem,
@@ -27,25 +31,25 @@ import { CartContext } from "../../contexts/cart-context";
 const NavBar = () => {
   const [searchText, setSearchText] = useState("");
   const [productos, setProductos] = useState([]);
-  const [filteredProductos, setFilteredProductos] = useState(productos);
+  const [filteredProductos, setFilteredProductos] = useState([]);
   const [anchorEl, setAnchorEl] = useState(null);
 
   const { userLoged, setUserLoged } = useContext(UserContext);
   const { count, setCart, setCount } = useContext(CartContext);
 
-  // useEffect(() => {
-  //   const fetchProductos = async () => {
-  //     try {
-  //       const response = await axios.get('https://localhost:7088/api/productos');
-  //       setProductos(response.data);
-  //       setFilteredProductos(response.data);
-  //     } catch (error) {
-  //       console.error('Error fetching products:', error);
-  //     }
-  //   };
+   useEffect(() => {
+     const fetchProductos = async () => {
+      try {
+         const response = await axios.get('http://onetechapi-utn.ddns.net/api/Productos');
+         setProductos(response.data);
+         //setFilteredProductos(response.data);
+       } catch (error) {
+         console.error('Error fetching products:', error);
+       }
+     };
 
-  //   fetchProductos();
-  // }, []);
+     fetchProductos();
+   }, []);
 
   const handleSearchChange = (event) => {
     const text = event.target.value;
@@ -54,10 +58,14 @@ const NavBar = () => {
   };
 
   const filterProducts = (text) => {
-    const filtered = productos.filter((producto) =>
-      producto.name.toLowerCase().includes(text.toLowerCase())
-    );
-    setFilteredProductos(filtered);
+    if (text.trim() === "") {
+      setFilteredProductos([]);
+    } else {
+      const filtered = productos.filter((producto) =>
+        producto.name.toLowerCase().includes(text.toLowerCase())
+      );
+      setFilteredProductos(filtered);
+    }
   };
 
   const handlePopoverOpen = (event) => {
@@ -226,7 +234,7 @@ const NavBar = () => {
         </Toolbar>
       </AppBar>
 
-      {/* <Grid style={{ marginTop: '80px', padding: '20px' }}>
+      { /*<Grid style={{ marginTop: '80px', padding: '20px' }}>
         <Typography variant="h6">Resultados de búsqueda:</Typography>
         <ul>
           {filteredProductos.map((producto) => (
@@ -234,6 +242,18 @@ const NavBar = () => {
           ))}
         </ul>
       </Grid> */}
+      {/* <Box>
+            <Container maxWidth="xl" sx={{ mt: "1%", mb: "3%" }}>
+                <Stack spacing={1}>
+                    <h1 style={{ padding: '15px' }}>Resultados de búsqueda</h1>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px' }}>
+                        {filteredProductos.map(product => (
+                            <CardProductLogged product={product} />
+                        ))}
+                    </div>
+                </Stack>
+            </Container>
+        </Box> */}
     </>
   );
 };
