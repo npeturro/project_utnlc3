@@ -17,13 +17,7 @@ import NotFound from "../notFound/NotFound";
 
 const AllOrders = () => {
 
-    const { userLoged, setUserLoged } = useContext(UserContext);
-
-    if (userLoged.authenticated == false) {
-        return (
-            <NotFound/>
-        )
-    }
+ 
 
     const [rows, setRows] = useState([
         {
