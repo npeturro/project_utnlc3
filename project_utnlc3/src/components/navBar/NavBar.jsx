@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useEffect, useState, useContext } from "react";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import SearchIcon from "@mui/icons-material/Search";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
@@ -16,20 +16,32 @@ import {
   Toolbar,
   AppBar,
   Typography,
+  Switch,
 } from "@mui/material";
 import fondo from "../../images/fondo.png";
 import logoImage from "../../images/icon one tech_Blanco fondo transparente.png";
-import { UserContext } from "../../contexts/user-context";
 import Drawer from "../drawer/Drawer";
+import { UserContext } from "../../contexts/user-context";
 import { CartContext } from "../../contexts/cart-context";
 
 const NavBar = () => {
   const [searchText, setSearchText] = useState("");
   const [anchorEl, setAnchorEl] = useState(null);
+  const [darkMode, setDarkMode] = useState(false); 
   const navigate = useNavigate();
-
   const { userLoged, setUserLoged } = useContext(UserContext);
-  const { count, setCart, setCount } = useContext(CartContext);
+  const { count } = useContext(CartContext);
+
+  useEffect(() => {
+    
+    if (darkMode) {
+      document.body.classList.add("dark-mode");
+      document.body.classList.remove("light-mode");
+    } else {
+      document.body.classList.add("light-mode");
+      document.body.classList.remove("dark-mode");
+    }
+  }, [darkMode]);
 
   const handleSearchChange = (event) => {
     const text = event.target.value;
@@ -217,6 +229,21 @@ const NavBar = () => {
               <Button sx={{ color: "white" }}>Nosotros</Button>
             </Link>
           </Grid>
+
+          <Switch
+            checked={darkMode}
+            onChange={toggleDarkMode}
+            name="darkModeSwitch"
+            inputProps={{ 'aria-label': 'toggle dark mode' }}
+            sx={{
+              '& .MuiSwitch-thumb': {
+                bgcolor: darkMode ? '#ffffff' : '#000000',
+              },
+              '& .MuiSwitch-track': {
+                bgcolor: darkMode ? '#ffffff' : '#000000',
+              },
+            }}
+          />
         </Toolbar>
       </AppBar>
     </>

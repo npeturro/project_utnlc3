@@ -66,3 +66,15 @@
   width: 100%;
   position: relative; 
 }
+
+/* Estilos para tema claro */
+body.light-mode {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+/* Estilos para tema oscuro   */
+body.dark-mode {
+  background-color: #222222;
+  color: #ffffff;
+}
