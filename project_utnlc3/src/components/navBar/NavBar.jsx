@@ -80,6 +80,9 @@ const NavBar = () => {
   const handleCompras = () => {
     navigate('/account');
   };
+  const toggleDarkMode = () => {
+    setDarkMode(!darkMode);
+  };
 
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
