@@ -8,6 +8,7 @@ import Alert from "../alert/Alert";
 import { CartelContext } from "../../contexts/alert-context";
 import { UserContext } from "../../contexts/user-context";
 import NotFound from "../notFound/NotFound";
+import { Stack, Box, Container } from "@mui/material";
 
 const ProductCrud = () => {
   const [productos, setProductos] = useState([]);
@@ -137,44 +138,50 @@ const ProductCrud = () => {
   );
 
   return (
-    <div className="container mt-5">
-      <h1 className="mb-4">Lista de Productos</h1>
-      {alert.message && (
-        <Alert
-          message={alert.message}
-          type={alert.type}
-          onClose={() => setAlert({ message: "", type: "" })}
-        />
-      )}
-      <SearchBar searchTerm={searchTerm} handleSearch={handleSearch} />
-      <ProductList
-        productos={filteredProductos}
-        handleEdit={handleEdit}
-        handleDelete={handleDelete}
-      />
-      <h2 className="mb-4">
-        {producto.id ? "Editar Producto" : "Añadir Producto"}
-      </h2>
-      <ProductForm
-        nombre={producto.nombre}
-        setNombre={(value) => setProducto({ ...producto, nombre: value })}
-        precio={producto.precio}
-        setPrecio={(value) => setProducto({ ...producto, precio: value })}
-        imagen={producto.imagen}
-        setImagen={(value) => setProducto({ ...producto, imagen: value })}
-        descripcion={producto.descripcion}
-        setDescripcion={(value) =>
-          setProducto({ ...producto, descripcion: value })
-        }
-        categoria={producto.categoria}
-        setCategoria={(value) => setProducto({ ...producto, categoria: value })}
-        stock={producto.stock}
-        setStock={(value) => setProducto({ ...producto, stock: value })}
-        productoId={producto.id}
-        handleSubmit={handleSubmit}
-        resetForm={resetForm}
-      />
-    </div>
+    <Box>
+      <Container maxWidth="xl" sx={{ mt: "1%", mb: "3%" }}>
+        <Stack spacing={1}>
+          <div className="container mt-5">
+            <h1 className="mb-4">Lista de Productos</h1>
+            {alert.message && (
+              <Alert
+                message={alert.message}
+                type={alert.type}
+                onClose={() => setAlert({ message: "", type: "" })}
+              />
+            )}
+            <SearchBar searchTerm={searchTerm} handleSearch={handleSearch} />
+            <ProductList
+              productos={filteredProductos}
+              handleEdit={handleEdit}
+              handleDelete={handleDelete}
+            />
+            <h2 className="mb-4">
+              {producto.id ? "Editar Producto" : "Añadir Producto"}
+            </h2>
+            <ProductForm
+              nombre={producto.nombre}
+              setNombre={(value) => setProducto({ ...producto, nombre: value })}
+              precio={producto.precio}
+              setPrecio={(value) => setProducto({ ...producto, precio: value })}
+              imagen={producto.imagen}
+              setImagen={(value) => setProducto({ ...producto, imagen: value })}
+              descripcion={producto.descripcion}
+              setDescripcion={(value) =>
+                setProducto({ ...producto, descripcion: value })
+              }
+              categoria={producto.categoria}
+              setCategoria={(value) => setProducto({ ...producto, categoria: value })}
+              stock={producto.stock}
+              setStock={(value) => setProducto({ ...producto, stock: value })}
+              productoId={producto.id}
+              handleSubmit={handleSubmit}
+              resetForm={resetForm}
+            />
+          </div>
+        </Stack>
+      </Container>
+    </Box>
   );
 };
 

@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import { Stack } from "react-bootstrap";
 
 const ProductForm = ({
   nombre,

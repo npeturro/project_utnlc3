@@ -8,7 +8,7 @@ import Alert from '../alert/Alert';
 import { CartelContext } from '../../contexts/alert-context';
 import { UserContext } from '../../contexts/user-context';
 import NotFound from '../notFound/NotFound';
-import { Grid, Box, Container, Typography } from '@mui/material';
+import { Grid, Box, Typography, Stack, Container } from '@mui/material';
 
 const UserCrud = () => {
   const [usuarios, setUsuarios] = useState([]);
@@ -129,28 +129,34 @@ const UserCrud = () => {
   );
 
   return (
-    <div className="container mt-5">
-      <h1 className="mb-4">Lista de Usuarios</h1>
-      {alert.message && (
-        <Alert message={alert.message} type={alert.type} onClose={() => setAlert({ message: '', type: '' })} />
-      )}
-      <SearchBar searchTerm={searchTerm} handleSearch={handleSearch} />
-      <UserList usuarios={filteredUsuarios} handleEdit={handleEdit} handleDelete={handleDelete} />
-      <h2 className="mb-4">{userId ? 'Editar Usuario' : 'Añadir Usuario'}</h2>
-      <UserForm
-        nombre={nombre} setNombre={setNombre}
-        clave={clave} setClave={setClave}
-        apellido={apellido} setApellido={setApellido}
-        email={email} setEmail={setEmail}
-        phone={phone} setPhone={setPhone}
-        address={address} setAddress={setAddress}
-        role={role} setRole={setRole}
-        isActive={isActive} setIsActive={setIsActive}
-        userId={userId}
-        handleSubmit={handleSubmit}
-        resetForm={resetForm}
-      />
-    </div>
+    <Box>
+      <Container maxWidth="xl" sx={{ mt: "1%", mb: "3%" }}>
+        <Stack spacing={1}>
+          <div className="container mt-5">
+            <h1 className="mb-4">Lista de Usuarios</h1>
+            {alert.message && (
+              <Alert message={alert.message} type={alert.type} onClose={() => setAlert({ message: '', type: '' })} />
+            )}
+            <SearchBar searchTerm={searchTerm} handleSearch={handleSearch} />
+            <UserList usuarios={filteredUsuarios} handleEdit={handleEdit} handleDelete={handleDelete} />
+            <h2 className="mb-4">{userId ? 'Editar Usuario' : 'Añadir Usuario'}</h2>
+            <UserForm
+              nombre={nombre} setNombre={setNombre}
+              clave={clave} setClave={setClave}
+              apellido={apellido} setApellido={setApellido}
+              email={email} setEmail={setEmail}
+              phone={phone} setPhone={setPhone}
+              address={address} setAddress={setAddress}
+              role={role} setRole={setRole}
+              isActive={isActive} setIsActive={setIsActive}
+              userId={userId}
+              handleSubmit={handleSubmit}
+              resetForm={resetForm}
+            />
+          </div>
+        </Stack>
+      </Container>
+    </Box>
   );
 };
 

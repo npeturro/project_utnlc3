@@ -1,38 +1,58 @@
 import PropTypes from "prop-types";
+import React from 'react';
+import { List, ListItem, Grid, Button, Typography } from '@mui/material';
 
 const ProductList = ({ productos, handleEdit, handleDelete }) => {
   return (
-    <ul className="list-group mb-4">
+    <List sx={{ mb: 4 }}>
       {productos.map((producto) => (
-        <li
+        <ListItem
           key={producto.id}
-          className="list-group-item d-flex justify-content-between align-items-center"
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center'
+          }}
+          divider
         >
-          <div>
-            <strong>{producto.name}</strong> - ${producto.price} <br />
-            <small>{producto.description}</small> <br />
-            <small>Categoría: {producto.category}</small> <br />
-            <small>Stock: {producto.stock}</small>
-          </div>
-          <div>
-            <button
-              className="btn btn-primary btn-sm me-2"
-              onClick={() => handleEdit(producto)}
-            >
-              Editar
-            </button>
-            <button
-              className="btn btn-danger btn-sm"
-              onClick={() => handleDelete(producto.id)}
-            >
-              Eliminar
-            </button>
-          </div>
-        </li>
+          <Grid container spacing={2}>
+            <Grid item xs={12} sm={8}>
+              <Typography variant="body1">
+                <strong>{producto.name}</strong> - {producto.price.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })}
+              </Typography>
+              <Typography variant="body2">
+                {producto.description}
+              </Typography>
+              <Typography variant="caption">
+                Categoría: {producto.category}
+              </Typography>
+              <br />
+              <Typography variant="caption">
+                Stock: {producto.stock}
+              </Typography>
+            </Grid>
+            <Grid item xs={12} sm={4} container justifyContent="flex-end" alignItems="center">
+              <button
+                className="btn btn-primary btn-sm me-2"
+                onClick={() => handleEdit(producto)}
+                sx={{ mr: 2 }}
+              >
+                Editar
+              </button>
+              <button
+                className="btn btn-danger btn-sm"
+                onClick={() => handleDelete(producto.id)}
+              >
+                Eliminar
+              </button>
+            </Grid>
+          </Grid>
+        </ListItem>
       ))}
-    </ul>
+    </List>
   );
 };
+
 
 ProductList.propTypes = {
   productos: PropTypes.arrayOf(
