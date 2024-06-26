@@ -57,10 +57,16 @@ const NavBar = () => {
     setUserLoged({
       authenticated: false,
       role: "",
+      name: ""
     });
     setCart([]);
     setCount(0);
+    navigate('/');
     handlePopoverClose();
+  };
+
+  const handleCompras = () => {
+    navigate('/account');
   };
 
   const open = Boolean(anchorEl);
@@ -196,6 +202,9 @@ const NavBar = () => {
                           Registrarse
                         </MenuItem>
                       </Link>
+                    )}
+                    {userLoged.authenticated && (
+                      <MenuItem onClick={handleCompras}>Mis compras</MenuItem>
                     )}
                     {userLoged.authenticated && (
                       <MenuItem onClick={handleCerrar}>Cerrar sesión</MenuItem>
