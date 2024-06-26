@@ -1,13 +1,9 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useContext } from "react";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import SearchIcon from "@mui/icons-material/Search";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import { Link } from "react-router-dom";
-import CardProductLogged from '../cardProductLogged/CardProductLogged';
+import { Link, useNavigate } from "react-router-dom";
 import {
-  Box, 
-  Container, 
-  Stack,
   Popover,
   MenuList,
   MenuItem,
@@ -23,50 +19,29 @@ import {
 } from "@mui/material";
 import fondo from "../../images/fondo.png";
 import logoImage from "../../images/icon one tech_Blanco fondo transparente.png";
-import axios from "axios";
 import { UserContext } from "../../contexts/user-context";
 import Drawer from "../drawer/Drawer";
 import { CartContext } from "../../contexts/cart-context";
-import { useNavigate } from "react-router-dom";
 
 const NavBar = () => {
   const [searchText, setSearchText] = useState("");
-  const [productos, setProductos] = useState([]);
-  const [filteredProductos, setFilteredProductos] = useState([]);
   const [anchorEl, setAnchorEl] = useState(null);
+  const navigate = useNavigate();
 
   const { userLoged, setUserLoged } = useContext(UserContext);
   const { count, setCart, setCount } = useContext(CartContext);
-  const navigate = useNavigate();
-
-   useEffect(() => {
-     const fetchProductos = async () => {
-      try {
-         const response = await axios.get('http://onetechapi-utn.ddns.net/api/Productos');
-         setProductos(response.data);
-         //setFilteredProductos(response.data);
-       } catch (error) {
-         console.error('Error fetching products:', error);
-       }
-     };
-
-     fetchProductos();
-   }, []);
 
   const handleSearchChange = (event) => {
     const text = event.target.value;
     setSearchText(text);
-    filterProducts(text);
+    if (text.length > 2) {
+      navigate("/products", { state: { searchText: text } });
+    }
   };
 
-  const filterProducts = (text) => {
-    if (text.trim() === "") {
-      setFilteredProductos([]);
-    } else {
-      const filtered = productos.filter((producto) =>
-        producto.name.toLowerCase().includes(text.toLowerCase())
-      );
-      setFilteredProductos(filtered);
+  const handleSearch = () => {
+    if (searchText.trim().length > 0) {
+      navigate("/products", { state: { searchText: searchText } });
     }
   };
 
@@ -82,16 +57,10 @@ const NavBar = () => {
     setUserLoged({
       authenticated: false,
       role: "",
-      name: ""
     });
     setCart([]);
     setCount(0);
-    navigate('/');
     handlePopoverClose();
-  };
-
-  const handleCompras = () => {
-    navigate('/account');
   };
 
   const open = Boolean(anchorEl);
@@ -142,7 +111,7 @@ const NavBar = () => {
                 borderRadius: "50px",
               }}
             >
-              <IconButton color="black" aria-label="search">
+              <IconButton color="black" aria-label="search" onClick={handleSearch}>
                 <SearchIcon />
               </IconButton>
               <InputBase
@@ -229,9 +198,6 @@ const NavBar = () => {
                       </Link>
                     )}
                     {userLoged.authenticated && (
-                      <MenuItem onClick={handleCompras}>Mis compras</MenuItem>
-                    )}
-                    {userLoged.authenticated && (
                       <MenuItem onClick={handleCerrar}>Cerrar sesión</MenuItem>
                     )}
                   </MenuList>
@@ -244,27 +210,6 @@ const NavBar = () => {
           </Grid>
         </Toolbar>
       </AppBar>
-
-      { /*<Grid style={{ marginTop: '80px', padding: '20px' }}>
-        <Typography variant="h6">Resultados de búsqueda:</Typography>
-        <ul>
-          {filteredProductos.map((producto) => (
-            <li key={producto.id}>{producto.name}</li>
-          ))}
-        </ul>
-      </Grid> */}
-      {/* <Box>
-            <Container maxWidth="xl" sx={{ mt: "1%", mb: "3%" }}>
-                <Stack spacing={1}>
-                    <h1 style={{ padding: '15px' }}>Resultados de búsqueda</h1>
-                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px' }}>
-                        {filteredProductos.map(product => (
-                            <CardProductLogged product={product} />
-                        ))}
-                    </div>
-                </Stack>
-            </Container>
-        </Box> */}
     </>
   );
 };
