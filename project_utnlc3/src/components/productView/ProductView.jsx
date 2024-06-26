@@ -78,7 +78,7 @@ const ProductView = () => {
                 {product.category}
               </Typography>
               <Typography level="h2" color="primary" gutterBottom>
-                $ {product.price}
+                {product.price.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })}
               </Typography>
               <Typography level="body1" color="success" gutterBottom>
                 Hasta 12 cuotas
@@ -111,11 +111,8 @@ const ProductView = () => {
             </CardContent>
           </Card>
         </Grid>
-        <Typography level="h2" gutterBottom>
-              Productos similares:
-        </Typography>
         <Grid item xs={12} sx={{ marginTop: 0 }}>
-          <Carrusel products={filteredProducts} />
+          <Carrusel products={filteredProducts} text="Productos similares" />
         </Grid>
       </Grid>
     </Box>
