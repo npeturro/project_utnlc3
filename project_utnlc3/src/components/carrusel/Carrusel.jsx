@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import CardProductLogged from "../cardProductLogged/CardProductLogged";
 import "./Carrusel.css";
 
-const Carrusel = ({ products }) => {
+const Carrusel = ({ products, text = "ONE TECH - TRANSFORMING IDEAS INTO REALITY" }) => {
   const groupedProducts = [];
 
   // Agrupar productos en conjuntos de 4
@@ -14,7 +14,7 @@ const Carrusel = ({ products }) => {
   return (
     <div className="carousel-container">
       <h2 style={{ textAlign: "center" }}>
-        ONE TECH - TRANSFORMING IDEAS INTO REALITY{" "}
+        {text}{" "}
       </h2>
       <Carousel
         variant="dark"
