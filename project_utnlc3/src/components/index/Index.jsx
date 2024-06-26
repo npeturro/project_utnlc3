@@ -69,6 +69,14 @@ const Index = () => {
                             Ver productos
                           </MenuItem>
                         </Link>
+                        <Link
+                          to="/orders"
+                          style={{ textDecoration: "none", color: "inherit" }}
+                        >
+                          <MenuItem onClick={handlePopoverClose}>
+                            Ver ordenes
+                          </MenuItem>
+                        </Link>
                         {userLoged.authenticated &&
                           userLoged.role === "SuperAdmin" && (
                             <Link

@@ -6,6 +6,8 @@ import ProductForm from "../productForm/ProductForm";
 import SearchBar from "../searchBar/SearchBar";
 import Alert from "../alert/Alert";
 import { CartelContext } from "../../contexts/alert-context";
+import { UserContext } from "../../contexts/user-context";
+import NotFound from "../notFound/NotFound";
 
 const ProductCrud = () => {
   const [productos, setProductos] = useState([]);
@@ -20,6 +22,14 @@ const ProductCrud = () => {
   });
   const [searchTerm, setSearchTerm] = useState("");
   const cartel = useContext(CartelContext)
+
+  const { userLoged, setUserLoged } = useContext(UserContext);
+
+  if (userLoged.authenticated === false || (userLoged.role !== "Admin" && userLoged.role !== "SuperAdmin")) {
+    return (
+      <NotFound />
+    );
+  }
 
   useEffect(() => {
     cargarProductos();

@@ -82,9 +82,11 @@ const NavBar = () => {
     setUserLoged({
       authenticated: false,
       role: "",
+      name: ""
     });
     setCart([]);
     setCount(0);
+    navigate('/');
     handlePopoverClose();
   };
 
