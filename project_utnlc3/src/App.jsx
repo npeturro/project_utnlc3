@@ -19,6 +19,8 @@ import ProductView from './components/productView/ProductView';
 import Register from './components/register/Register';
 import AllProducts from './components/allProducts/AllProducts';
 import Order from './components/order/Order';
+import MyAccount from './components/account/MyAccount';
+import AllOrders from './components/allOrders/AllOrders';
 
 const App = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -125,6 +127,22 @@ const App = () => {
             element: (
                 <MainLayout>
                     <Order />
+                </MainLayout>
+            )
+        },
+        {
+            path: "/account",
+            element: (
+                <MainLayout>
+                    <MyAccount />
+                </MainLayout>
+            )
+        },
+        {
+            path: "/orders",
+            element: (
+                <MainLayout>
+                    <AllOrders />
                 </MainLayout>
             )
         },

@@ -27,6 +27,7 @@ import axios from "axios";
 import { UserContext } from "../../contexts/user-context";
 import Drawer from "../drawer/Drawer";
 import { CartContext } from "../../contexts/cart-context";
+import { useNavigate } from "react-router-dom";
 
 const NavBar = () => {
   const [searchText, setSearchText] = useState("");
@@ -36,6 +37,7 @@ const NavBar = () => {
 
   const { userLoged, setUserLoged } = useContext(UserContext);
   const { count, setCart, setCount } = useContext(CartContext);
+  const navigate = useNavigate();
 
    useEffect(() => {
      const fetchProductos = async () => {
@@ -80,10 +82,16 @@ const NavBar = () => {
     setUserLoged({
       authenticated: false,
       role: "",
+      name: ""
     });
     setCart([]);
     setCount(0);
+    navigate('/');
     handlePopoverClose();
+  };
+
+  const handleCompras = () => {
+    navigate('/account');
   };
 
   const open = Boolean(anchorEl);
@@ -219,6 +227,9 @@ const NavBar = () => {
                           Registrarse
                         </MenuItem>
                       </Link>
+                    )}
+                    {userLoged.authenticated && (
+                      <MenuItem onClick={handleCompras}>Mis compras</MenuItem>
                     )}
                     {userLoged.authenticated && (
                       <MenuItem onClick={handleCerrar}>Cerrar sesión</MenuItem>
