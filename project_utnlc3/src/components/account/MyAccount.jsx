@@ -53,8 +53,8 @@ const MyAccount = () => {
                             <Table sx={{ minWidth: 650 }} aria-label="simple table">
                                 <TableHead>
                                     <TableRow>
-                                        <TableCell>Número de orden</TableCell>
-                                        <TableCell align="right">Total</TableCell>
+                                        <TableCell><b>Número de orden</b></TableCell>
+                                        <TableCell align="right"><b>Total</b></TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
@@ -64,9 +64,9 @@ const MyAccount = () => {
                                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                         >
                                             <TableCell component="th" scope="row">
-                                                <b>{row.numeroOrden}</b>
+                                                {row.numeroOrden}
                                             </TableCell>
-                                            <TableCell align="right"><b>{parseInt(row.montoTotal).toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })}</b></TableCell>
+                                            <TableCell align="right">{parseInt(row.montoTotal).toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })}</TableCell>
                                         </TableRow>
                                     ))}
                                 </TableBody>

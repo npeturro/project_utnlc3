@@ -19,15 +19,6 @@ const Order = () => {
         setCart([]);
         setCount(0);
     }, []);
-    // Generar un número de orden aleatorio
-    // const [orderNumber, setOrderNumber] = useState('');
-
-    // useEffect(() => {
-    //     const generateOrderNumber = () => {
-    //         return Math.floor(100000 + Math.random() * 900000);
-    //     };
-    //     setOrderNumber(generateOrderNumber());
-    // }, []);
 
     return (
         <Container maxWidth="xs" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>

@@ -82,6 +82,11 @@ const Checkout = (props) => {
         }, 2000);
     };
 
+    const handleClick = async () => {
+        const fetch = await sendOrder()
+    };
+
+
 
 
     return (
@@ -192,10 +197,12 @@ const Checkout = (props) => {
                                 {isLoading ? 'Cargando...' : 'Pagar en efectivo'}
                             </Button>
 
-                            <Wallet
-                                initialization={{ preferenceId: state.id }}
-                                customization={{ texts: { valueProp: "smart_option" } }}
-                            />
+                            <div onClick={handleClick}>
+                                <Wallet
+                                    initialization={{ preferenceId: state.id }}
+                                    customization={{ texts: { valueProp: "smart_option" } }}
+                                />
+                            </div>
                         </Box>
                     </Stack>
                 </Box>
