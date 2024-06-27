@@ -125,6 +125,16 @@ const ProductView = () => {
         <Grid item xs={12} sx={{ marginTop: 0 }}>
           <Carrusel products={filteredProducts} text="Productos similares" />
         </Grid>
+        <Grid  item xs={12}>
+          <Card sx={{ padding: 2, objectFit: 'contain' }}>
+            <Typography level="h2" variant='soft' color='neutral' gutterBottom>
+                Detalles del producto:
+            </Typography>
+            <Typography level="body-md">
+                {product.description}
+            </Typography>
+          </Card>
+        </Grid>
       </Grid>
     </Box>
   );

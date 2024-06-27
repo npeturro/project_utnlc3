@@ -39,6 +39,10 @@ const CardProductLogged = ({ product }) => {
     });
   };
 
+  const handleCardClick = () => {
+    navigate(`/productView/${product.id}`, { state: { product } });
+  };
+
   return (
     <Card
       key={product.id}
@@ -50,10 +54,12 @@ const CardProductLogged = ({ product }) => {
         transition: "transform 0.2s ease",
         transform: hoveredCardId === product.id ? "scale(1.05)" : "scale(1)",
         backgroundColor: "#fff",
+        cursor: "pointer",
       }}
       variant="soft"
       onMouseEnter={() => setHoveredCardId(product.id)}
       onMouseLeave={() => setHoveredCardId(null)}
+      onClick={handleCardClick}
     >
       <CardOverflow>
         <AspectRatio ratio="4/3">
@@ -149,7 +155,10 @@ const CardProductLogged = ({ product }) => {
             color="primary"
             size="lg"
             startDecorator={<AddShoppingCartIcon />}
-            onClick={() => handleAddCart(product)}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleAddCart(product);
+            }}
           >
             Agregar al carrito
           </Button>
