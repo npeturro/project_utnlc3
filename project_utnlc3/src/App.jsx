@@ -1,7 +1,5 @@
-import { useState, useEffect } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './App.css'
-import CardProductLogged from "./components/cardProductLogged/CardProductLogged";
 import Login from "./components/login/Login";
 import Cart from './components/cart/Cart';
 import MainLayout from './components/layout/mainLayout/MainLayout';
@@ -21,17 +19,12 @@ import AllProducts from './components/allProducts/AllProducts';
 import Order from './components/order/Order';
 import MyAccount from './components/account/MyAccount';
 import AllOrders from './components/allOrders/AllOrders';
+import Protected from './components/routes/Protected/Protected';
+import ProtectedAdm from './components/routes/Protected/ProtectedAdm';
+import ProtectedSup from './components/routes/Protected/ProtectedSup';
+
 
 const App = () => {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-    const loginHandler = () => {
-        setIsLoggedIn(true);
-    };
-
-    const logOutHandler = () => {
-        setIsLoggedIn(false);
-    };
 
     const router = createBrowserRouter([
         {
@@ -53,9 +46,11 @@ const App = () => {
         {
             path: "/cart",
             element: (
-                <MainLayout>
-                    <Cart />
-                </MainLayout>
+                <Protected>
+                    <MainLayout>
+                        <Cart />
+                    </MainLayout>
+                </Protected>
             )
         },
         {
@@ -69,9 +64,11 @@ const App = () => {
         {
             path: "/product",
             element: (
-                <MainLayout>
-                    <ProductCrud />
-                </MainLayout>
+                <ProtectedAdm>
+                    <MainLayout>
+                        <ProductCrud />
+                    </MainLayout>
+                </ProtectedAdm>
             )
         },
         {
@@ -93,9 +90,11 @@ const App = () => {
         {
             path: "/users",
             element: (
-                <MainLayout>
-                    <UserCrud />
-                </MainLayout>
+                <ProtectedSup>
+                    <MainLayout>
+                        <UserCrud />
+                    </MainLayout>
+                </ProtectedSup>
             )
         },
         {
@@ -133,17 +132,21 @@ const App = () => {
         {
             path: "/account",
             element: (
-                <MainLayout>
-                    <MyAccount />
-                </MainLayout>
+                <Protected>
+                    <MainLayout>
+                        <MyAccount />
+                    </MainLayout>
+                </Protected>
             )
         },
         {
             path: "/orders",
             element: (
-                <MainLayout>
-                    <AllOrders />
-                </MainLayout>
+                <ProtectedSup>
+                    <MainLayout>
+                        <AllOrders />
+                    </MainLayout>
+                </ProtectedSup>
             )
         },
         {

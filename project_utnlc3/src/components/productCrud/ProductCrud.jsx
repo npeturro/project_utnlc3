@@ -26,11 +26,6 @@ const ProductCrud = () => {
 
   const { userLoged, setUserLoged } = useContext(UserContext);
 
-  if (userLoged.authenticated === false || (userLoged.role !== "Admin" && userLoged.role !== "SuperAdmin")) {
-    return (
-      <NotFound />
-    );
-  }
 
   useEffect(() => {
     cargarProductos();

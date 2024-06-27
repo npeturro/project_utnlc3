@@ -242,7 +242,7 @@ const NavBar = () => {
             inputProps={{ 'aria-label': 'toggle dark mode' }}
             sx={{
               '& .MuiSwitch-thumb': {
-                bgcolor: darkMode ? '#ffffff' : '#000000',
+                bgcolor: darkMode ? '#A9CCE3' : '#85929E',
               },
               '& .MuiSwitch-track': {
                 bgcolor: darkMode ? '#ffffff' : '#000000',
