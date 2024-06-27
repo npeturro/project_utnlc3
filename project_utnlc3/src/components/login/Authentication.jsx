@@ -20,13 +20,15 @@ const useAuthentication = () => {
             return {
                 authenticated: true,
                 role: authenticatedUser.role,
-                name: authenticatedUser.username
+                name: authenticatedUser.username,
+                email: authenticatedUser.email
             };
         } else {
             return {
                 authenticated: false,
                 role: null,
-                name: ''
+                name: '',
+                email: ''
             };
         }
     };

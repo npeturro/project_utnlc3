@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { UserContext } from "../../contexts/user-context";
 import {
     Box,
@@ -13,6 +13,7 @@ import {
     TableRow,
     Divider
 } from "@mui/material";
+import { Get } from '../fetch';
 
 const MyAccount = () => {
     const { userLoged, setUserLoged } = useContext(UserContext);
@@ -29,16 +30,16 @@ const MyAccount = () => {
         )
     }
 
-    const [rows, setRows] = useState([
-        {
-            orden: '#12345', total: 1200, user: 'npeturro'
-        },
-        {
-            orden: '#12348', total: 120000, user: 'npeturro'
-        }
-    ]);
+    const [value, setValues] = useState('')
+    useEffect(() => {
+        const fetchData = async () => {
+            const get = await Get(`Compras/user/${userLoged.email}`);
+            setValues(get);
+        };
 
-    const user = rows.filter(row => row.user === userLoged.name);
+        fetchData();
+    }, []);
+
 
     return (
         <Box sx={{ mt: 4 }}>
@@ -46,7 +47,7 @@ const MyAccount = () => {
                 <Grid container justifyContent="center" alignItems="center" mb={4}>
                     <Typography variant="h4" gutterBottom>MIS COMPRAS</Typography>
                 </Grid>
-                {user.length > 0 ? (
+                {(value !== '') ? (
                     <Grid>
                         <TableContainer>
                             <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -57,15 +58,15 @@ const MyAccount = () => {
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {user.map((row) => (
+                                    {value.map((row) => (
                                         <TableRow
-                                            key={row.orden}
+                                            key={row.numeroOrden}
                                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                         >
                                             <TableCell component="th" scope="row">
-                                                {row.orden}
+                                                <b>{row.numeroOrden}</b>
                                             </TableCell>
-                                            <TableCell align="right">{row.total.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })}</TableCell>
+                                            <TableCell align="right"><b>{parseInt(row.montoTotal).toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })}</b></TableCell>
                                         </TableRow>
                                     ))}
                                 </TableBody>

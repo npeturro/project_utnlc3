@@ -8,6 +8,8 @@ import { CartContext } from "../../contexts/cart-context";
 import { UserContext } from "../../contexts/user-context";
 import Carrusel from "../carrusel/Carrusel"; // Import the Carrusel component
 import axios from 'axios';
+import { CartelContext } from "../../contexts/alert-context";
+
 
 const ProductView = () => {
   const location = useLocation();
@@ -17,6 +19,7 @@ const ProductView = () => {
   const [products, setProducts] = useState([]); // Initialize products as an empty array
   const [filteredProducts, setFilteredProducts] = useState([]);
   const navigate = useNavigate();
+  const cartel = useContext(CartelContext);
 
   useEffect(() => {
     fetchProducts();
@@ -56,6 +59,14 @@ const ProductView = () => {
     return <div>Loading...</div>;
   }
 
+  const handleAddCart = (product) => {
+    addCart(product);
+    cartel({
+      tipo: "success",
+      text: `${product.name} agregado con éxito`,
+    });
+  };
+
   return (
     <Box sx={{ padding: 4 }}>
       <Grid container spacing={2}>
@@ -94,7 +105,7 @@ const ProductView = () => {
                   color="primary"
                   size="lg"
                   startDecorator={<AddShoppingCartIcon />}
-                  onClick={() => addCart(product)}
+                  onClick={() => handleAddCart(product)}
                 >
                   Agregar al carrito
                 </Button>
