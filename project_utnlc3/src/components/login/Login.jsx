@@ -48,12 +48,12 @@ function Login (props) {
       return;
     }
 
-    const { authenticated, role, name } = authenticate(values.email, values.password);
+    const { authenticated, role, name, email } = authenticate(values.email, values.password);
     
     if (authenticated) {
       setValues({ email: '', password: '' });
       navigate('/');
-      setUserLoged({ authenticated, role, name })
+      setUserLoged({ authenticated, role, name, email })
       cartel({
         tipo: 'success',
         text: 'Usuario ingresado correctamente!'

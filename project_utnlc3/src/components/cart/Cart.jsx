@@ -9,20 +9,8 @@ import axios from 'axios';
 
 function Cart() {
 
-    const [drawerOpen, setDrawerOpen] = useState(false);
     const { cart, removeCart, updateQuantity } = useContext(CartContext);
 
-    const toggleDrawer = (open) => (event) => {
-        if (
-            event.type === 'keydown' &&
-            (event.key === 'Tab' || event.key === 'Shift')
-        ) {
-            return;
-        }
-
-        console.log(open)
-        setDrawerOpen(open);
-    };
     const navigate = useNavigate();
 
     const handleQuantityChange = (id, value) => {
@@ -37,7 +25,6 @@ function Cart() {
 
     const total = cart.reduce((sum, product) => sum + (product.price > 1500000 ? product.price * 0.95 : product.price) * product.quantity, 0);
 
-    const [preferenceId, setPreferenceId] = useState('');
 
     const createPreference = async (total) => {
         try {
@@ -60,14 +47,13 @@ function Cart() {
 
     const handleBuy = async (total, cart) => {
         const id = await createPreference(total);
-        console.log(id)
         navigate("/Checkout", { state: { id, total, cart } })
     };
 
 
 
     return (
-        <Box sx={{ p: 5, mt: 8 }}>
+        <Box sx={{ p: 5, mt: 4 }}>
             <Grid container justifyContent="center" alignItems="center" mb={4}>
                 <Typography variant="h4" gutterBottom>CARRITO DE COMPRAS</Typography>
             </Grid>
@@ -203,21 +189,6 @@ function Cart() {
                     </Grid>
                 )
             }
-
-            {/* <Drawer
-                anchor="right"
-                open={drawerOpen}
-                onClose={toggleDrawer(false)}
-            >
-                <Box
-                    sx={{ width: 500 }}
-                    role="presentation"
-                    onClick={toggleDrawer(false)}
-                    onKeyDown={toggleDrawer(false)}
-                >
-                    <Checkout products={cart} preferenceId={preferenceId}  />
-                </Box>
-            </Drawer> */}
         </Box>
     );
 }

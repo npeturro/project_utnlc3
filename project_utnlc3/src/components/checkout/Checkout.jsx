@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect, useCallback } from "react";
 import { useLocation } from "react-router-dom";
 import {
     Box,
@@ -19,11 +19,13 @@ import {
 import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
 import { useNavigate } from "react-router-dom";
 import { CartContext } from "../../contexts/cart-context";
+import { UserContext } from "../../contexts/user-context";
+import axios from "axios";
 
 const Checkout = (props) => {
-    // const [preferenceId, setPreferenceId] = useState(null);
-    // const { products, handleBuy, preferenceId } = props;
-    const { count, setCart, setCount } = useContext(CartContext);
+
+    const { cart } = useContext(CartContext);
+    const { userLoged } = useContext(UserContext);
 
     initMercadoPago("TEST-237a1067-59cb-4dd4-ac24-c796c2079e7b", {
         locale: "es-AR",
@@ -33,21 +35,59 @@ const Checkout = (props) => {
     const { state } = location;
     const navigate = useNavigate();
 
+    const [orderNumber, setOrderNumber] = useState('');
+
+    useEffect(() => {
+        const generateOrderNumber = () => {
+            return Math.floor(100000 + Math.random() * 900000);
+        };
+        setOrderNumber(generateOrderNumber());
+    }, []);
+
     const [method, setMethod] = useState('sucursal');
+
+    const products = cart.map((row) => ({
+        productoId: row.id,
+        cantidad: row.quantity,
+    }));
+
+    const sendOrder = async () => {
+        try {
+            const response = await axios.post(
+                "http://onetechapi-utn.ddns.net/api/Compras",
+                {
+                    emailUsuario: userLoged.email,
+                    montoTotal: `${state.total}`,
+                    numeroOrden: `#${orderNumber}`,
+                    detalles: products
+                }
+            );
+            return response.data.id;
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     const handleMethod = (event) => {
         setMethod(event.target.value);
     };
 
     const [isLoading, setIsLoading] = useState(false);
 
-    const handleEfectivo = () => {
+    const handleEfectivo = async () => {
         setIsLoading(true);
-        setCart([]);
-        setCount(0);
+        const fetch = await sendOrder()
         setTimeout(() => {
-            navigate('/order', { state: { method } });
+            navigate('/order', { state: { method, orderNumber } });
         }, 2000);
     };
+
+    const handleClick = async () => {
+        const fetch = await sendOrder()
+    };
+
+
+
 
     return (
         <>
@@ -157,10 +197,12 @@ const Checkout = (props) => {
                                 {isLoading ? 'Cargando...' : 'Pagar en efectivo'}
                             </Button>
 
-                            <Wallet
-                                initialization={{ preferenceId: state.id }}
-                                customization={{ texts: { valueProp: "smart_option" } }}
-                            />
+                            <div onClick={handleClick}>
+                                <Wallet
+                                    initialization={{ preferenceId: state.id }}
+                                    customization={{ texts: { valueProp: "smart_option" } }}
+                                />
+                            </div>
                         </Box>
                     </Stack>
                 </Box>

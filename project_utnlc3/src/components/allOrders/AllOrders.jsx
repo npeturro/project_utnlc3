@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { UserContext } from "../../contexts/user-context";
 import {
     Box,
@@ -14,19 +14,28 @@ import {
     Divider
 } from "@mui/material";
 import NotFound from "../notFound/NotFound";
+import { Get } from "../fetch";
+import axios from "axios";
 
 const AllOrders = () => {
 
- 
+    const { userLoged, setUserLoged } = useContext(UserContext);
 
-    const [rows, setRows] = useState([
-        {
-            orden: '#12345', total: 1200, user: 'npesturro'
-        },
-        {
-            orden: '#12348', total: 120000, user: 'npeturro123'
-        }
-    ]);
+    if (userLoged.authenticated == false) {
+        return (
+            <NotFound />
+        )
+    }
+
+    const [value, setValues] = useState('')
+    useEffect(() => {
+        const fetchData = async () => {
+            const get = await Get(`Compras/all`);
+            setValues(get);
+        };
+
+        fetchData();
+    }, []);
 
     return (
         <Box sx={{ mt: 4 }}>
@@ -34,28 +43,28 @@ const AllOrders = () => {
                 <Grid container justifyContent="center" alignItems="center" mb={4}>
                     <Typography variant="h4" gutterBottom>ORDENES DE COMPRA</Typography>
                 </Grid>
-                {rows.length > 0 ? (
+                {(value !== '') ? (
                     <Grid>
                         <TableContainer>
                             <Table sx={{ minWidth: 650 }} aria-label="simple table">
                                 <TableHead>
                                     <TableRow>
-                                        <TableCell>Número de orden</TableCell>
-                                        <TableCell align="right">Usuario</TableCell>
-                                        <TableCell align="right">Total</TableCell>
+                                        <TableCell><b>Número de orden</b></TableCell>
+                                        <TableCell align="center"><b>Usuario</b></TableCell>
+                                        <TableCell align="center"><b>Total</b></TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {rows.map((row) => (
+                                    {value.map((row) => (
                                         <TableRow
-                                            key={row.orden}
+                                            key={row.numeroOrden}
                                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                         >
                                             <TableCell component="th" scope="row">
-                                                {row.orden}
+                                                {row.numeroOrden}
                                             </TableCell>
-                                            <TableCell align="right">{row.user}</TableCell>
-                                            <TableCell align="right">{row.total.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })}</TableCell>
+                                            <TableCell align="center">{row.emailUsuario}</TableCell>
+                                            <TableCell align="center">{parseInt(row.montoTotal).toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })}</TableCell>
                                         </TableRow>
                                     ))}
                                 </TableBody>
@@ -66,7 +75,7 @@ const AllOrders = () => {
                     <>
                         <Divider></Divider>
                         <Grid container justifyContent="center" alignItems="center" mb={4} mt={3}>
-                            <Typography variant="h6" gutterBottom>No tiene compras realizadas</Typography>
+                            <Typography variant="h6" gutterBottom>No existen compras registradas en el sistema</Typography>
                         </Grid>
                     </>
                 )}

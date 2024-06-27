@@ -30,7 +30,8 @@ const NavBar = () => {
   const [darkMode, setDarkMode] = useState(false); 
   const navigate = useNavigate();
   const { userLoged, setUserLoged } = useContext(UserContext);
-  const { count } = useContext(CartContext);
+  const { count, setCount, setCart } = useContext(CartContext);
+
 
   useEffect(() => {
     
@@ -69,7 +70,8 @@ const NavBar = () => {
     setUserLoged({
       authenticated: false,
       role: "",
-      name: ""
+      name: "",
+      email: ""
     });
     setCart([]);
     setCount(0);

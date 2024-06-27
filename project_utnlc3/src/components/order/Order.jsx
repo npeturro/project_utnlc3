@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { useLocation } from "react-router-dom"; // Asegúrate de importar useLocation si necesitas el estado de la navegación
 import {
     Box,
@@ -7,19 +7,17 @@ import {
     Divider
 } from "@mui/material";
 import CheckIcon from '@mui/icons-material/Check';
+import { CartContext } from "../../contexts/cart-context";
 
 const Order = () => {
+
+    const { setCart, setCount } = useContext(CartContext);
     const location = useLocation();
     const { state } = location;
 
-    // Generar un número de orden aleatorio
-    const [orderNumber, setOrderNumber] = useState('');
-
     useEffect(() => {
-        const generateOrderNumber = () => {
-            return Math.floor(100000 + Math.random() * 900000);
-        };
-        setOrderNumber(generateOrderNumber());
+        setCart([]);
+        setCount(0);
     }, []);
 
     return (
@@ -46,7 +44,7 @@ const Order = () => {
                     Su pedido ha sido realizado correctamente
                 </Typography>
                 <Typography variant="h7" component="div" color={"blue"}>
-                    <b>Número de orden #{orderNumber}</b>
+                    <b>Número de orden #{state.orderNumber}</b>
                 </Typography>
                 <Divider sx={{ my: 2, backgroundColor:'black' }} />
                 {
