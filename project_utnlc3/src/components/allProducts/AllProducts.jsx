@@ -7,7 +7,6 @@ import { useLocation } from 'react-router-dom';
 const AllProducts = () => {
   const location = useLocation();
   const { state } = location;
-  console.log(state);
 
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);

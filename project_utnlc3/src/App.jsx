@@ -46,11 +46,9 @@ const App = () => {
         {
             path: "/cart",
             element: (
-                <Protected>
-                    <MainLayout>
-                        <Cart />
-                    </MainLayout>
-                </Protected>
+                <MainLayout>
+                    <Cart />
+                </MainLayout>
             )
         },
         {

@@ -75,6 +75,7 @@ const NavBar = () => {
     });
     setCart([]);
     setCount(0);
+    localStorage.removeItem('userLoged');
     navigate('/');
     handlePopoverClose();
   };
