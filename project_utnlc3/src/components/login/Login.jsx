@@ -53,6 +53,7 @@ function Login (props) {
     if (authenticated) {
       setValues({ email: '', password: '' });
       navigate('/');
+      localStorage.setItem('userLoged', JSON.stringify({ authenticated, email }));
       setUserLoged({ authenticated, role, name, email })
       cartel({
         tipo: 'success',
