@@ -1,8 +1,8 @@
 import React from 'react';
 import { Container, Box, Typography, Grid } from '@mui/material';
 import { styled } from '@mui/system';
-import pic1 from "../../images/a.png";
-import pic2 from "../../images/b.png";
+import pic1 from "../../images/a.jpg";
+import pic2 from "../../images/b.jpg";
 
 const HoverImageContainer = styled(Box)({
     position: 'relative',
