@@ -21,15 +21,15 @@ const UserList = ({ usuarios, handleEdit, handleDelete }) => {
 
 UserList.propTypes = {
     usuarios: PropTypes.arrayOf(PropTypes.shape({
-        Id: PropTypes.number.isRequired,
-        Username: PropTypes.string.isRequired,
-        Password: PropTypes.number.isRequired,
-        FullName: PropTypes.string,
-        Email: PropTypes.string,
-        Phone: PropTypes.string,
-        Address: PropTypes.string,
-        Role: PropTypes.string,
-        IsActive: PropTypes.string
+        id: PropTypes.number.isRequired,
+        username: PropTypes.string.isRequired,
+        password: PropTypes.number.isRequired,
+        fullName: PropTypes.string,
+        email: PropTypes.string,
+        phone: PropTypes.string,
+        address: PropTypes.string,
+        role: PropTypes.string,
+        isActive: PropTypes.string
     })).isRequired,
     handleEdit: PropTypes.func.isRequired,
     handleDelete: PropTypes.func.isRequired,

@@ -9,6 +9,7 @@ import { CartelContext } from '../../contexts/alert-context';
 import { UserContext } from '../../contexts/user-context';
 import NotFound from '../notFound/NotFound';
 import { Grid, Box, Typography, Stack, Container } from '@mui/material';
+import { Get } from '../fetch';
 
 const UserCrud = () => {
   const [usuarios, setUsuarios] = useState([]);
@@ -30,13 +31,11 @@ const UserCrud = () => {
     cargarUsuarios();
   }, []);
 
-  const cargarUsuarios = () => {
-    axios.get('http://onetechapi-utn.ddns.net/api/users')
-      .then(response => {
-        setUsuarios(response.data);
-      })
-      .catch(error => console.log(error));
+  const cargarUsuarios = async () => {
+    const get = await Get("users");
+    setUsuarios(get);
   };
+
 
   const handleSubmit = (event) => {
     event.preventDefault();

@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types';
 
 const UserForm = ({
-    
+
   nombre, setNombre,
   clave, setClave,
   apellido, setApellido,
   email, setEmail,
-  phone, setPhone, 
-  address, setAddress, 
+  phone, setPhone,
+  address, setAddress,
   role, setRole,
   isActive, setIsActive,
   userId, handleSubmit, resetForm
@@ -25,7 +25,7 @@ const UserForm = ({
       </div>
       <div className="mb-3">
         <input
-          type="number"
+          type="text"
           className="form-control"
           placeholder="Clave"
           value={clave}
@@ -43,7 +43,7 @@ const UserForm = ({
       </div>
       <div className="mb-3">
         <input
-          type="text"
+          type="email"
           className="form-control"
           placeholder="Email"
           value={email}
@@ -69,22 +69,26 @@ const UserForm = ({
         />
       </div>
       <div className="mb-3">
-        <input
-          type="text"
+        <select
           className="form-control"
-          placeholder="Rol"
           value={role}
           onChange={(e) => setRole(e.target.value)}
-        />
+        >
+          <option value="">Seleccione un rol</option>
+          <option value="SuperAdmin">Superadmin</option>
+          <option value="Admin">Admin</option>
+          <option value="Cliente">Cliente</option>
+        </select>
       </div>
       <div className="mb-3">
-        <input
-          type="text"
+        <select
           className="form-control"
-          placeholder="Activo"
           value={isActive}
           onChange={(e) => setIsActive(e.target.value)}
-        />
+        >
+          <option value="si">Activo</option>
+          <option value="no">Desactivado</option>
+        </select>
       </div>
       <button type="submit" className="btn btn-success me-2">{userId ? 'Actualizar' : 'Añadir'}</button>
       {userId && <button type="button" className="btn btn-secondary" onClick={resetForm}>Cancelar</button>}
@@ -102,7 +106,7 @@ UserForm.propTypes = {
   email: PropTypes.string.isRequired,
   setEmail: PropTypes.func.isRequired,
   phone: PropTypes.string.isRequired,
-  setPhone: PropTypes.func.isRequired, 
+  setPhone: PropTypes.func.isRequired,
   address: PropTypes.string.isRequired,
   setAddress: PropTypes.func.isRequired,
   role: PropTypes.string.isRequired,

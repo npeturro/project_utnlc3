@@ -1,11 +1,11 @@
-import { useState, useRef , useContext} from 'react';
+import { useState, useRef, useContext, useCallback } from 'react';
 import { Button, TextField, Box, Typography, Container, Alert, Snackbar } from '@mui/material'
 import { useNavigate } from 'react-router-dom';
 import useAuthentication from './Authentication';
 import { UserContext } from '../../contexts/user-context';
 import { CartelContext } from '../../contexts/alert-context';
 
-function Login (props) {
+function Login(props) {
 
   const { setUserLoged } = useContext(UserContext);
 
@@ -26,7 +26,7 @@ function Login (props) {
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
 
-  const handleClick = () => {
+  const handleClick = useCallback(() => {
 
     if (!emailRef.current.value) {
       emailRef.current.focus();
@@ -49,7 +49,7 @@ function Login (props) {
     }
 
     const { authenticated, role, name, email } = authenticate(values.email, values.password);
-    
+
     if (authenticated) {
       setValues({ email: '', password: '' });
       navigate('/');
@@ -65,9 +65,9 @@ function Login (props) {
         text: 'Credenciales incorrectas'
       })
     }
-  };
+  }, [values, authenticate, navigate, setUserLoged, cartel]);
 
-  const handleChange = (event) => {
+  const handleChange = useCallback((event) => {
     const { name, value } = event.target;
     setValues(prevValues => ({
       ...prevValues,
@@ -77,12 +77,12 @@ function Login (props) {
       ...prevErrors,
       [name]: false
     }));
-  };
+  }, []);
 
 
   return (
 
-    <Container maxWidth="xs" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+    <Container maxWidth="xs" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
       <Box
         sx={{
           marginTop: 8,

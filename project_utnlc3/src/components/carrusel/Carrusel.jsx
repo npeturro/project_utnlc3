@@ -45,7 +45,7 @@ Carrusel.propTypes = {
       name: PropTypes.string.isRequired,
       category: PropTypes.string,
       oldPrice: PropTypes.string,
-      price: PropTypes.string.isRequired,
+      price: PropTypes.number.isRequired,
       stock: PropTypes.number,
       image: PropTypes.string.isRequired,
       link: PropTypes.string.isRequired,

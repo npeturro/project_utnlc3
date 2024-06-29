@@ -140,11 +140,11 @@ const App = () => {
         {
             path: "/orders",
             element: (
-                <ProtectedSup>
+                <ProtectedAdm>
                     <MainLayout>
                         <AllOrders />
                     </MainLayout>
-                </ProtectedSup>
+                </ProtectedAdm>
             )
         },
         {
