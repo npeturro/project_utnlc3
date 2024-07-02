@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import CardProductLogged from '../cardProductLogged/CardProductLogged';
 import { Get } from '../fetch';
-import { Box, Container, Stack } from '@mui/material';
+import { Box, Container, Stack, Card, CardContent, Typography, Grid} from '@mui/material';
 import { useLocation } from 'react-router-dom';
 
 const AllProducts = () => {
@@ -44,7 +44,18 @@ const AllProducts = () => {
               ))}
             </div>
           ) : (
-            <p>No hay productos que coincidan con la búsqueda.</p>
+            <Grid container justifyContent="center">
+              <Grid item xs={12} md={6}>
+                <div style={{ textAlign: 'center' }}>
+                  <Card sx={{ p: 2 }}>
+                    <CardContent>
+                      <Typography>No hay productos que coincidan con la búsqueda.</Typography>
+                    </CardContent>
+                  </Card>
+                </div>
+              </Grid>
+            </Grid>
+
           )}
         </Stack>
       </Container>

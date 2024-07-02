@@ -1,4 +1,3 @@
-import Carrusel from '../../carrusel/Carrusel';
 import NavBar from '../../navBar/NavBar';
 import './MainLayout.css'
 import Footer from '../../footer/Footer';

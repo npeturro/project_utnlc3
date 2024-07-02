@@ -5,7 +5,7 @@ const WhatsAppButton = () => {
     const message = encodeURIComponent('Hola ONE TECH');
   const handleClick = () => {
     
-    window.open(`https://wa.me/+5492364610423?text=${message}`, '_blank');
+    window.open(`https://wa.me/+5492364566126?text=${message}`, '_blank');
   };
 
   return (

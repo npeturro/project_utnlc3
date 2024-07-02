@@ -122,18 +122,18 @@ const ProductView = () => {
             </CardContent>
           </Card>
         </Grid>
-        <Grid item xs={12} sx={{ marginTop: 0 }}>
-          <Carrusel products={filteredProducts} text="Productos similares" />
-        </Grid>
-        <Grid  item xs={12}>
+        <Grid item xs={12} md={12} sx={{ padding: 4 }}>
           <Card sx={{ padding: 2, objectFit: 'contain' }}>
             <Typography level="h2" variant='soft' color='neutral' gutterBottom>
-                Detalles del producto:
+              Detalles del producto:
             </Typography>
             <Typography level="body-md">
-                {product.description}
+              {product.description}
             </Typography>
           </Card>
+        </Grid>
+        <Grid item xs={12} sx={{ marginTop: 0 }}>
+          <Carrusel products={filteredProducts} text="Productos similares" />
         </Grid>
       </Grid>
     </Box>

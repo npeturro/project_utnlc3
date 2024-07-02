@@ -50,11 +50,8 @@ const NavBar = () => {
     if (text.length > 2) {
       navigate("/products", { state: { searchText: text } });
     }
-  };
-
-  const handleSearch = () => {
-    if (searchText.trim().length > 0) {
-      navigate("/products", { state: { searchText: searchText } });
+    if (text.length == 0) {
+      navigate("/products");
     }
   };
 
@@ -135,7 +132,7 @@ const NavBar = () => {
                 borderRadius: "50px",
               }}
             >
-              <IconButton color="black" aria-label="search" onClick={handleSearch}>
+              <IconButton color="black" aria-label="search">
                 <SearchIcon />
               </IconButton>
               <InputBase

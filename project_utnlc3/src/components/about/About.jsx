@@ -55,7 +55,7 @@ const About = () => {
                     <Typography variant="overline" component="div" gutterBottom>
                         NUESTRA GENTE
                     </Typography>
-                    <Typography variant="overline"  component="h2" gutterBottom>
+                    <Typography variant="h5" component="h2" gutterBottom>
                         Estamos para ayudarte
                     </Typography>
                     <Typography variant="body1" component="p">

@@ -7,18 +7,10 @@ import {
     Divider
 } from "@mui/material";
 import CheckIcon from '@mui/icons-material/Check';
-import { CartContext } from "../../contexts/cart-context";
 
 const Order = () => {
-
-    const { setCart, setCount } = useContext(CartContext);
     const location = useLocation();
     const { state } = location;
-
-    useEffect(() => {
-        setCart([]);
-        setCount(0);
-    }, []);
 
     return (
         <Container maxWidth="xs" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>

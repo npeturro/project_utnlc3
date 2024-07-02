@@ -24,7 +24,7 @@ import axios from "axios";
 
 const Checkout = (props) => {
 
-    const { cart } = useContext(CartContext);
+    const { cart, setCart, setCount } = useContext(CartContext);
     const { userLoged } = useContext(UserContext);
 
     initMercadoPago("TEST-237a1067-59cb-4dd4-ac24-c796c2079e7b", {
@@ -77,6 +77,8 @@ const Checkout = (props) => {
     const handleEfectivo = async () => {
         setIsLoading(true);
         const fetch = await sendOrder()
+        setCart([]);
+        setCount(0);
         setTimeout(() => {
             navigate('/order', { state: { method, orderNumber } });
         }, 2000);
@@ -84,6 +86,8 @@ const Checkout = (props) => {
 
     const handleClick = async () => {
         const fetch = await sendOrder()
+        setCart([]);
+        setCount(0);
     };
 
 

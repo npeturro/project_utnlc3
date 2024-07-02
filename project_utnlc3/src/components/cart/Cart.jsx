@@ -31,7 +31,7 @@ function Cart() {
             const response = await axios.post(
                 "http://onetechapi-utn.ddns.net/api/Payments/create-preference",
                 {
-                    title: "Compra",
+                    title: "OneTech",
                     quantity: 1,
                     unitPrice: total,
                     currencyId: "ARS"
