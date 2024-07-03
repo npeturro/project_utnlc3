@@ -79,6 +79,10 @@ function Login(props) {
     }));
   }, []);
 
+  const handleRegister = (prouct) => {
+    navigate('/register');
+  };
+
 
   return (
 
@@ -142,7 +146,7 @@ function Login(props) {
             Continuar
           </Button>
         </Box>
-        <Box sx={{ mt: 3 }}><p>No tenes cuenta? <a href='/register'>Registrate</a></p></Box>
+        <Box sx={{ mt: 3 }}><p>No tienes cuenta?{' '}<a onClick={handleRegister} style={{ cursor: 'pointer', color: '#051c67' }}>Registrate</a></p></Box>
       </Box>
     </Container>
   );
